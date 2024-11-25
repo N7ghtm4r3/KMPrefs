@@ -2,7 +2,7 @@ package com.tecknobit.kmprefs
 
 @Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
 internal actual class PrefsWorker actual constructor(
-    path: String
+    private val path: String
 ) {
 
     actual fun store(

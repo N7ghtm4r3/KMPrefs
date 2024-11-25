@@ -4,14 +4,34 @@ package com.tecknobit.kmprefs
 internal actual class PrefsWorker actual constructor(
     path: String
 ) {
-    actual fun store(key: String, value: Any?) {
+
+    private val userDefaults = NSUserDefaults.standardUserDefaults()
+
+    actual fun store(
+        key: String,
+        value: Any?,
+    ) {
+        userDefaults.setObject(
+            value = value,
+            forKey = key
+        )
     }
 
-    actual fun <T> fetch(key: String, defValue: T?): String? {
-        TODO("Not yet implemented")
+    actual fun <T> fetch(
+        key: String,
+        defValue: T?,
+    ): String? {
+        return userDefaults.objectForKey(
+            forKey = key
+        )
     }
 
-    actual fun remove(key: String) {
+    actual fun remove(
+        key: String
+    ) {
+        return userDefaults.removeObjectForKey(
+            key = key
+        )
     }
 
     actual fun clearAll() {
