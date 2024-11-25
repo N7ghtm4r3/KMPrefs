@@ -28,7 +28,7 @@ internal actual class PrefsWorker actual constructor(
         key: String,
         defValue: T?,
     ): String? {
-        return preferences.get(key, defValue.toString())
+        return preferences.get(key, defValue?.toString())
     }
 
     actual fun remove(

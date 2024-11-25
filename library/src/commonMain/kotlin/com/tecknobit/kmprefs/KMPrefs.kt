@@ -62,6 +62,55 @@ class KMPrefs(
     }
 
     /**
+     * Method to store locally a [BooleanArray] value
+     *
+     * @param key Is the key of the boolean array
+     * @param value Is the value to store
+     */
+    fun storeBooleanArray(
+        key: String,
+        value: BooleanArray?
+    ) {
+        prefsWorker.store(
+            key = key,
+            value = value?.contentToString()
+        )
+    }
+
+    /**
+     * Method to fetch locally a [BooleanArray] value
+     *
+     * @param key Is the key of the boolean array to fetch
+     * @param defValue Is the value to return if the searched one does not exist
+     */
+    fun fetchBooleanArray(
+        key: String,
+        defValue: BooleanArray? = null
+    ): BooleanArray? {
+        val booleanArray = prefsWorker.fetch(
+            key = key,
+            defValue = defValue
+        )?.toContentArray()
+        return if(booleanArray != null)
+            BooleanArray(booleanArray.size) { booleanArray[it].toBoolean() }
+        else
+            null
+    }
+
+    /**
+     * Method to remove locally a [BooleanArray] value by its key
+     *
+     * @param key Is the key of the boolean array to remove
+     */
+    fun removeBooleanArray(
+        key: String
+    ) {
+        prefsWorker.remove(
+            key = key
+        )
+    }
+
+    /**
      * Method to store locally a [Byte] value
      *
      * @param key Is the key of the byte
@@ -116,6 +165,10 @@ class KMPrefs(
         key: String,
         value: ByteArray?
     ) {
+        prefsWorker.store(
+            key = key,
+            value = value?.contentToString()
+        )
     }
 
     /**
@@ -128,7 +181,14 @@ class KMPrefs(
         key: String,
         defValue: ByteArray? = null
     ): ByteArray? {
-        return null
+        val byteArray = prefsWorker.fetch(
+            key = key,
+            defValue = defValue
+        )?.toContentArray()
+        return if(byteArray != null)
+            ByteArray(byteArray.size) { byteArray[it].toByte() }
+        else
+            null
     }
 
     /**
@@ -139,6 +199,9 @@ class KMPrefs(
     fun removeByteArray(
         key: String
     ) {
+        prefsWorker.remove(
+            key = key
+        )
     }
 
     /**
@@ -181,6 +244,9 @@ class KMPrefs(
     fun removeUnsignedByte(
         key: String
     ) {
+        prefsWorker.remove(
+            key = key
+        )
     }
 
     /**
@@ -194,6 +260,10 @@ class KMPrefs(
         key: String,
         value: UByteArray?
     ) {
+        prefsWorker.store(
+            key = key,
+            value = value?.contentToString()
+        )
     }
 
     /**
@@ -207,7 +277,14 @@ class KMPrefs(
         key: String,
         defValue: UByteArray? = null
     ): UByteArray? {
-        return null
+        val uByteArray = prefsWorker.fetch(
+            key = key,
+            defValue = defValue
+        )?.toContentArray()
+        return if(uByteArray != null)
+            UByteArray(uByteArray.size) { uByteArray[it].toUByte() }
+        else
+            null
     }
 
     /**
@@ -218,6 +295,9 @@ class KMPrefs(
     fun removeUnsignedByteArray(
         key: String
     ) {
+        prefsWorker.remove(
+            key = key
+        )
     }
 
     /**
@@ -260,6 +340,9 @@ class KMPrefs(
     fun removeShort(
         key: String
     ) {
+        prefsWorker.remove(
+            key = key
+        )
     }
 
     /**
@@ -272,6 +355,10 @@ class KMPrefs(
         key: String,
         value: ShortArray?
     ) {
+        prefsWorker.store(
+            key = key,
+            value = value?.contentToString()
+        )
     }
 
     /**
@@ -284,7 +371,14 @@ class KMPrefs(
         key: String,
         defValue: ShortArray? = null
     ): ShortArray? {
-        return null
+        val shortArray = prefsWorker.fetch(
+            key = key,
+            defValue = defValue
+        )?.toContentArray()
+        return if(shortArray != null)
+            ShortArray(shortArray.size) { shortArray[it].toShort() }
+        else
+            null
     }
 
     /**
@@ -295,6 +389,9 @@ class KMPrefs(
     fun removeShortArray(
         key: String
     ) {
+        prefsWorker.remove(
+            key = key
+        )
     }
 
     /**
@@ -337,6 +434,9 @@ class KMPrefs(
     fun removeUnsignedShort(
         key: String
     ) {
+        prefsWorker.remove(
+            key = key
+        )
     }
 
     /**
@@ -350,6 +450,10 @@ class KMPrefs(
         key: String,
         value: UShortArray?
     ) {
+        prefsWorker.store(
+            key = key,
+            value = value?.contentToString()
+        )
     }
 
     /**
@@ -363,7 +467,14 @@ class KMPrefs(
         key: String,
         defValue: UShortArray? = null
     ): UShortArray? {
-        return null
+        val uShortArray = prefsWorker.fetch(
+            key = key,
+            defValue = defValue
+        )?.toContentArray()
+        return if(uShortArray != null)
+            UShortArray(uShortArray.size) { uShortArray[it].toUShort() }
+        else
+            null
     }
 
     /**
@@ -374,6 +485,9 @@ class KMPrefs(
     fun removeUnsignedShortArray(
         key: String
     ) {
+        prefsWorker.remove(
+            key = key
+        )
     }
 
     /**
@@ -418,6 +532,9 @@ class KMPrefs(
     fun removeInt(
         key: String
     ) {
+        prefsWorker.remove(
+            key = key
+        )
     }
 
     /**
@@ -430,6 +547,10 @@ class KMPrefs(
         key: String,
         value: IntArray?
     ) {
+        prefsWorker.store(
+            key = key,
+            value = value?.contentToString()
+        )
     }
 
     /**
@@ -442,7 +563,14 @@ class KMPrefs(
         key: String,
         defValue: IntArray? = null
     ): IntArray? {
-        return null
+        val intArray = prefsWorker.fetch(
+            key = key,
+            defValue = defValue
+        )?.toContentArray()
+        return if(intArray != null)
+            IntArray(intArray.size) { intArray[it].toInt() }
+        else
+            null
     }
 
     /**
@@ -453,6 +581,9 @@ class KMPrefs(
     fun removeIntArray(
         key: String
     ) {
+        prefsWorker.remove(
+            key = key
+        )
     }
 
     /**
@@ -495,6 +626,9 @@ class KMPrefs(
     fun removeUnsignedInt(
         key: String
     ) {
+        prefsWorker.remove(
+            key = key
+        )
     }
 
     /**
@@ -508,6 +642,10 @@ class KMPrefs(
         key: String,
         value: UIntArray?
     ) {
+        prefsWorker.store(
+            key = key,
+            value = value?.contentToString()
+        )
     }
 
     /**
@@ -521,7 +659,14 @@ class KMPrefs(
         key: String,
         defValue: UIntArray? = null
     ): UIntArray? {
-        return null
+        val uIntArray = prefsWorker.fetch(
+            key = key,
+            defValue = defValue
+        )?.toContentArray()
+        return if(uIntArray != null)
+            UIntArray(uIntArray.size) { uIntArray[it].toUInt() }
+        else
+            null
     }
 
     /**
@@ -532,6 +677,9 @@ class KMPrefs(
     fun removeUnsignedIntArray(
         key: String
     ) {
+        prefsWorker.remove(
+            key = key
+        )
     }
 
     /**
@@ -574,6 +722,9 @@ class KMPrefs(
     fun removeFloat(
         key: String
     ) {
+        prefsWorker.remove(
+            key = key
+        )
     }
 
     /**
@@ -586,6 +737,10 @@ class KMPrefs(
         key: String,
         value: FloatArray?
     ) {
+        prefsWorker.store(
+            key = key,
+            value = value?.contentToString()
+        )
     }
 
     /**
@@ -598,7 +753,14 @@ class KMPrefs(
         key: String,
         defValue: FloatArray? = null
     ): FloatArray? {
-        return null
+        val floatArray = prefsWorker.fetch(
+            key = key,
+            defValue = defValue
+        )?.toContentArray()
+        return if(floatArray != null)
+            FloatArray(floatArray.size) { floatArray[it].toFloat() }
+        else
+            null
     }
 
     /**
@@ -609,6 +771,9 @@ class KMPrefs(
     fun removeFloatArray(
         key: String
     ) {
+        prefsWorker.remove(
+            key = key
+        )
     }
 
     /**
@@ -651,6 +816,9 @@ class KMPrefs(
     fun removeDouble(
         key: String
     ) {
+        prefsWorker.remove(
+            key = key
+        )
     }
 
     /**
@@ -663,6 +831,10 @@ class KMPrefs(
         key: String,
         value: DoubleArray?
     ) {
+        prefsWorker.store(
+            key = key,
+            value = value?.contentToString()
+        )
     }
 
     /**
@@ -675,7 +847,14 @@ class KMPrefs(
         key: String,
         defValue: DoubleArray? = null
     ): DoubleArray? {
-        return null
+        val doubleArray = prefsWorker.fetch(
+            key = key,
+            defValue = defValue
+        )?.toContentArray()
+        return if(doubleArray != null)
+            DoubleArray(doubleArray.size) { doubleArray[it].toDouble() }
+        else
+            null
     }
 
     /**
@@ -686,6 +865,9 @@ class KMPrefs(
     fun removeDoubleArray(
         key: String
     ) {
+        prefsWorker.remove(
+            key = key
+        )
     }
 
     /**
@@ -728,6 +910,9 @@ class KMPrefs(
     fun removeLong(
         key: String
     ) {
+        prefsWorker.remove(
+            key = key
+        )
     }
 
     /**
@@ -740,6 +925,10 @@ class KMPrefs(
         key: String,
         value: LongArray?
     ) {
+        prefsWorker.store(
+            key = key,
+            value = value?.contentToString()
+        )
     }
 
     /**
@@ -752,7 +941,14 @@ class KMPrefs(
         key: String,
         defValue: LongArray? = null
     ): LongArray? {
-        return null
+        val longArray = prefsWorker.fetch(
+            key = key,
+            defValue = defValue
+        )?.toContentArray()
+        return if(longArray != null)
+            LongArray(longArray.size) { longArray[it].toLong() }
+        else
+            null
     }
 
     /**
@@ -763,6 +959,9 @@ class KMPrefs(
     fun removeLongArray(
         key: String
     ) {
+        prefsWorker.remove(
+            key = key
+        )
     }
 
     /**
@@ -805,6 +1004,9 @@ class KMPrefs(
     fun removeUnsignedLong(
         key: String
     ) {
+        prefsWorker.remove(
+            key = key
+        )
     }
 
     /**
@@ -818,6 +1020,10 @@ class KMPrefs(
         key: String,
         value: ULongArray?
     ) {
+        prefsWorker.store(
+            key = key,
+            value = value?.contentToString()
+        )
     }
 
     /**
@@ -831,7 +1037,14 @@ class KMPrefs(
         key: String,
         defValue: ULongArray? = null
     ): ULongArray? {
-        return null
+        val uLongArray = prefsWorker.fetch(
+            key = key,
+            defValue = defValue
+        )?.toContentArray()
+        return if(uLongArray != null)
+            ULongArray(uLongArray.size) { uLongArray[it].toULong() }
+        else
+            null
     }
 
     /**
@@ -842,6 +1055,9 @@ class KMPrefs(
     fun removeUnsignedLongArray(
         key: String
     ) {
+        prefsWorker.remove(
+            key = key
+        )
     }
 
     /**
@@ -884,21 +1100,22 @@ class KMPrefs(
     fun removeString(
         key: String
     ) {
-    }
-
-    /**
-     * Method to remove locally a value by its key
-     *
-     * @param key Is the key of the value to remove
-     */
-    fun removeValue(
-        key: String
-    ) {
+        prefsWorker.remove(
+            key = key
+        )
     }
 
     /**
      * Method to clear the all preferences specified by the path
      */
-    fun clearAll() {}
+    fun clearAll() {
+        prefsWorker.clearAll()
+    }
+
+    private fun String.toContentArray(): List<String> {
+        return this.removeSurrounding("[", "]")
+            .replace(" ", "")
+            .split(",")
+    }
 
 }

@@ -27,7 +27,7 @@ internal actual class PrefsWorker actual constructor(
             key = key
         )
         return if(value == null)
-            defValue.toString()
+            defValue?.toString()
         else
             value
     }
