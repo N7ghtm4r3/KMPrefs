@@ -53,6 +53,12 @@ kotlin {
                 //put your multiplatform dependencies here
             }
         }
+        val commonTest by getting {
+            dependencies {
+                implementation(kotlin("test"))
+            }
+        }
+
 
         val iosX64Main by getting
         val iosArm64Main by getting
