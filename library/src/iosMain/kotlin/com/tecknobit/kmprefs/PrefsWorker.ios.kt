@@ -35,6 +35,7 @@ internal actual class PrefsWorker actual constructor(
     }
 
     actual fun clearAll() {
+        userDefaults.removePersistentDomainForName(userDefaults.applicationDomain)
     }
 
 

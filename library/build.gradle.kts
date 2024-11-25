@@ -1,3 +1,5 @@
+
+import com.vanniktech.maven.publish.SonatypeHost
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
@@ -33,7 +35,7 @@ kotlin {
         iosSimulatorArm64()
     ).forEach { iosTarget ->
         iosTarget.binaries.framework {
-            baseName = "Ametista-Engine"
+            baseName = "KMPrefs"
             isStatic = true
         }
     }
@@ -48,13 +50,18 @@ kotlin {
         }
     }
     sourceSets {
+        val androidMain by getting {
+            dependencies {
+                implementation(libs.androidx.startup.runtime)
+                implementation(libs.equinox.compose.android)
+            }
+        }
         val commonMain by getting {
             dependencies {
             }
         }
         val commonTest by getting {
             dependencies {
-                implementation(kotlin("test"))
             }
         }
 
@@ -72,6 +79,50 @@ kotlin {
         }
 
     }
+    jvmToolchain(18)
+}
+
+mavenPublishing {
+    // TODO: TO SET
+    /*configure(
+        KotlinMultiplatform(
+            javadocJar = JavadocJar.Dokka("dokkaHtml"),
+            sourcesJar = true,
+            androidVariantsToPublish = listOf("release"),
+        )
+    )*/
+    coordinates(
+        groupId = "io.github.n7ghtm4r3",
+        artifactId = "KMPrefs",
+        version = "1.0.0"
+    )
+    pom {
+        name.set("KMPrefs")
+        // TODO: TO SET
+        description.set("Self-hosted issues tracker and performance stats collector about Compose Multiplatform applications")
+        inceptionYear.set("2024")
+        url.set("https://github.com/N7ghtm4r3/KMPrefs")
+
+        licenses {
+            license {
+                name.set("Apache License, Version 2.0")
+                url.set("https://opensource.org/license/apache-2-0")
+            }
+        }
+        developers {
+            developer {
+                id.set("N7ghtm4r3")
+                name.set("Manuel Maurizio")
+                email.set("maurizio.manuel2003@gmail.com")
+                url.set("https://github.com/N7ghtm4r3")
+            }
+        }
+        scm {
+            url.set("https://github.com/N7ghtm4r3/KMPrefs")
+        }
+    }
+    publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
+    signAllPublications()
 }
 
 android {
