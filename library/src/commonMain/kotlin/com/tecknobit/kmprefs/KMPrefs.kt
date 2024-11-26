@@ -38,34 +38,21 @@ class KMPrefs(
     }
 
     /**
-     * Method to fetch locally a [Boolean] value
+     * Method to retrieve locally a [Boolean] value
      *
-     * @param key Is the key of the boolean to fetch
+     * @param key Is the key of the boolean to retrieve
      * @param defValue Is the value to return if the searched one does not exist
-     * @return fetched value as [Boolean]
+     * @return retrieved value as [Boolean]
      *
      */
-    fun fetchBoolean(
+    fun retrieveBoolean(
         key: String,
         defValue: Boolean? = null
     ): Boolean {
-        return prefsWorker.fetch(
+        return prefsWorker.retrieve(
             key = key,
             defValue = defValue
         ).toBoolean()
-    }
-
-    /**
-     * Method to remove locally a [Boolean] value by its key
-     *
-     * @param key Is the key of the boolean to remove
-     */
-    fun removeBoolean(
-        key: String
-    ) {
-        prefsWorker.remove(
-            key = key
-        )
     }
 
     /**
@@ -85,32 +72,19 @@ class KMPrefs(
     }
 
     /**
-     * Method to fetch locally a [BooleanArray] value
+     * Method to retrieve locally a [BooleanArray] value
      *
-     * @param key Is the key of the boolean array to fetch
+     * @param key Is the key of the boolean array to retrieve
      * @param defValue Is the value to return if the searched one does not exist
-     * @return fetched value as [BooleanArray]
+     * @return retrieved value as [BooleanArray]
      */
-    fun fetchBooleanArray(
+    fun retrieveBooleanArray(
         key: String,
         defValue: BooleanArray? = null
     ): BooleanArray? {
         return deserializeData(
             key = key,
             defValue = defValue
-        )
-    }
-
-    /**
-     * Method to remove locally a [BooleanArray] value by its key
-     *
-     * @param key Is the key of the boolean array to remove
-     */
-    fun removeBooleanArray(
-        key: String
-    ) {
-        prefsWorker.remove(
-            key = key
         )
     }
 
@@ -131,33 +105,20 @@ class KMPrefs(
     }
 
     /**
-     * Method to fetch locally a [Byte] value
+     * Method to retrieve locally a [Byte] value
      *
-     * @param key Is the key of the byte to fetch
+     * @param key Is the key of the byte to retrieve
      * @param defValue Is the value to return if the searched one does not exist
-     * @return fetched value as [Byte]
+     * @return retrieved value as [Byte]
      */
-    fun fetchByte(
+    fun retrieveByte(
         key: String,
         defValue: Byte? = null
     ): Byte? {
-        return prefsWorker.fetch(
+        return prefsWorker.retrieve(
             key = key,
             defValue = defValue
         )?.toByteOrNull()
-    }
-
-    /**
-     * Method to remove locally a [Byte] value by its key
-     *
-     * @param key Is the key of the byte to remove
-     */
-    fun removeByte(
-        key: String
-    ) {
-        prefsWorker.remove(
-            key = key
-        )
     }
 
     /**
@@ -177,32 +138,19 @@ class KMPrefs(
     }
 
     /**
-     * Method to fetch locally a [ByteArray] value
+     * Method to retrieve locally a [ByteArray] value
      *
-     * @param key Is the key of the byte array to fetch
+     * @param key Is the key of the byte array to retrieve
      * @param defValue Is the value to return if the searched one does not exist
-     * @return fetched value as [ByteArray]
+     * @return retrieved value as [ByteArray]
      */
-    fun fetchByteArray(
+    fun retrieveByteArray(
         key: String,
         defValue: ByteArray? = null
     ): ByteArray? {
         return deserializeData(
             key = key,
             defValue = defValue
-        )
-    }
-
-    /**
-     * Method to remove locally a [ByteArray] value by its key
-     *
-     * @param key Is the key of the byte array to remove
-     */
-    fun removeByteArray(
-        key: String
-    ) {
-        prefsWorker.remove(
-            key = key
         )
     }
 
@@ -223,33 +171,20 @@ class KMPrefs(
     }
 
     /**
-     * Method to fetch locally a [UByte] value
+     * Method to retrieve locally a [UByte] value
      *
-     * @param key Is the key of the unsigned byte to fetch
+     * @param key Is the key of the unsigned byte to retrieve
      * @param defValue Is the value to return if the searched one does not exist
-     * @return fetched value as [UByte]
+     * @return retrieved value as [UByte]
      */
-    fun fetchUnsignedByte(
+    fun retrieveUnsignedByte(
         key: String,
         defValue: UByte? = null
     ): UByte? {
-        return prefsWorker.fetch(
+        return prefsWorker.retrieve(
             key = key,
             defValue = defValue
         )?.toUByteOrNull()
-    }
-
-    /**
-     * Method to remove locally a [UByte] value by its key
-     *
-     * @param key Is the key of the unsigned byte to remove
-     */
-    fun removeUnsignedByte(
-        key: String
-    ) {
-        prefsWorker.remove(
-            key = key
-        )
     }
 
     /**
@@ -270,33 +205,20 @@ class KMPrefs(
     }
 
     /**
-     * Method to fetch locally a [UByteArray] value
+     * Method to retrieve locally a [UByteArray] value
      *
-     * @param key Is the key of the unsigned byte array to fetch
+     * @param key Is the key of the unsigned byte array to retrieve
      * @param defValue Is the value to return if the searched one does not exist
-     * @return fetched value as [UByteArray]
+     * @return retrieved value as [UByteArray]
      */
     @OptIn(ExperimentalUnsignedTypes::class)
-    fun fetchUnsignedByteArray(
+    fun retrieveUnsignedByteArray(
         key: String,
         defValue: UByteArray? = null
     ): UByteArray? {
         return deserializeData(
             key = key,
             defValue = defValue
-        )
-    }
-
-    /**
-     * Method to remove locally a [UByteArray] value by its key
-     *
-     * @param key Is the key of the unsigned byte array to remove
-     */
-    fun removeUnsignedByteArray(
-        key: String
-    ) {
-        prefsWorker.remove(
-            key = key
         )
     }
 
@@ -317,33 +239,20 @@ class KMPrefs(
     }
 
     /**
-     * Method to fetch locally a [Short] value
+     * Method to retrieve locally a [Short] value
      *
-     * @param key Is the key of the short to fetch
+     * @param key Is the key of the short to retrieve
      * @param defValue Is the value to return if the searched one does not exist
-     * @return fetched value as [Short]
+     * @return retrieved value as [Short]
      */
-    fun fetchShort(
+    fun retrieveShort(
         key: String,
         defValue: Short? = null
     ): Short? {
-        return prefsWorker.fetch(
+        return prefsWorker.retrieve(
             key = key,
             defValue = defValue
         )?.toShortOrNull()
-    }
-
-    /**
-     * Method to remove locally a [Short] value by its key
-     *
-     * @param key Is the key of the short to remove
-     */
-    fun removeShort(
-        key: String
-    ) {
-        prefsWorker.remove(
-            key = key
-        )
     }
 
     /**
@@ -363,32 +272,19 @@ class KMPrefs(
     }
 
     /**
-     * Method to fetch locally a [ShortArray] value
+     * Method to retrieve locally a [ShortArray] value
      *
-     * @param key Is the key of the short array to fetch
+     * @param key Is the key of the short array to retrieve
      * @param defValue Is the value to return if the searched one does not exist
-     * @return fetched value as [ShortArray]
+     * @return retrieved value as [ShortArray]
      */
-    fun fetchShortArray(
+    fun retrieveShortArray(
         key: String,
         defValue: ShortArray? = null
     ): ShortArray? {
         return deserializeData(
             key = key,
             defValue = defValue
-        )
-    }
-
-    /**
-     * Method to remove locally a [ShortArray] value by its key
-     *
-     * @param key Is the key of the short array to remove
-     */
-    fun removeShortArray(
-        key: String
-    ) {
-        prefsWorker.remove(
-            key = key
         )
     }
 
@@ -409,33 +305,20 @@ class KMPrefs(
     }
 
     /**
-     * Method to fetch locally a [UShort] value
+     * Method to retrieve locally a [UShort] value
      *
-     * @param key Is the key of the unsigned short to fetch
+     * @param key Is the key of the unsigned short to retrieve
      * @param defValue Is the value to return if the searched one does not exist
-     * @return fetched value as [UShort]
+     * @return retrieved value as [UShort]
      */
-    fun fetchUnsignedShort(
+    fun retrieveUnsignedShort(
         key: String,
         defValue: UShort = UShort.MIN_VALUE
     ): UShort? {
-        return prefsWorker.fetch(
+        return prefsWorker.retrieve(
             key = key,
             defValue = defValue
         )?.toUShortOrNull()
-    }
-
-    /**
-     * Method to remove locally a [UShort] value by its key
-     *
-     * @param key Is the key of the unsigned short to remove
-     */
-    fun removeUnsignedShort(
-        key: String
-    ) {
-        prefsWorker.remove(
-            key = key
-        )
     }
 
     /**
@@ -456,33 +339,20 @@ class KMPrefs(
     }
 
     /**
-     * Method to fetch locally a [UShortArray] value
+     * Method to retrieve locally a [UShortArray] value
      *
-     * @param key Is the key of the unsigned short array to fetch
+     * @param key Is the key of the unsigned short array to retrieve
      * @param defValue Is the value to return if the searched one does not exist
-     * @return fetched value as [UShortArray]
+     * @return retrieved value as [UShortArray]
      */
     @OptIn(ExperimentalUnsignedTypes::class)
-    fun fetchUnsignedShortArray(
+    fun retrieveUnsignedShortArray(
         key: String,
         defValue: UShortArray? = null
     ): UShortArray? {
         return deserializeData(
             key = key,
             defValue = defValue
-        )
-    }
-
-    /**
-     * Method to remove locally a [UShortArray] value by its key
-     *
-     * @param key Is the key of the unsigned short array to remove
-     */
-    fun removeUnsignedShortArray(
-        key: String
-    ) {
-        prefsWorker.remove(
-            key = key
         )
     }
 
@@ -503,35 +373,22 @@ class KMPrefs(
     }
 
     /**
-     * Method to fetch locally a [Int] value
+     * Method to retrieve locally a [Int] value
      *
      * If [defValue] is not specified and the searched [key] not exists will be returned [Int.MIN_VALUE] as default
      *
-     * @param key Is the key of the int to fetch
+     * @param key Is the key of the int to retrieve
      * @param defValue Is the value to return if the searched one does not exist
-     * @return fetched value as [Int]
+     * @return retrieved value as [Int]
      */
-    fun fetchInt(
+    fun retrieveInt(
         key: String,
         defValue: Int? = null
     ): Int? {
-        return prefsWorker.fetch(
+        return prefsWorker.retrieve(
             key = key,
             defValue = defValue
         )?.toIntOrNull()
-    }
-
-    /**
-     * Method to remove locally a [Int] value by its key
-     *
-     * @param key Is the key of the int to remove
-     */
-    fun removeInt(
-        key: String
-    ) {
-        prefsWorker.remove(
-            key = key
-        )
     }
 
     /**
@@ -551,32 +408,19 @@ class KMPrefs(
     }
 
     /**
-     * Method to fetch locally a [IntArray] value
+     * Method to retrieve locally a [IntArray] value
      *
-     * @param key Is the key of the int array to fetch
+     * @param key Is the key of the int array to retrieve
      * @param defValue Is the value to return if the searched one does not exist
-     * @return fetched value as [IntArray]
+     * @return retrieved value as [IntArray]
      */
-    fun fetchIntArray(
+    fun retrieveIntArray(
         key: String,
         defValue: IntArray? = null
     ): IntArray? {
         return deserializeData(
             key = key,
             defValue = defValue
-        )
-    }
-
-    /**
-     * Method to remove locally a [IntArray] value by its key
-     *
-     * @param key Is the key of the int array to remove
-     */
-    fun removeIntArray(
-        key: String
-    ) {
-        prefsWorker.remove(
-            key = key
         )
     }
 
@@ -597,33 +441,20 @@ class KMPrefs(
     }
 
     /**
-     * Method to fetch locally a [UInt] value
+     * Method to retrieve locally a [UInt] value
      *
-     * @param key Is the key of the unsigned int to fetch
+     * @param key Is the key of the unsigned int to retrieve
      * @param defValue Is the value to return if the searched one does not exist
-     * @return fetched value as [UInt]
+     * @return retrieved value as [UInt]
      */
-    fun fetchUnsignedInt(
+    fun retrieveUnsignedInt(
         key: String,
         defValue: UInt? = null
     ): UInt? {
-        return prefsWorker.fetch(
+        return prefsWorker.retrieve(
             key = key,
             defValue = defValue
         )?.toUIntOrNull()
-    }
-
-    /**
-     * Method to remove locally a [UInt] value by its key
-     *
-     * @param key Is the key of the unsigned int to remove
-     */
-    fun removeUnsignedInt(
-        key: String
-    ) {
-        prefsWorker.remove(
-            key = key
-        )
     }
 
     /**
@@ -644,33 +475,20 @@ class KMPrefs(
     }
 
     /**
-     * Method to fetch locally a [UIntArray] value
+     * Method to retrieve locally a [UIntArray] value
      *
-     * @param key Is the key of the unsigned int array to fetch
+     * @param key Is the key of the unsigned int array to retrieve
      * @param defValue Is the value to return if the searched one does not exist
-     * @return fetched value as [UIntArray]
+     * @return retrieved value as [UIntArray]
      */
     @OptIn(ExperimentalUnsignedTypes::class)
-    fun fetchUnsignedIntArray(
+    fun retrieveUnsignedIntArray(
         key: String,
         defValue: UIntArray? = null
     ): UIntArray? {
         return deserializeData(
             key = key,
             defValue = defValue
-        )
-    }
-
-    /**
-     * Method to remove locally a [UIntArray] value by its key
-     *
-     * @param key Is the key of the unsigned int array to remove
-     */
-    fun removeUnsignedIntArray(
-        key: String
-    ) {
-        prefsWorker.remove(
-            key = key
         )
     }
 
@@ -691,33 +509,20 @@ class KMPrefs(
     }
 
     /**
-     * Method to fetch locally a [Float] value
+     * Method to retrieve locally a [Float] value
      *
-     * @param key Is the key of the float to fetch
+     * @param key Is the key of the float to retrieve
      * @param defValue Is the value to return if the searched one does not exist
-     * @return fetched value as [Float]
+     * @return retrieved value as [Float]
      */
-    fun fetchFloat(
+    fun retrieveFloat(
         key: String,
         defValue: Float? = null
     ): Float? {
-        return prefsWorker.fetch(
+        return prefsWorker.retrieve(
             key = key,
             defValue = defValue
         )?.toFloatOrNull()
-    }
-
-    /**
-     * Method to remove locally a [Float] value by its key
-     *
-     * @param key Is the key of the float to remove
-     */
-    fun removeFloat(
-        key: String
-    ) {
-        prefsWorker.remove(
-            key = key
-        )
     }
 
     /**
@@ -737,32 +542,19 @@ class KMPrefs(
     }
 
     /**
-     * Method to fetch locally a [FloatArray] value
+     * Method to retrieve locally a [FloatArray] value
      *
-     * @param key Is the key of the float array to fetch
+     * @param key Is the key of the float array to retrieve
      * @param defValue Is the value to return if the searched one does not exist
-     * @return fetched value as [FloatArray]
+     * @return retrieved value as [FloatArray]
      */
-    fun fetchFloatArray(
+    fun retrieveFloatArray(
         key: String,
         defValue: FloatArray? = null
     ): FloatArray? {
         return deserializeData(
             key = key,
             defValue = defValue
-        )
-    }
-
-    /**
-     * Method to remove locally a [FloatArray] value by its key
-     *
-     * @param key Is the key of the float array to remove
-     */
-    fun removeFloatArray(
-        key: String
-    ) {
-        prefsWorker.remove(
-            key = key
         )
     }
 
@@ -783,33 +575,20 @@ class KMPrefs(
     }
 
     /**
-     * Method to fetch locally a [Double] value
+     * Method to retrieve locally a [Double] value
      *
-     * @param key Is the key of the double to fetch
+     * @param key Is the key of the double to retrieve
      * @param defValue Is the value to return if the searched one does not exist
-     * @return fetched value as [Double]
+     * @return retrieved value as [Double]
      */
-    fun fetchDouble(
+    fun retrieveDouble(
         key: String,
         defValue: Double? = null
     ): Double? {
-        return prefsWorker.fetch(
+        return prefsWorker.retrieve(
             key = key,
             defValue = defValue
         )?.toDoubleOrNull()
-    }
-
-    /**
-     * Method to remove locally a [Double] value by its key
-     *
-     * @param key Is the key of the double to remove
-     */
-    fun removeDouble(
-        key: String
-    ) {
-        prefsWorker.remove(
-            key = key
-        )
     }
 
     /**
@@ -829,32 +608,19 @@ class KMPrefs(
     }
 
     /**
-     * Method to fetch locally a [DoubleArray] value
+     * Method to retrieve locally a [DoubleArray] value
      *
-     * @param key Is the key of the double array to fetch
+     * @param key Is the key of the double array to retrieve
      * @param defValue Is the value to return if the searched one does not exist
-     * @return fetched value as [DoubleArray]
+     * @return retrieved value as [DoubleArray]
      */
-    fun fetchDoubleArray(
+    fun retrieveDoubleArray(
         key: String,
         defValue: DoubleArray? = null
     ): DoubleArray? {
         return deserializeData(
             key = key,
             defValue = defValue
-        )
-    }
-
-    /**
-     * Method to remove locally a [DoubleArray] value by its key
-     *
-     * @param key Is the key of the double array to remove
-     */
-    fun removeDoubleArray(
-        key: String
-    ) {
-        prefsWorker.remove(
-            key = key
         )
     }
 
@@ -875,34 +641,21 @@ class KMPrefs(
     }
 
     /**
-     * Method to fetch locally a [Long] value
+     * Method to retrieve locally a [Long] value
      *
-     * @param key Is the key of the long to fetch
+     * @param key Is the key of the long to retrieve
      * @param defValue Is the value to return if the searched one does not exist
      *
-     * @return fetched value as [Long]
+     * @return retrieved value as [Long]
      */
-    fun fetchLong(
+    fun retrieveLong(
         key: String,
         defValue: Long? = null
     ): Long? {
-        return prefsWorker.fetch(
+        return prefsWorker.retrieve(
             key = key,
             defValue = defValue
         )?.toLongOrNull()
-    }
-
-    /**
-     * Method to remove locally a [Long] value by its key
-     *
-     * @param key Is the key of the long to remove
-     */
-    fun removeLong(
-        key: String
-    ) {
-        prefsWorker.remove(
-            key = key
-        )
     }
 
     /**
@@ -922,33 +675,20 @@ class KMPrefs(
     }
 
     /**
-     * Method to fetch locally a [LongArray] value
+     * Method to retrieve locally a [LongArray] value
      *
-     * @param key Is the key of the long array to fetch
+     * @param key Is the key of the long array to retrieve
      * @param defValue Is the value to return if the searched one does not exist
      *
-     * @return fetched value as [LongArray]
+     * @return retrieved value as [LongArray]
      */
-    fun fetchLongArray(
+    fun retrieveLongArray(
         key: String,
         defValue: LongArray? = null
     ): LongArray? {
         return deserializeData(
             key = key,
             defValue = defValue
-        )
-    }
-
-    /**
-     * Method to remove locally a [LongArray] value by its key
-     *
-     * @param key Is the key of the long array to remove
-     */
-    fun removeLongArray(
-        key: String
-    ) {
-        prefsWorker.remove(
-            key = key
         )
     }
 
@@ -969,34 +709,21 @@ class KMPrefs(
     }
 
     /**
-     * Method to fetch locally a [ULong] value
+     * Method to retrieve locally a [ULong] value
      *
-     * @param key Is the key of the unsigned long to fetch
+     * @param key Is the key of the unsigned long to retrieve
      * @param defValue Is the value to return if the searched one does not exist
      *
-     * @return fetched value as [ULong]
+     * @return retrieved value as [ULong]
      */
-    fun fetchUnsignedLong(
+    fun retrieveUnsignedLong(
         key: String,
         defValue: ULong? = null
     ): ULong? {
-        return prefsWorker.fetch(
+        return prefsWorker.retrieve(
             key = key,
             defValue = defValue
         )?.toULongOrNull()
-    }
-
-    /**
-     * Method to remove locally a [ULong] value by its key
-     *
-     * @param key Is the key of the unsigned long to remove
-     */
-    fun removeUnsignedLong(
-        key: String
-    ) {
-        prefsWorker.remove(
-            key = key
-        )
     }
 
     /**
@@ -1017,34 +744,21 @@ class KMPrefs(
     }
 
     /**
-     * Method to fetch locally a [ULongArray] value
+     * Method to retrieve locally a [ULongArray] value
      *
-     * @param key Is the key of the unsigned long array to fetch
+     * @param key Is the key of the unsigned long array to retrieve
      * @param defValue Is the value to return if the searched one does not exist
      *
-     * @return fetched value as [ULongArray]
+     * @return retrieved value as [ULongArray]
      */
     @OptIn(ExperimentalUnsignedTypes::class)
-    fun fetchUnsignedLongArray(
+    fun retrieveUnsignedLongArray(
         key: String,
         defValue: ULongArray? = null
     ): ULongArray? {
         return deserializeData(
             key = key,
             defValue = defValue
-        )
-    }
-
-    /**
-     * Method to remove locally a [ULongArray] value by its key
-     *
-     * @param key Is the key of the unsigned long array to remove
-     */
-    fun removeUnsignedLongArray(
-        key: String
-    ) {
-        prefsWorker.remove(
-            key = key
         )
     }
 
@@ -1065,29 +779,29 @@ class KMPrefs(
     }
 
     /**
-     * Method to fetch locally a [String] value
+     * Method to retrieve locally a [String] value
      *
-     * @param key Is the key of the string to fetch
+     * @param key Is the key of the string to retrieve
      * @param defValue Is the value to return if the searched one does not exist
      *
-     * @return fetched value as [String]
+     * @return retrieved value as [String]
      */
-    fun fetchString(
+    fun retrieveString(
         key: String,
         defValue: String? = null
     ): String? {
-        return prefsWorker.fetch(
+        return prefsWorker.retrieve(
             key = key,
             defValue = defValue
         )
     }
 
     /**
-     * Method to remove locally a [String] value by its key
+     * Method to remove locally a value by its key
      *
-     * @param key Is the key of the string to remove
+     * @param key Is the key of the value to remove
      */
-    fun removeString(
+    fun removeValue(
         key: String
     ) {
         prefsWorker.remove(
@@ -1105,7 +819,7 @@ class KMPrefs(
     /**
      * Method to deserialize raw json data into a [T] object
      *
-     * @param key Is the key of the object to fetch
+     * @param key Is the key of the object to retrieve
      * @param defValue Is the value to return if the searched one does not exist
      *
      * @return object as [T]
@@ -1114,7 +828,7 @@ class KMPrefs(
         key: String,
         defValue: T?
     ) : T? {
-        val array = prefsWorker.fetch(
+        val array = prefsWorker.retrieve(
             key = key,
             defValue = if(defValue != null)
                 Json.encodeToString(defValue)

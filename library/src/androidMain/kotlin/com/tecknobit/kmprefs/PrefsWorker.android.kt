@@ -38,13 +38,13 @@ internal actual class PrefsWorker actual constructor(
     }
 
     /**
-     * Method to fetch locally a  value
+     * Method to retrieve locally a value
      *
-     * @param key Is the key of the value to fetch
+     * @param key Is the key of the value to retrieve
      * @param defValue Is the value to return if the searched one does not exist
      * @return fetched value as [String]
      */
-    actual fun <T> fetch(
+    actual fun <T> retrieve(
         key: String,
         defValue: T?,
     ): String? {
