@@ -1,5 +1,10 @@
 
+import com.vanniktech.maven.publish.JavadocJar
+import com.vanniktech.maven.publish.KotlinMultiplatform
 import com.vanniktech.maven.publish.SonatypeHost
+import org.jetbrains.dokka.DokkaConfiguration.Visibility.*
+import org.jetbrains.dokka.base.DokkaBase
+import org.jetbrains.dokka.base.DokkaBaseConfiguration
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
@@ -8,6 +13,7 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.vanniktech.mavenPublish)
+    alias(libs.plugins.dokka)
 }
 
 group = "com.tecknobit"
@@ -83,14 +89,13 @@ kotlin {
 }
 
 mavenPublishing {
-    // TODO: TO SET
-    /*configure(
+    configure(
         KotlinMultiplatform(
             javadocJar = JavadocJar.Dokka("dokkaHtml"),
             sourcesJar = true,
             androidVariantsToPublish = listOf("release"),
         )
-    )*/
+    )
     coordinates(
         groupId = "io.github.n7ghtm4r3",
         artifactId = "KMPrefs",
@@ -98,8 +103,7 @@ mavenPublishing {
     )
     pom {
         name.set("KMPrefs")
-        // TODO: TO SET
-        description.set("Self-hosted issues tracker and performance stats collector about Compose Multiplatform applications")
+        description.set("The Kotlin Multiplatform Pref(erence)s system allows you to store, retrieve, and remove data locally on each platform. It leverages the native mechanisms provided by each platform.")
         inceptionYear.set("2024")
         url.set("https://github.com/N7ghtm4r3/KMPrefs")
 
@@ -130,5 +134,27 @@ android {
     compileSdk = libs.versions.android.compileSdk.get().toInt()
     defaultConfig {
         minSdk = libs.versions.android.minSdk.get().toInt()
+    }
+}
+
+buildscript {
+    dependencies {
+        classpath(libs.dokka.base)
+    }
+}
+
+subprojects {
+    apply(plugin = "org.jetbrains.dokka")
+}
+
+tasks.dokkaHtml {
+    outputDirectory.set(layout.projectDirectory.dir("../docs"))
+    dokkaSourceSets.configureEach {
+        moduleName = "KMPrefs"
+        includeNonPublic.set(true)
+        documentedVisibilities.set(setOf(PUBLIC, PROTECTED, PRIVATE, INTERNAL))
+    }
+    pluginConfiguration<DokkaBase, DokkaBaseConfiguration> {
+        footerMessage = "(c) 2024 Tecknobit"
     }
 }
