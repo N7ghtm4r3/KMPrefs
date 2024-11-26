@@ -1,5 +1,8 @@
 package com.tecknobit.kmprefs
 
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
+
 /**
  * The **KMPrefs** class helps to manage the preferences storing the data locally
  *
@@ -11,6 +14,9 @@ class KMPrefs(
     path: String
 ) {
 
+    /**
+     * **prefsWorker** -> the implementation of each platform of their preferences management
+     */
     private val prefsWorker = PrefsWorker(
         path = path
     )
@@ -36,6 +42,7 @@ class KMPrefs(
      *
      * @param key Is the key of the boolean to fetch
      * @param defValue Is the value to return if the searched one does not exist
+     * @return fetched value as [Boolean]
      *
      */
     fun fetchBoolean(
@@ -82,19 +89,16 @@ class KMPrefs(
      *
      * @param key Is the key of the boolean array to fetch
      * @param defValue Is the value to return if the searched one does not exist
+     * @return fetched value as [BooleanArray]
      */
     fun fetchBooleanArray(
         key: String,
         defValue: BooleanArray? = null
     ): BooleanArray? {
-        val booleanArray = prefsWorker.fetch(
+        return deserializeData(
             key = key,
             defValue = defValue
-        )?.toContentArray()
-        return if(booleanArray != null)
-            BooleanArray(booleanArray.size) { booleanArray[it].toBoolean() }
-        else
-            null
+        )
     }
 
     /**
@@ -131,6 +135,7 @@ class KMPrefs(
      *
      * @param key Is the key of the byte to fetch
      * @param defValue Is the value to return if the searched one does not exist
+     * @return fetched value as [Byte]
      */
     fun fetchByte(
         key: String,
@@ -176,19 +181,16 @@ class KMPrefs(
      *
      * @param key Is the key of the byte array to fetch
      * @param defValue Is the value to return if the searched one does not exist
+     * @return fetched value as [ByteArray]
      */
     fun fetchByteArray(
         key: String,
         defValue: ByteArray? = null
     ): ByteArray? {
-        val byteArray = prefsWorker.fetch(
+        return deserializeData(
             key = key,
             defValue = defValue
-        )?.toContentArray()
-        return if(byteArray != null)
-            ByteArray(byteArray.size) { byteArray[it].toByte() }
-        else
-            null
+        )
     }
 
     /**
@@ -225,6 +227,7 @@ class KMPrefs(
      *
      * @param key Is the key of the unsigned byte to fetch
      * @param defValue Is the value to return if the searched one does not exist
+     * @return fetched value as [UByte]
      */
     fun fetchUnsignedByte(
         key: String,
@@ -271,20 +274,17 @@ class KMPrefs(
      *
      * @param key Is the key of the unsigned byte array to fetch
      * @param defValue Is the value to return if the searched one does not exist
+     * @return fetched value as [UByteArray]
      */
     @OptIn(ExperimentalUnsignedTypes::class)
     fun fetchUnsignedByteArray(
         key: String,
         defValue: UByteArray? = null
     ): UByteArray? {
-        val uByteArray = prefsWorker.fetch(
+        return deserializeData(
             key = key,
             defValue = defValue
-        )?.toContentArray()
-        return if(uByteArray != null)
-            UByteArray(uByteArray.size) { uByteArray[it].toUByte() }
-        else
-            null
+        )
     }
 
     /**
@@ -321,6 +321,7 @@ class KMPrefs(
      *
      * @param key Is the key of the short to fetch
      * @param defValue Is the value to return if the searched one does not exist
+     * @return fetched value as [Short]
      */
     fun fetchShort(
         key: String,
@@ -366,19 +367,16 @@ class KMPrefs(
      *
      * @param key Is the key of the short array to fetch
      * @param defValue Is the value to return if the searched one does not exist
+     * @return fetched value as [ShortArray]
      */
     fun fetchShortArray(
         key: String,
         defValue: ShortArray? = null
     ): ShortArray? {
-        val shortArray = prefsWorker.fetch(
+        return deserializeData(
             key = key,
             defValue = defValue
-        )?.toContentArray()
-        return if(shortArray != null)
-            ShortArray(shortArray.size) { shortArray[it].toShort() }
-        else
-            null
+        )
     }
 
     /**
@@ -415,6 +413,7 @@ class KMPrefs(
      *
      * @param key Is the key of the unsigned short to fetch
      * @param defValue Is the value to return if the searched one does not exist
+     * @return fetched value as [UShort]
      */
     fun fetchUnsignedShort(
         key: String,
@@ -461,20 +460,17 @@ class KMPrefs(
      *
      * @param key Is the key of the unsigned short array to fetch
      * @param defValue Is the value to return if the searched one does not exist
+     * @return fetched value as [UShortArray]
      */
     @OptIn(ExperimentalUnsignedTypes::class)
     fun fetchUnsignedShortArray(
         key: String,
         defValue: UShortArray? = null
     ): UShortArray? {
-        val uShortArray = prefsWorker.fetch(
+        return deserializeData(
             key = key,
             defValue = defValue
-        )?.toContentArray()
-        return if(uShortArray != null)
-            UShortArray(uShortArray.size) { uShortArray[it].toUShort() }
-        else
-            null
+        )
     }
 
     /**
@@ -513,6 +509,7 @@ class KMPrefs(
      *
      * @param key Is the key of the int to fetch
      * @param defValue Is the value to return if the searched one does not exist
+     * @return fetched value as [Int]
      */
     fun fetchInt(
         key: String,
@@ -558,19 +555,16 @@ class KMPrefs(
      *
      * @param key Is the key of the int array to fetch
      * @param defValue Is the value to return if the searched one does not exist
+     * @return fetched value as [IntArray]
      */
     fun fetchIntArray(
         key: String,
         defValue: IntArray? = null
     ): IntArray? {
-        val intArray = prefsWorker.fetch(
+        return deserializeData(
             key = key,
             defValue = defValue
-        )?.toContentArray()
-        return if(intArray != null)
-            IntArray(intArray.size) { intArray[it].toInt() }
-        else
-            null
+        )
     }
 
     /**
@@ -607,6 +601,7 @@ class KMPrefs(
      *
      * @param key Is the key of the unsigned int to fetch
      * @param defValue Is the value to return if the searched one does not exist
+     * @return fetched value as [UInt]
      */
     fun fetchUnsignedInt(
         key: String,
@@ -653,20 +648,17 @@ class KMPrefs(
      *
      * @param key Is the key of the unsigned int array to fetch
      * @param defValue Is the value to return if the searched one does not exist
+     * @return fetched value as [UIntArray]
      */
     @OptIn(ExperimentalUnsignedTypes::class)
     fun fetchUnsignedIntArray(
         key: String,
         defValue: UIntArray? = null
     ): UIntArray? {
-        val uIntArray = prefsWorker.fetch(
+        return deserializeData(
             key = key,
             defValue = defValue
-        )?.toContentArray()
-        return if(uIntArray != null)
-            UIntArray(uIntArray.size) { uIntArray[it].toUInt() }
-        else
-            null
+        )
     }
 
     /**
@@ -703,6 +695,7 @@ class KMPrefs(
      *
      * @param key Is the key of the float to fetch
      * @param defValue Is the value to return if the searched one does not exist
+     * @return fetched value as [Float]
      */
     fun fetchFloat(
         key: String,
@@ -748,19 +741,16 @@ class KMPrefs(
      *
      * @param key Is the key of the float array to fetch
      * @param defValue Is the value to return if the searched one does not exist
+     * @return fetched value as [FloatArray]
      */
     fun fetchFloatArray(
         key: String,
         defValue: FloatArray? = null
     ): FloatArray? {
-        val floatArray = prefsWorker.fetch(
+        return deserializeData(
             key = key,
             defValue = defValue
-        )?.toContentArray()
-        return if(floatArray != null)
-            FloatArray(floatArray.size) { floatArray[it].toFloat() }
-        else
-            null
+        )
     }
 
     /**
@@ -797,6 +787,7 @@ class KMPrefs(
      *
      * @param key Is the key of the double to fetch
      * @param defValue Is the value to return if the searched one does not exist
+     * @return fetched value as [Double]
      */
     fun fetchDouble(
         key: String,
@@ -842,19 +833,16 @@ class KMPrefs(
      *
      * @param key Is the key of the double array to fetch
      * @param defValue Is the value to return if the searched one does not exist
+     * @return fetched value as [DoubleArray]
      */
     fun fetchDoubleArray(
         key: String,
         defValue: DoubleArray? = null
     ): DoubleArray? {
-        val doubleArray = prefsWorker.fetch(
+        return deserializeData(
             key = key,
             defValue = defValue
-        )?.toContentArray()
-        return if(doubleArray != null)
-            DoubleArray(doubleArray.size) { doubleArray[it].toDouble() }
-        else
-            null
+        )
     }
 
     /**
@@ -891,6 +879,8 @@ class KMPrefs(
      *
      * @param key Is the key of the long to fetch
      * @param defValue Is the value to return if the searched one does not exist
+     *
+     * @return fetched value as [Long]
      */
     fun fetchLong(
         key: String,
@@ -936,19 +926,17 @@ class KMPrefs(
      *
      * @param key Is the key of the long array to fetch
      * @param defValue Is the value to return if the searched one does not exist
+     *
+     * @return fetched value as [LongArray]
      */
     fun fetchLongArray(
         key: String,
         defValue: LongArray? = null
     ): LongArray? {
-        val longArray = prefsWorker.fetch(
+        return deserializeData(
             key = key,
             defValue = defValue
-        )?.toContentArray()
-        return if(longArray != null)
-            LongArray(longArray.size) { longArray[it].toLong() }
-        else
-            null
+        )
     }
 
     /**
@@ -985,6 +973,8 @@ class KMPrefs(
      *
      * @param key Is the key of the unsigned long to fetch
      * @param defValue Is the value to return if the searched one does not exist
+     *
+     * @return fetched value as [ULong]
      */
     fun fetchUnsignedLong(
         key: String,
@@ -1031,20 +1021,18 @@ class KMPrefs(
      *
      * @param key Is the key of the unsigned long array to fetch
      * @param defValue Is the value to return if the searched one does not exist
+     *
+     * @return fetched value as [ULongArray]
      */
     @OptIn(ExperimentalUnsignedTypes::class)
     fun fetchUnsignedLongArray(
         key: String,
         defValue: ULongArray? = null
     ): ULongArray? {
-        val uLongArray = prefsWorker.fetch(
+        return deserializeData(
             key = key,
             defValue = defValue
-        )?.toContentArray()
-        return if(uLongArray != null)
-            ULongArray(uLongArray.size) { uLongArray[it].toULong() }
-        else
-            null
+        )
     }
 
     /**
@@ -1081,6 +1069,8 @@ class KMPrefs(
      *
      * @param key Is the key of the string to fetch
      * @param defValue Is the value to return if the searched one does not exist
+     *
+     * @return fetched value as [String]
      */
     fun fetchString(
         key: String,
@@ -1112,10 +1102,28 @@ class KMPrefs(
         prefsWorker.clearAll()
     }
 
-    private fun String.toContentArray(): List<String> {
-        return this.removeSurrounding("[", "]")
-            .replace(" ", "")
-            .split(",")
+    /**
+     * Method to deserialize raw json data into a [T] object
+     *
+     * @param key Is the key of the object to fetch
+     * @param defValue Is the value to return if the searched one does not exist
+     *
+     * @return object as [T]
+     */
+    private inline fun <reified T> deserializeData(
+        key: String,
+        defValue: T?
+    ) : T? {
+        val array = prefsWorker.fetch(
+            key = key,
+            defValue = if(defValue != null)
+                Json.encodeToString(defValue)
+            else
+                null
+        )
+        if(array == null)
+            return null
+        return Json.decodeFromString<T>(array)
     }
 
 }

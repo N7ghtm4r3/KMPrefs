@@ -4,11 +4,13 @@ equinoxComposeAndroid = "1.0.3"
 kotlin = "2.0.21"
 android-minSdk = "24"
 android-compileSdk = "34"
+kotlinxSerializationJson = "1.7.3"
 startupRuntime = "1.2.0"
 
 [libraries]
 androidx-startup-runtime = { group = "androidx.startup", name = "startup-runtime", version.ref = "startupRuntime" }
 equinox-compose-android = { module = "io.github.n7ghtm4r3:Equinox-Compose-android", version.ref = "equinoxComposeAndroid" }
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
 
 [plugins]
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
