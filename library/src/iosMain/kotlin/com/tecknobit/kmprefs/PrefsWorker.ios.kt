@@ -1,5 +1,7 @@
 package com.tecknobit.kmprefs
 
+import platform.Foundation.NSUserDefaults
+
 /**
  * The **PrefsWorker** class helps to manage the preferences storing the data locally using the [NSUserDefaults]
  * built-in mechanism
@@ -10,13 +12,15 @@ package com.tecknobit.kmprefs
  */
 @Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
 internal actual class PrefsWorker actual constructor(
-    path: String
+    private val path: String
 ) {
 
     /**
      * **userDefaults** -> the instance used to manage locally the preferences on `iOs`
      */
-    private val userDefaults = NSUserDefaults.standardUserDefaults()
+    private val userDefaults = NSUserDefaults(
+        suiteName = path
+    )
 
     /**
      * Method to store locally a value
@@ -45,8 +49,8 @@ internal actual class PrefsWorker actual constructor(
         key: String,
         defValue: T?,
     ): String? {
-        return userDefaults.objectForKey(
-            forKey = key
+        return userDefaults.stringForKey(
+            defaultName = key
         )
     }
 
@@ -59,7 +63,7 @@ internal actual class PrefsWorker actual constructor(
         key: String
     ) {
         return userDefaults.removeObjectForKey(
-            key = key
+            defaultName = key
         )
     }
 
@@ -67,7 +71,9 @@ internal actual class PrefsWorker actual constructor(
      * Method to clear the all preferences specified by the path
      */
     actual fun clearAll() {
-        userDefaults.removePersistentDomainForName(userDefaults.applicationDomain)
+        userDefaults.removePersistentDomainForName(
+            domainName = path
+        )
     }
 
 }
