@@ -1,6 +1,6 @@
 package com.tecknobit.kmprefs
 
-import kotlinx.serialization.encodeToString
+import kotlinx.serialization.*
 import kotlinx.serialization.json.Json
 
 /**
@@ -797,6 +797,55 @@ class KMPrefs(
     }
 
     /**
+     * Method to store locally a custom [Serializable] object
+     *
+     * @param key Is the key of the custom object
+     * @param serializer The custom serializer for the custom object used to store it locally
+     * @param value Is the value to store
+     */
+    @ExperimentalSerializationApi
+    inline fun <reified T> storeCustomObject(
+        key: String,
+        serializer: KSerializer<T> = serializer(),
+        value: T?
+    ) {
+        if(value == null) {
+            removeValue(
+                key = key
+            )
+            return
+        }
+        storeString(
+            key = key,
+            value = Json.encodeToString(serializer, value)
+        )
+    }
+
+    /**
+     * Method to retrieve locally a custom [Serializable] object
+     *
+     * @param key Is the key of the custom object
+     * @param deserializer The custom deserializer for the custom object used to retrieve
+     * @param defValue - Is the value to return if the searched one does not exist
+     *
+     * @return the custom object locally stored as [T]
+     */
+    inline fun <reified T> retrieveCustomObject(
+        key: String,
+        deserializer: KSerializer<T> = serializer(),
+        defValue: T? = null
+    ) : T? {
+        if(!hasKey(key))
+            return defValue
+        return Json.decodeFromString(
+            deserializer = deserializer,
+            string = retrieveString(
+                key = key
+            )!!
+        )
+    }
+
+    /**
      * Method to remove locally a value by its key
      *
      * @param key Is the key of the value to remove
@@ -807,6 +856,146 @@ class KMPrefs(
         prefsWorker.remove(
             key = key
         )
+    }
+
+    /**
+     * Method to check whether the [KMPrefs] instance with the current path has stored any value with the specified
+     * key
+     *
+     * @param key The key to check if has been previously stored
+     *
+     * @return whether the specified key has been previously stored as [Boolean]
+     */
+    fun hasKey(
+        key: String
+    ): Boolean {
+        return prefsWorker.hasKey(
+            key = key
+        )
+    }
+
+    /**
+     * Method to check whether the value with the specified key matches to the [matcher] value
+     *
+     * @param key The key of the value to check
+     * @param matcher The value to use as matcher on the comparison
+     *
+     * @return whether the values match as [Boolean]
+     *
+     */
+    @ExperimentalUnsignedTypes
+    fun <T> valueMatchesTo(
+        key: String,
+        matcher: T?
+    ) : Boolean {
+        return when (matcher) {
+            is BooleanArray -> {
+                val array = deserializeData(
+                    key = key,
+                    defValue = booleanArrayOf()
+                )
+                matcher.contentEquals(array)
+            }
+            is ByteArray -> {
+                val array = deserializeData(
+                    key = key,
+                    defValue = byteArrayOf()
+                )
+                matcher.contentEquals(array)
+            }
+            is UByteArray -> {
+                val array = deserializeData(
+                    key = key,
+                    defValue = ubyteArrayOf()
+                )
+                matcher.contentEquals(array)
+            }
+            is ShortArray -> {
+                val array = deserializeData(
+                    key = key,
+                    defValue = shortArrayOf()
+                )
+                matcher.contentEquals(array)
+            }
+            is UShortArray -> {
+                val array = deserializeData(
+                    key = key,
+                    defValue = ushortArrayOf()
+                )
+                matcher.contentEquals(array)
+            }
+            is IntArray -> {
+                val array = deserializeData(
+                    key = key,
+                    defValue = intArrayOf()
+                )
+                matcher.contentEquals(array)
+            }
+            is UIntArray -> {
+                val array = deserializeData(
+                    key = key,
+                    defValue = uintArrayOf()
+                )
+                matcher.contentEquals(array)
+            }
+            is LongArray -> {
+                val array = deserializeData(
+                    key = key,
+                    defValue = longArrayOf()
+                )
+                matcher.contentEquals(array)
+            }
+            is ULongArray -> {
+                val array = deserializeData(
+                    key = key,
+                    defValue = ulongArrayOf()
+                )
+                matcher.contentEquals(array)
+            }
+            is FloatArray -> {
+                val array = deserializeData(
+                    key = key,
+                    defValue = floatArrayOf()
+                )
+                matcher.contentEquals(array)
+            }
+            is DoubleArray -> {
+                val array = deserializeData(
+                    key = key,
+                    defValue = doubleArrayOf()
+                )
+                matcher.contentEquals(array)
+            }
+            else -> {
+                val value = prefsWorker.retrieve(
+                    key = key,
+                    defValue = null
+                )
+                value == matcher.toString()
+            }
+        }
+    }
+
+    /**
+     * Method to check whether the custom object with the specified key matches to the [matcher] value
+     *
+     * @param key The key of the custom object to check
+     * @param deserializer The custom deserializer for the custom object used in the compare
+     * @param matcher The custom object to use as matcher on the comparison
+     *
+     * @return whether the custom objects match as [Boolean]
+     *
+     */
+    inline fun <reified T> customObjectMatchesTo(
+        key: String,
+        deserializer: KSerializer<T> = serializer(),
+        matcher: T?
+    ) : Boolean {
+        val value :T? = retrieveCustomObject(
+            key = key,
+            deserializer = deserializer
+        )
+        return value == matcher
     }
 
     /**

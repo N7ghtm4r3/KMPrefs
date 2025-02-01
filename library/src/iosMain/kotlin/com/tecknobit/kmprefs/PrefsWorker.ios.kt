@@ -68,6 +68,22 @@ internal actual class PrefsWorker actual constructor(
     }
 
     /**
+     * Method to check whether the [PrefsWorker] instance with the current path has stored any value with the specified
+     * key
+     *
+     * @param key The key to check if has been previously stored
+     *
+     * @return whether the specified key has been previously stored as [Boolean]
+     */
+    actual fun hasKey(
+        key: String
+    ): Boolean {
+        return userDefaults.dataForKey(
+            defaultName = key
+        ) != null
+    }
+
+    /**
      * Method to clear the all preferences specified by the path
      */
     actual fun clearAll() {

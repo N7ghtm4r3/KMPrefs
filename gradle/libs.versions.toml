@@ -1,18 +1,20 @@
 [versions]
 agp = "8.5.2"
-equinoxComposeAndroid = "1.0.3"
-kotlin = "2.0.21"
+equinox = "1.0.7"
+kotlin = "2.1.0"
 android-minSdk = "24"
 android-compileSdk = "34"
 kotlinxSerializationJson = "1.7.3"
 startupRuntime = "1.2.0"
-dokka = "1.9.20"
+dokka = "2.0.0"
+kotlinxBrowser = "0.3"
 
 [libraries]
 dokka-base = { module = "org.jetbrains.dokka:dokka-base", version.ref = "dokka" }
 androidx-startup-runtime = { group = "androidx.startup", name = "startup-runtime", version.ref = "startupRuntime" }
-equinox-compose-android = { module = "io.github.n7ghtm4r3:Equinox-Compose-android", version.ref = "equinoxComposeAndroid" }
+equinox-core = { module = "io.github.n7ghtm4r3:equinox-core", version.ref = "equinox" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
+kotlinx-browser = { module = "org.jetbrains.kotlinx:kotlinx-browser", version.ref = "kotlinxBrowser" }
 
 [plugins]
 androidLibrary = { id = "com.android.library", version.ref = "agp" }

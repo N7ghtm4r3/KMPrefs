@@ -56,10 +56,7 @@ internal actual class PrefsWorker actual constructor(
         val value = localStorage.getItem(
             key = key
         )
-        return if(value == null)
-            defValue?.toString()
-        else
-            value
+        return value ?: defValue?.toString()
     }
 
     /**
@@ -73,6 +70,23 @@ internal actual class PrefsWorker actual constructor(
         localStorage.removeItem(
             key = key
         )
+    }
+
+    /**
+     * Method to check whether the [PrefsWorker] instance with the current path has stored any value with the specified
+     * key
+     *
+     * @param key The key to check if has been previously stored
+     *
+     * @return whether the specified key has been previously stored as [Boolean]
+     */
+    actual fun hasKey(
+        key: String
+    ): Boolean {
+        return retrieve(
+            key = key,
+            defValue = null
+        ) != null
     }
 
     /**

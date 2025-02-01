@@ -1,7 +1,7 @@
 package com.tecknobit.kmprefs
 
 import android.content.Context
-import com.tecknobit.equinoxcompose.helpers.utils.AppContext
+import com.tecknobit.equinoxcore.utilities.AppContext
 
 /**
  * The **PrefsWorker** class helps to manage the preferences storing the data locally using the [android.content.SharedPreferences]
@@ -34,7 +34,7 @@ internal actual class PrefsWorker actual constructor(
         key: String,
         value: T?,
     ) {
-        sharedPreferences.edit().putString(key, value?.toString()).commit()
+        sharedPreferences.edit().putString(key, value?.toString()).apply()
     }
 
     /**
@@ -59,14 +59,28 @@ internal actual class PrefsWorker actual constructor(
     actual fun remove(
         key: String
     ) {
-        sharedPreferences.edit().remove(key).commit()
+        sharedPreferences.edit().remove(key).apply()
+    }
+
+    /**
+     * Method to check whether the [PrefsWorker] instance with the current path has stored any value with the specified
+     * key
+     *
+     * @param key The key to check if has been previously stored
+     *
+     * @return whether the specified key has been previously stored as [Boolean]
+     */
+    actual fun hasKey(
+        key: String
+    ): Boolean {
+        return sharedPreferences.contains(key)
     }
 
     /**
      * Method to clear the all preferences specified by the path
      */
     actual fun clearAll() {
-        sharedPreferences.edit().clear().commit()
+        sharedPreferences.edit().clear().apply()
     }
 
 }
