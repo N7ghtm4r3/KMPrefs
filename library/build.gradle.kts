@@ -5,7 +5,6 @@ import com.vanniktech.maven.publish.SonatypeHost
 import org.jetbrains.dokka.DokkaConfiguration.Visibility.*
 import org.jetbrains.dokka.base.DokkaBase
 import org.jetbrains.dokka.base.DokkaBaseConfiguration
-import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
@@ -17,12 +16,11 @@ plugins {
 }
 
 group = "com.tecknobit"
-version = "1.0.0"
+version = "1.0.1"
 
 kotlin {
     jvm {
         compilations.all {
-            @OptIn(ExperimentalKotlinGradlePluginApi::class)
             this@jvm.compilerOptions {
                 jvmTarget.set(JvmTarget.JVM_18)
             }
@@ -30,7 +28,6 @@ kotlin {
     }
     androidTarget {
         publishLibraryVariants("release")
-        @OptIn(ExperimentalKotlinGradlePluginApi::class)
         compilerOptions {
             jvmTarget.set(JvmTarget.JVM_18)
         }
@@ -59,17 +56,12 @@ kotlin {
         val androidMain by getting {
             dependencies {
                 implementation(libs.androidx.startup.runtime)
-                implementation(libs.equinox.compose.android)
+                implementation(libs.equinox.core)
             }
         }
         val commonMain by getting {
             dependencies {
                 implementation(libs.kotlinx.serialization.json)
-            }
-        }
-        val commonTest by getting {
-            dependencies {
-                implementation(kotlin("test"))
             }
         }
         val iosX64Main by getting
@@ -83,7 +75,11 @@ kotlin {
             dependencies {
             }
         }
-
+        val wasmJsMain by getting {
+            dependencies {
+                implementation(libs.kotlinx.browser)
+            }
+        }
     }
     jvmToolchain(18)
 }
@@ -99,12 +95,12 @@ mavenPublishing {
     coordinates(
         groupId = "io.github.n7ghtm4r3",
         artifactId = "KMPrefs",
-        version = "1.0.0"
+        version = "1.0.1"
     )
     pom {
         name.set("KMPrefs")
         description.set("The Kotlin Multiplatform Pref(erence)s system allows you to store, retrieve, and remove data locally on each platform. It leverages the native mechanisms provided by each platform.")
-        inceptionYear.set("2024")
+        inceptionYear.set("2025")
         url.set("https://github.com/N7ghtm4r3/KMPrefs")
 
         licenses {
@@ -155,6 +151,6 @@ tasks.dokkaHtml {
         documentedVisibilities.set(setOf(PUBLIC, PROTECTED, PRIVATE, INTERNAL))
     }
     pluginConfiguration<DokkaBase, DokkaBaseConfiguration> {
-        footerMessage = "(c) 2024 Tecknobit"
+        footerMessage = "(c) 2025 Tecknobit"
     }
 }

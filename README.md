@@ -7,7 +7,7 @@
 ![Static Badge](https://img.shields.io/badge/desktop-006874?link=https%3A%2F%2Fimg.shields.io%2Fbadge%2Fandroid-4280511051)
 ![Static Badge](https://img.shields.io/badge/wasmjs-834C74?link=https%3A%2F%2Fimg.shields.io%2Fbadge%2Fandroid-4280511051)
 
-**v1.0.0**
+**v1.0.1**
 
 The Kotlin Multiplatform Pref(erence)s system allows you to store, retrieve, and remove data locally on each platform.
 It leverages the native mechanisms provided by each platform.
@@ -16,61 +16,39 @@ It leverages the native mechanisms provided by each platform.
 
 ### Version catalog
 
+- `libs.version.toml`
+
 ```gradle
 [versions]
-kmprefs = "1.0.0"
+kmprefs = "1.0.1"
 
 [libraries]
 kmprefs = { module = "io.github.n7ghtm4r3:KMPrefs", version.ref = "kmprefs" }
 ```
 
-### Gradle
+- `build.gradle.kts`
 
-Add the JitPack repository to your build file (just if you have **Android** target)
+```gradle
+dependencies {
+    implementation(libs.kmprefs)
+}
+```
 
-- Add it in your root build.gradle at the end of repositories
+### Gradle (Kotlin)
 
-    ```gradle
-    repositories {
-        ...
-        maven { url 'https://jitpack.io' }
-        maven { url 'https://repo.clojars.org' }
-    }
-    ```
+```gradle
+dependencies {
+    implementation("io.github.n7ghtm4r3:KMPrefs:1.0.1")
+}
+```
 
-  #### Gradle (Kotlin)
+### Gradle (Groovy)
 
-    ```gradle
-    repositories {
-        ...
-        maven("https://jitpack.io")
-        maven("https://repo.clojars.org")
-    }
-    ```
-
-- Add the dependency
-
-    ```gradle
-    dependencies {
-        implementation 'io.github.n7ghtm4r3:KMPrefs:1.0.0'
-    }
-    ```
-
-  #### Gradle (Kotlin)
-
-    ```gradle
-    dependencies {
-        implementation("io.github.n7ghtm4r3:KMPrefs:1.0.0")
-    }
-    ```
-
-  #### Gradle (version catalog)
-
-    ```gradle
-    dependencies {
-        implementation(libs.kmprefs)
-    }
-    ```
+```gradle
+dependencies {
+    implementation 'io.github.n7ghtm4r3:KMPrefs:1.0.1'
+}
+```
 
 ## Core functionality
 
@@ -137,6 +115,25 @@ kmPrefs.removeValue(
 )  
 ```
 
+### Check whether a key has been stored
+
+```kotlin
+// same method for all the types
+kmPrefs.hasKey(
+    key = "your_key"
+)
+```
+
+### Check whether a value matches with a specified one
+
+```kotlin
+// same method for all the types
+kmPrefs.valueMatchesTo(
+    key = "your_key",
+    matcher = // the matcher value such "Hello World!", 22, doubleArrayOf(8, 1) etc...
+)
+```
+
 ## Authors
 
 - [@N7ghtm4r3](https://www.github.com/N7ghtm4r3)
@@ -164,4 +161,4 @@ If you want support project and developer
 If you want support project and developer
 with <a href="https://www.paypal.com/donate/?hosted_button_id=5QMN5UQH7LDT4">PayPal</a>
 
-Copyright © 2024 Tecknobit
+Copyright © 2025 Tecknobit
