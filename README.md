@@ -54,35 +54,39 @@ dependencies {
 
 ### Supported types
 
-| **Type**         | **Description**                            |
-|------------------|--------------------------------------------|
-| `Boolean`        | Boolean type (true/false)                  |
-| `BooleanArray`   | Array of `Boolean`                         |
-| `Byte`           | 8-bit signed integer                       |
-| `ByteArray`      | Array of `Byte`                            |
-| `UByte`          | 8-bit unsigned integer                     |
-| `UByteArray`     | Array of `UByte`                           |
-| `Short`          | 16-bit signed integer                      |
-| `ShortArray`     | Array of `Short`                           |
-| `UShort`         | 16-bit unsigned integer                    |
-| `UShortArray`    | Array of `UShort`                          |
-| `Int`            | 32-bit signed integer                      |
-| `IntArray`       | Array of `Int`                             |
-| `UInt`           | 32-bit unsigned integer                    |
-| `UIntArray`      | Array of `UInt`                            |
-| `Float`          | 32-bit floating-point number               |
-| `FloatArray`     | Array of `Float`                           |
-| `Double`         | 64-bit floating-point number               |
-| `DoubleArray`    | Array of `Double`                          |
-| `Long`           | 64-bit signed integer                      |
-| `LongArray`      | Array of `Long`                            |
-| `ULong`          | 64-bit unsigned integer                    |
-| `ULongArray`     | Array of `ULong`                           |
-| `String`         | String of characters                       |
+| **Type**       | **Description**              |
+|----------------|------------------------------|
+| `Boolean`      | Boolean type (true/false)    |
+| `BooleanArray` | Array of `Boolean`           |
+| `Byte`         | 8-bit signed integer         |
+| `ByteArray`    | Array of `Byte`              |
+| `UByte`        | 8-bit unsigned integer       |
+| `UByteArray`   | Array of `UByte`             |
+| `Short`        | 16-bit signed integer        |
+| `ShortArray`   | Array of `Short`             |
+| `UShort`       | 16-bit unsigned integer      |
+| `UShortArray`  | Array of `UShort`            |
+| `Int`          | 32-bit signed integer        |
+| `IntArray`     | Array of `Int`               |
+| `UInt`         | 32-bit unsigned integer      |
+| `UIntArray`    | Array of `UInt`              |
+| `Float`        | 32-bit floating-point number |
+| `FloatArray`   | Array of `Float`             |
+| `Double`       | 64-bit floating-point number |
+| `DoubleArray`  | Array of `Double`            |
+| `Long`         | 64-bit signed integer        |
+| `LongArray`    | Array of `Long`              |
+| `ULong`        | 64-bit unsigned integer      |
+| `ULongArray`   | Array of `ULong`             |
+| `String`       | String of characters         |
+| `Serializable` | Custom serializable objects  |
+
 
 ### Store values
 
 Same procedure for all the types
+
+#### Primitives and String
 
 ```kotlin
 val kmPrefs = KMPrefs("your_storage_path") // create an instance
@@ -94,15 +98,64 @@ kmPrefs.storeDouble(
 )
 ```
 
+#### Custom serializable objects
+
+Under the hood the `KMPrefs` works with the [kotlinx-serialization](https://github.com/Kotlin/kotlinx.serialization) library
+so it is required to import both the library and the plugin to correctly store and retrieve custom objects
+
+<h6>Create the @Serializable object</h6>
+
+```kotlin
+@Serializable // required
+data class Car(
+    val plate: String,
+    val hp: Int
+)
+```
+
+<h6>Store the object</h6>
+
+```kotlin
+val kmPrefs = KMPrefs("your_storage_path") // create an instance
+
+// create the instance to store
+val carToStore = Car(
+    plate = "AA000AA",
+    hp = 450
+)
+
+// store the instance created
+kmPrefs.storeCustomObject(
+    key = "your_key",
+    value = carToStore
+) 
+```
+
 ### Retrieve values
 
 Same procedure for all the types
+
+#### Primitives and String
 
 ```kotlin
 // for example retrive a Double value
 val constant = kmPrefs.retrieveDouble(
     key = "constant",
     defValue = 1.6180339887 // a default value to use if the searched one is not stored yet
+)
+```
+
+#### Custom serializable objects
+
+```kotlin
+// retrieve the car
+val carToStore: Car = kmPrefs.retrieveCustomObject(
+    key = "your_key",
+    deserializer = ,// custom deserializer to use during the retrieve if the type is not explicit
+    defValue = Car(
+        plate = "not_found",
+        hp = 0
+    ) // a default value to use if the searched one is not stored yet
 )
 ```
 
@@ -126,6 +179,8 @@ kmPrefs.hasKey(
 
 ### Check whether a value matches with a specified one
 
+#### Primitives and String
+
 ```kotlin
 // same method for all the types
 kmPrefs.valueMatchesTo(
@@ -134,9 +189,14 @@ kmPrefs.valueMatchesTo(
 )
 ```
 
-## Authors
+#### Custom serializable objects
 
-- [@N7ghtm4r3](https://www.github.com/N7ghtm4r3)
+```kotlin
+kmPrefs.customObjectMatchesTo(
+    key = "your_key",
+    matcher = carToStore// the matcher custom object
+)
+```
 
 ## Support
 

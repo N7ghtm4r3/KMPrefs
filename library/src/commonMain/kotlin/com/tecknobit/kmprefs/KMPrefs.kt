@@ -1,6 +1,6 @@
 package com.tecknobit.kmprefs
 
-import kotlinx.serialization.encodeToString
+import kotlinx.serialization.*
 import kotlinx.serialization.json.Json
 
 /**
@@ -797,6 +797,55 @@ class KMPrefs(
     }
 
     /**
+     * Method to store locally a custom [Serializable] object
+     *
+     * @param key Is the key of the custom object
+     * @param serializer The custom serializer for the custom object used to store it locally
+     * @param value Is the value to store
+     */
+    @ExperimentalSerializationApi
+    inline fun <reified T> storeCustomObject(
+        key: String,
+        serializer: KSerializer<T> = serializer(),
+        value: T?
+    ) {
+        if(value == null) {
+            removeValue(
+                key = key
+            )
+            return
+        }
+        storeString(
+            key = key,
+            value = Json.encodeToString(serializer, value)
+        )
+    }
+
+    /**
+     * Method to retrieve locally a custom [Serializable] object
+     *
+     * @param key Is the key of the custom object
+     * @param deserializer The custom deserializer for the custom object used to retrieve
+     * @param defValue - Is the value to return if the searched one does not exist
+     *
+     * @return the custom object locally stored as [T]
+     */
+    inline fun <reified T> retrieveCustomObject(
+        key: String,
+        deserializer: KSerializer<T> = serializer(),
+        defValue: T? = null
+    ) : T? {
+        if(!hasKey(key))
+            return defValue
+        return Json.decodeFromString(
+            deserializer = deserializer,
+            string = retrieveString(
+                key = key
+            )!!
+        )
+    }
+
+    /**
      * Method to remove locally a value by its key
      *
      * @param key Is the key of the value to remove
@@ -925,6 +974,26 @@ class KMPrefs(
                 value == matcher.toString()
             }
         }
+    }
+
+    /**
+     * Method to check whether the custom object with the specified key matches to the [matcher] value
+     *
+     * @param key The key of the custom object to check
+     * @param matcher The custom object to use as matcher on the comparison
+     *
+     * @return whether the custom objects match as [Boolean]
+     *
+     */
+    @ExperimentalUnsignedTypes
+    inline fun <reified T> customObjectMatchesTo(
+        key: String,
+        matcher: T?
+    ) : Boolean {
+        val value :T? = retrieveCustomObject(
+            key = key
+        )
+        return value == matcher
     }
 
     /**
