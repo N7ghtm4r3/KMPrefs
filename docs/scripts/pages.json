@@ -1,0 +1,692 @@
+[
+  {
+    "name": "class KMPrefs(path: String)",
+    "description": "com.tecknobit.kmprefs.KMPrefs",
+    "location": "-k-m-prefs/com.tecknobit.kmprefs/-k-m-prefs/index.html",
+    "searchKeys": [
+      "KMPrefs",
+      "class KMPrefs(path: String)",
+      "com.tecknobit.kmprefs.KMPrefs"
+    ]
+  },
+  {
+    "name": "constructor(path: String)",
+    "description": "com.tecknobit.kmprefs.KMPrefs.KMPrefs",
+    "location": "-k-m-prefs/com.tecknobit.kmprefs/-k-m-prefs/-k-m-prefs.html",
+    "searchKeys": [
+      "KMPrefs",
+      "constructor(path: String)",
+      "com.tecknobit.kmprefs.KMPrefs.KMPrefs"
+    ]
+  },
+  {
+    "name": "expect constructor(path: String)",
+    "description": "com.tecknobit.kmprefs.PrefsWorker.PrefsWorker",
+    "location": "-k-m-prefs/com.tecknobit.kmprefs/-prefs-worker/-prefs-worker.html",
+    "searchKeys": [
+      "PrefsWorker",
+      "expect constructor(path: String)",
+      "com.tecknobit.kmprefs.PrefsWorker.PrefsWorker"
+    ]
+  },
+  {
+    "name": "expect fun <T> retrieve(key: String, defValue: T?): String?",
+    "description": "com.tecknobit.kmprefs.PrefsWorker.retrieve",
+    "location": "-k-m-prefs/com.tecknobit.kmprefs/-prefs-worker/retrieve.html",
+    "searchKeys": [
+      "retrieve",
+      "expect fun <T> retrieve(key: String, defValue: T?): String?",
+      "com.tecknobit.kmprefs.PrefsWorker.retrieve"
+    ]
+  },
+  {
+    "name": "expect fun <T> store(key: String, value: T?)",
+    "description": "com.tecknobit.kmprefs.PrefsWorker.store",
+    "location": "-k-m-prefs/com.tecknobit.kmprefs/-prefs-worker/store.html",
+    "searchKeys": [
+      "store",
+      "expect fun <T> store(key: String, value: T?)",
+      "com.tecknobit.kmprefs.PrefsWorker.store"
+    ]
+  },
+  {
+    "name": "expect fun clearAll()",
+    "description": "com.tecknobit.kmprefs.PrefsWorker.clearAll",
+    "location": "-k-m-prefs/com.tecknobit.kmprefs/-prefs-worker/clear-all.html",
+    "searchKeys": [
+      "clearAll",
+      "expect fun clearAll()",
+      "com.tecknobit.kmprefs.PrefsWorker.clearAll"
+    ]
+  },
+  {
+    "name": "expect fun hasKey(key: String): Boolean",
+    "description": "com.tecknobit.kmprefs.PrefsWorker.hasKey",
+    "location": "-k-m-prefs/com.tecknobit.kmprefs/-prefs-worker/has-key.html",
+    "searchKeys": [
+      "hasKey",
+      "expect fun hasKey(key: String): Boolean",
+      "com.tecknobit.kmprefs.PrefsWorker.hasKey"
+    ]
+  },
+  {
+    "name": "expect fun remove(key: String)",
+    "description": "com.tecknobit.kmprefs.PrefsWorker.remove",
+    "location": "-k-m-prefs/com.tecknobit.kmprefs/-prefs-worker/remove.html",
+    "searchKeys": [
+      "remove",
+      "expect fun remove(key: String)",
+      "com.tecknobit.kmprefs.PrefsWorker.remove"
+    ]
+  },
+  {
+    "name": "fun <T> valueMatchesTo(key: String, matcher: T?): Boolean",
+    "description": "com.tecknobit.kmprefs.KMPrefs.valueMatchesTo",
+    "location": "-k-m-prefs/com.tecknobit.kmprefs/-k-m-prefs/value-matches-to.html",
+    "searchKeys": [
+      "valueMatchesTo",
+      "fun <T> valueMatchesTo(key: String, matcher: T?): Boolean",
+      "com.tecknobit.kmprefs.KMPrefs.valueMatchesTo"
+    ]
+  },
+  {
+    "name": "fun clearAll()",
+    "description": "com.tecknobit.kmprefs.KMPrefs.clearAll",
+    "location": "-k-m-prefs/com.tecknobit.kmprefs/-k-m-prefs/clear-all.html",
+    "searchKeys": [
+      "clearAll",
+      "fun clearAll()",
+      "com.tecknobit.kmprefs.KMPrefs.clearAll"
+    ]
+  },
+  {
+    "name": "fun hasKey(key: String): Boolean",
+    "description": "com.tecknobit.kmprefs.KMPrefs.hasKey",
+    "location": "-k-m-prefs/com.tecknobit.kmprefs/-k-m-prefs/has-key.html",
+    "searchKeys": [
+      "hasKey",
+      "fun hasKey(key: String): Boolean",
+      "com.tecknobit.kmprefs.KMPrefs.hasKey"
+    ]
+  },
+  {
+    "name": "fun removeValue(key: String)",
+    "description": "com.tecknobit.kmprefs.KMPrefs.removeValue",
+    "location": "-k-m-prefs/com.tecknobit.kmprefs/-k-m-prefs/remove-value.html",
+    "searchKeys": [
+      "removeValue",
+      "fun removeValue(key: String)",
+      "com.tecknobit.kmprefs.KMPrefs.removeValue"
+    ]
+  },
+  {
+    "name": "fun retrieveBoolean(key: String, defValue: Boolean? = null): Boolean",
+    "description": "com.tecknobit.kmprefs.KMPrefs.retrieveBoolean",
+    "location": "-k-m-prefs/com.tecknobit.kmprefs/-k-m-prefs/retrieve-boolean.html",
+    "searchKeys": [
+      "retrieveBoolean",
+      "fun retrieveBoolean(key: String, defValue: Boolean? = null): Boolean",
+      "com.tecknobit.kmprefs.KMPrefs.retrieveBoolean"
+    ]
+  },
+  {
+    "name": "fun retrieveBooleanArray(key: String, defValue: BooleanArray? = null): BooleanArray?",
+    "description": "com.tecknobit.kmprefs.KMPrefs.retrieveBooleanArray",
+    "location": "-k-m-prefs/com.tecknobit.kmprefs/-k-m-prefs/retrieve-boolean-array.html",
+    "searchKeys": [
+      "retrieveBooleanArray",
+      "fun retrieveBooleanArray(key: String, defValue: BooleanArray? = null): BooleanArray?",
+      "com.tecknobit.kmprefs.KMPrefs.retrieveBooleanArray"
+    ]
+  },
+  {
+    "name": "fun retrieveByte(key: String, defValue: Byte? = null): Byte?",
+    "description": "com.tecknobit.kmprefs.KMPrefs.retrieveByte",
+    "location": "-k-m-prefs/com.tecknobit.kmprefs/-k-m-prefs/retrieve-byte.html",
+    "searchKeys": [
+      "retrieveByte",
+      "fun retrieveByte(key: String, defValue: Byte? = null): Byte?",
+      "com.tecknobit.kmprefs.KMPrefs.retrieveByte"
+    ]
+  },
+  {
+    "name": "fun retrieveByteArray(key: String, defValue: ByteArray? = null): ByteArray?",
+    "description": "com.tecknobit.kmprefs.KMPrefs.retrieveByteArray",
+    "location": "-k-m-prefs/com.tecknobit.kmprefs/-k-m-prefs/retrieve-byte-array.html",
+    "searchKeys": [
+      "retrieveByteArray",
+      "fun retrieveByteArray(key: String, defValue: ByteArray? = null): ByteArray?",
+      "com.tecknobit.kmprefs.KMPrefs.retrieveByteArray"
+    ]
+  },
+  {
+    "name": "fun retrieveDouble(key: String, defValue: Double? = null): Double?",
+    "description": "com.tecknobit.kmprefs.KMPrefs.retrieveDouble",
+    "location": "-k-m-prefs/com.tecknobit.kmprefs/-k-m-prefs/retrieve-double.html",
+    "searchKeys": [
+      "retrieveDouble",
+      "fun retrieveDouble(key: String, defValue: Double? = null): Double?",
+      "com.tecknobit.kmprefs.KMPrefs.retrieveDouble"
+    ]
+  },
+  {
+    "name": "fun retrieveDoubleArray(key: String, defValue: DoubleArray? = null): DoubleArray?",
+    "description": "com.tecknobit.kmprefs.KMPrefs.retrieveDoubleArray",
+    "location": "-k-m-prefs/com.tecknobit.kmprefs/-k-m-prefs/retrieve-double-array.html",
+    "searchKeys": [
+      "retrieveDoubleArray",
+      "fun retrieveDoubleArray(key: String, defValue: DoubleArray? = null): DoubleArray?",
+      "com.tecknobit.kmprefs.KMPrefs.retrieveDoubleArray"
+    ]
+  },
+  {
+    "name": "fun retrieveFloat(key: String, defValue: Float? = null): Float?",
+    "description": "com.tecknobit.kmprefs.KMPrefs.retrieveFloat",
+    "location": "-k-m-prefs/com.tecknobit.kmprefs/-k-m-prefs/retrieve-float.html",
+    "searchKeys": [
+      "retrieveFloat",
+      "fun retrieveFloat(key: String, defValue: Float? = null): Float?",
+      "com.tecknobit.kmprefs.KMPrefs.retrieveFloat"
+    ]
+  },
+  {
+    "name": "fun retrieveFloatArray(key: String, defValue: FloatArray? = null): FloatArray?",
+    "description": "com.tecknobit.kmprefs.KMPrefs.retrieveFloatArray",
+    "location": "-k-m-prefs/com.tecknobit.kmprefs/-k-m-prefs/retrieve-float-array.html",
+    "searchKeys": [
+      "retrieveFloatArray",
+      "fun retrieveFloatArray(key: String, defValue: FloatArray? = null): FloatArray?",
+      "com.tecknobit.kmprefs.KMPrefs.retrieveFloatArray"
+    ]
+  },
+  {
+    "name": "fun retrieveInt(key: String, defValue: Int? = null): Int?",
+    "description": "com.tecknobit.kmprefs.KMPrefs.retrieveInt",
+    "location": "-k-m-prefs/com.tecknobit.kmprefs/-k-m-prefs/retrieve-int.html",
+    "searchKeys": [
+      "retrieveInt",
+      "fun retrieveInt(key: String, defValue: Int? = null): Int?",
+      "com.tecknobit.kmprefs.KMPrefs.retrieveInt"
+    ]
+  },
+  {
+    "name": "fun retrieveIntArray(key: String, defValue: IntArray? = null): IntArray?",
+    "description": "com.tecknobit.kmprefs.KMPrefs.retrieveIntArray",
+    "location": "-k-m-prefs/com.tecknobit.kmprefs/-k-m-prefs/retrieve-int-array.html",
+    "searchKeys": [
+      "retrieveIntArray",
+      "fun retrieveIntArray(key: String, defValue: IntArray? = null): IntArray?",
+      "com.tecknobit.kmprefs.KMPrefs.retrieveIntArray"
+    ]
+  },
+  {
+    "name": "fun retrieveLong(key: String, defValue: Long? = null): Long?",
+    "description": "com.tecknobit.kmprefs.KMPrefs.retrieveLong",
+    "location": "-k-m-prefs/com.tecknobit.kmprefs/-k-m-prefs/retrieve-long.html",
+    "searchKeys": [
+      "retrieveLong",
+      "fun retrieveLong(key: String, defValue: Long? = null): Long?",
+      "com.tecknobit.kmprefs.KMPrefs.retrieveLong"
+    ]
+  },
+  {
+    "name": "fun retrieveLongArray(key: String, defValue: LongArray? = null): LongArray?",
+    "description": "com.tecknobit.kmprefs.KMPrefs.retrieveLongArray",
+    "location": "-k-m-prefs/com.tecknobit.kmprefs/-k-m-prefs/retrieve-long-array.html",
+    "searchKeys": [
+      "retrieveLongArray",
+      "fun retrieveLongArray(key: String, defValue: LongArray? = null): LongArray?",
+      "com.tecknobit.kmprefs.KMPrefs.retrieveLongArray"
+    ]
+  },
+  {
+    "name": "fun retrieveShort(key: String, defValue: Short? = null): Short?",
+    "description": "com.tecknobit.kmprefs.KMPrefs.retrieveShort",
+    "location": "-k-m-prefs/com.tecknobit.kmprefs/-k-m-prefs/retrieve-short.html",
+    "searchKeys": [
+      "retrieveShort",
+      "fun retrieveShort(key: String, defValue: Short? = null): Short?",
+      "com.tecknobit.kmprefs.KMPrefs.retrieveShort"
+    ]
+  },
+  {
+    "name": "fun retrieveShortArray(key: String, defValue: ShortArray? = null): ShortArray?",
+    "description": "com.tecknobit.kmprefs.KMPrefs.retrieveShortArray",
+    "location": "-k-m-prefs/com.tecknobit.kmprefs/-k-m-prefs/retrieve-short-array.html",
+    "searchKeys": [
+      "retrieveShortArray",
+      "fun retrieveShortArray(key: String, defValue: ShortArray? = null): ShortArray?",
+      "com.tecknobit.kmprefs.KMPrefs.retrieveShortArray"
+    ]
+  },
+  {
+    "name": "fun retrieveString(key: String, defValue: String? = null): String?",
+    "description": "com.tecknobit.kmprefs.KMPrefs.retrieveString",
+    "location": "-k-m-prefs/com.tecknobit.kmprefs/-k-m-prefs/retrieve-string.html",
+    "searchKeys": [
+      "retrieveString",
+      "fun retrieveString(key: String, defValue: String? = null): String?",
+      "com.tecknobit.kmprefs.KMPrefs.retrieveString"
+    ]
+  },
+  {
+    "name": "fun retrieveUnsignedByte(key: String, defValue: UByte? = null): UByte?",
+    "description": "com.tecknobit.kmprefs.KMPrefs.retrieveUnsignedByte",
+    "location": "-k-m-prefs/com.tecknobit.kmprefs/-k-m-prefs/retrieve-unsigned-byte.html",
+    "searchKeys": [
+      "retrieveUnsignedByte",
+      "fun retrieveUnsignedByte(key: String, defValue: UByte? = null): UByte?",
+      "com.tecknobit.kmprefs.KMPrefs.retrieveUnsignedByte"
+    ]
+  },
+  {
+    "name": "fun retrieveUnsignedByteArray(key: String, defValue: UByteArray? = null): UByteArray?",
+    "description": "com.tecknobit.kmprefs.KMPrefs.retrieveUnsignedByteArray",
+    "location": "-k-m-prefs/com.tecknobit.kmprefs/-k-m-prefs/retrieve-unsigned-byte-array.html",
+    "searchKeys": [
+      "retrieveUnsignedByteArray",
+      "fun retrieveUnsignedByteArray(key: String, defValue: UByteArray? = null): UByteArray?",
+      "com.tecknobit.kmprefs.KMPrefs.retrieveUnsignedByteArray"
+    ]
+  },
+  {
+    "name": "fun retrieveUnsignedInt(key: String, defValue: UInt? = null): UInt?",
+    "description": "com.tecknobit.kmprefs.KMPrefs.retrieveUnsignedInt",
+    "location": "-k-m-prefs/com.tecknobit.kmprefs/-k-m-prefs/retrieve-unsigned-int.html",
+    "searchKeys": [
+      "retrieveUnsignedInt",
+      "fun retrieveUnsignedInt(key: String, defValue: UInt? = null): UInt?",
+      "com.tecknobit.kmprefs.KMPrefs.retrieveUnsignedInt"
+    ]
+  },
+  {
+    "name": "fun retrieveUnsignedIntArray(key: String, defValue: UIntArray? = null): UIntArray?",
+    "description": "com.tecknobit.kmprefs.KMPrefs.retrieveUnsignedIntArray",
+    "location": "-k-m-prefs/com.tecknobit.kmprefs/-k-m-prefs/retrieve-unsigned-int-array.html",
+    "searchKeys": [
+      "retrieveUnsignedIntArray",
+      "fun retrieveUnsignedIntArray(key: String, defValue: UIntArray? = null): UIntArray?",
+      "com.tecknobit.kmprefs.KMPrefs.retrieveUnsignedIntArray"
+    ]
+  },
+  {
+    "name": "fun retrieveUnsignedLong(key: String, defValue: ULong? = null): ULong?",
+    "description": "com.tecknobit.kmprefs.KMPrefs.retrieveUnsignedLong",
+    "location": "-k-m-prefs/com.tecknobit.kmprefs/-k-m-prefs/retrieve-unsigned-long.html",
+    "searchKeys": [
+      "retrieveUnsignedLong",
+      "fun retrieveUnsignedLong(key: String, defValue: ULong? = null): ULong?",
+      "com.tecknobit.kmprefs.KMPrefs.retrieveUnsignedLong"
+    ]
+  },
+  {
+    "name": "fun retrieveUnsignedLongArray(key: String, defValue: ULongArray? = null): ULongArray?",
+    "description": "com.tecknobit.kmprefs.KMPrefs.retrieveUnsignedLongArray",
+    "location": "-k-m-prefs/com.tecknobit.kmprefs/-k-m-prefs/retrieve-unsigned-long-array.html",
+    "searchKeys": [
+      "retrieveUnsignedLongArray",
+      "fun retrieveUnsignedLongArray(key: String, defValue: ULongArray? = null): ULongArray?",
+      "com.tecknobit.kmprefs.KMPrefs.retrieveUnsignedLongArray"
+    ]
+  },
+  {
+    "name": "fun retrieveUnsignedShort(key: String, defValue: UShort = UShort.MIN_VALUE): UShort?",
+    "description": "com.tecknobit.kmprefs.KMPrefs.retrieveUnsignedShort",
+    "location": "-k-m-prefs/com.tecknobit.kmprefs/-k-m-prefs/retrieve-unsigned-short.html",
+    "searchKeys": [
+      "retrieveUnsignedShort",
+      "fun retrieveUnsignedShort(key: String, defValue: UShort = UShort.MIN_VALUE): UShort?",
+      "com.tecknobit.kmprefs.KMPrefs.retrieveUnsignedShort"
+    ]
+  },
+  {
+    "name": "fun retrieveUnsignedShortArray(key: String, defValue: UShortArray? = null): UShortArray?",
+    "description": "com.tecknobit.kmprefs.KMPrefs.retrieveUnsignedShortArray",
+    "location": "-k-m-prefs/com.tecknobit.kmprefs/-k-m-prefs/retrieve-unsigned-short-array.html",
+    "searchKeys": [
+      "retrieveUnsignedShortArray",
+      "fun retrieveUnsignedShortArray(key: String, defValue: UShortArray? = null): UShortArray?",
+      "com.tecknobit.kmprefs.KMPrefs.retrieveUnsignedShortArray"
+    ]
+  },
+  {
+    "name": "fun storeBoolean(key: String, value: Boolean?)",
+    "description": "com.tecknobit.kmprefs.KMPrefs.storeBoolean",
+    "location": "-k-m-prefs/com.tecknobit.kmprefs/-k-m-prefs/store-boolean.html",
+    "searchKeys": [
+      "storeBoolean",
+      "fun storeBoolean(key: String, value: Boolean?)",
+      "com.tecknobit.kmprefs.KMPrefs.storeBoolean"
+    ]
+  },
+  {
+    "name": "fun storeBooleanArray(key: String, value: BooleanArray?)",
+    "description": "com.tecknobit.kmprefs.KMPrefs.storeBooleanArray",
+    "location": "-k-m-prefs/com.tecknobit.kmprefs/-k-m-prefs/store-boolean-array.html",
+    "searchKeys": [
+      "storeBooleanArray",
+      "fun storeBooleanArray(key: String, value: BooleanArray?)",
+      "com.tecknobit.kmprefs.KMPrefs.storeBooleanArray"
+    ]
+  },
+  {
+    "name": "fun storeByte(key: String, value: Byte?)",
+    "description": "com.tecknobit.kmprefs.KMPrefs.storeByte",
+    "location": "-k-m-prefs/com.tecknobit.kmprefs/-k-m-prefs/store-byte.html",
+    "searchKeys": [
+      "storeByte",
+      "fun storeByte(key: String, value: Byte?)",
+      "com.tecknobit.kmprefs.KMPrefs.storeByte"
+    ]
+  },
+  {
+    "name": "fun storeByteArray(key: String, value: ByteArray?)",
+    "description": "com.tecknobit.kmprefs.KMPrefs.storeByteArray",
+    "location": "-k-m-prefs/com.tecknobit.kmprefs/-k-m-prefs/store-byte-array.html",
+    "searchKeys": [
+      "storeByteArray",
+      "fun storeByteArray(key: String, value: ByteArray?)",
+      "com.tecknobit.kmprefs.KMPrefs.storeByteArray"
+    ]
+  },
+  {
+    "name": "fun storeDouble(key: String, value: Double?)",
+    "description": "com.tecknobit.kmprefs.KMPrefs.storeDouble",
+    "location": "-k-m-prefs/com.tecknobit.kmprefs/-k-m-prefs/store-double.html",
+    "searchKeys": [
+      "storeDouble",
+      "fun storeDouble(key: String, value: Double?)",
+      "com.tecknobit.kmprefs.KMPrefs.storeDouble"
+    ]
+  },
+  {
+    "name": "fun storeDoubleArray(key: String, value: DoubleArray?)",
+    "description": "com.tecknobit.kmprefs.KMPrefs.storeDoubleArray",
+    "location": "-k-m-prefs/com.tecknobit.kmprefs/-k-m-prefs/store-double-array.html",
+    "searchKeys": [
+      "storeDoubleArray",
+      "fun storeDoubleArray(key: String, value: DoubleArray?)",
+      "com.tecknobit.kmprefs.KMPrefs.storeDoubleArray"
+    ]
+  },
+  {
+    "name": "fun storeFloat(key: String, value: Float?)",
+    "description": "com.tecknobit.kmprefs.KMPrefs.storeFloat",
+    "location": "-k-m-prefs/com.tecknobit.kmprefs/-k-m-prefs/store-float.html",
+    "searchKeys": [
+      "storeFloat",
+      "fun storeFloat(key: String, value: Float?)",
+      "com.tecknobit.kmprefs.KMPrefs.storeFloat"
+    ]
+  },
+  {
+    "name": "fun storeFloatArray(key: String, value: FloatArray?)",
+    "description": "com.tecknobit.kmprefs.KMPrefs.storeFloatArray",
+    "location": "-k-m-prefs/com.tecknobit.kmprefs/-k-m-prefs/store-float-array.html",
+    "searchKeys": [
+      "storeFloatArray",
+      "fun storeFloatArray(key: String, value: FloatArray?)",
+      "com.tecknobit.kmprefs.KMPrefs.storeFloatArray"
+    ]
+  },
+  {
+    "name": "fun storeInt(key: String, value: Int?)",
+    "description": "com.tecknobit.kmprefs.KMPrefs.storeInt",
+    "location": "-k-m-prefs/com.tecknobit.kmprefs/-k-m-prefs/store-int.html",
+    "searchKeys": [
+      "storeInt",
+      "fun storeInt(key: String, value: Int?)",
+      "com.tecknobit.kmprefs.KMPrefs.storeInt"
+    ]
+  },
+  {
+    "name": "fun storeIntArray(key: String, value: IntArray?)",
+    "description": "com.tecknobit.kmprefs.KMPrefs.storeIntArray",
+    "location": "-k-m-prefs/com.tecknobit.kmprefs/-k-m-prefs/store-int-array.html",
+    "searchKeys": [
+      "storeIntArray",
+      "fun storeIntArray(key: String, value: IntArray?)",
+      "com.tecknobit.kmprefs.KMPrefs.storeIntArray"
+    ]
+  },
+  {
+    "name": "fun storeLong(key: String, value: Long?)",
+    "description": "com.tecknobit.kmprefs.KMPrefs.storeLong",
+    "location": "-k-m-prefs/com.tecknobit.kmprefs/-k-m-prefs/store-long.html",
+    "searchKeys": [
+      "storeLong",
+      "fun storeLong(key: String, value: Long?)",
+      "com.tecknobit.kmprefs.KMPrefs.storeLong"
+    ]
+  },
+  {
+    "name": "fun storeLongArray(key: String, value: LongArray?)",
+    "description": "com.tecknobit.kmprefs.KMPrefs.storeLongArray",
+    "location": "-k-m-prefs/com.tecknobit.kmprefs/-k-m-prefs/store-long-array.html",
+    "searchKeys": [
+      "storeLongArray",
+      "fun storeLongArray(key: String, value: LongArray?)",
+      "com.tecknobit.kmprefs.KMPrefs.storeLongArray"
+    ]
+  },
+  {
+    "name": "fun storeShort(key: String, value: Short?)",
+    "description": "com.tecknobit.kmprefs.KMPrefs.storeShort",
+    "location": "-k-m-prefs/com.tecknobit.kmprefs/-k-m-prefs/store-short.html",
+    "searchKeys": [
+      "storeShort",
+      "fun storeShort(key: String, value: Short?)",
+      "com.tecknobit.kmprefs.KMPrefs.storeShort"
+    ]
+  },
+  {
+    "name": "fun storeShortArray(key: String, value: ShortArray?)",
+    "description": "com.tecknobit.kmprefs.KMPrefs.storeShortArray",
+    "location": "-k-m-prefs/com.tecknobit.kmprefs/-k-m-prefs/store-short-array.html",
+    "searchKeys": [
+      "storeShortArray",
+      "fun storeShortArray(key: String, value: ShortArray?)",
+      "com.tecknobit.kmprefs.KMPrefs.storeShortArray"
+    ]
+  },
+  {
+    "name": "fun storeString(key: String, value: String?)",
+    "description": "com.tecknobit.kmprefs.KMPrefs.storeString",
+    "location": "-k-m-prefs/com.tecknobit.kmprefs/-k-m-prefs/store-string.html",
+    "searchKeys": [
+      "storeString",
+      "fun storeString(key: String, value: String?)",
+      "com.tecknobit.kmprefs.KMPrefs.storeString"
+    ]
+  },
+  {
+    "name": "fun storeUnsignedByte(key: String, value: UByte?)",
+    "description": "com.tecknobit.kmprefs.KMPrefs.storeUnsignedByte",
+    "location": "-k-m-prefs/com.tecknobit.kmprefs/-k-m-prefs/store-unsigned-byte.html",
+    "searchKeys": [
+      "storeUnsignedByte",
+      "fun storeUnsignedByte(key: String, value: UByte?)",
+      "com.tecknobit.kmprefs.KMPrefs.storeUnsignedByte"
+    ]
+  },
+  {
+    "name": "fun storeUnsignedByteArray(key: String, value: UByteArray?)",
+    "description": "com.tecknobit.kmprefs.KMPrefs.storeUnsignedByteArray",
+    "location": "-k-m-prefs/com.tecknobit.kmprefs/-k-m-prefs/store-unsigned-byte-array.html",
+    "searchKeys": [
+      "storeUnsignedByteArray",
+      "fun storeUnsignedByteArray(key: String, value: UByteArray?)",
+      "com.tecknobit.kmprefs.KMPrefs.storeUnsignedByteArray"
+    ]
+  },
+  {
+    "name": "fun storeUnsignedInt(key: String, value: UInt?)",
+    "description": "com.tecknobit.kmprefs.KMPrefs.storeUnsignedInt",
+    "location": "-k-m-prefs/com.tecknobit.kmprefs/-k-m-prefs/store-unsigned-int.html",
+    "searchKeys": [
+      "storeUnsignedInt",
+      "fun storeUnsignedInt(key: String, value: UInt?)",
+      "com.tecknobit.kmprefs.KMPrefs.storeUnsignedInt"
+    ]
+  },
+  {
+    "name": "fun storeUnsignedIntArray(key: String, value: UIntArray?)",
+    "description": "com.tecknobit.kmprefs.KMPrefs.storeUnsignedIntArray",
+    "location": "-k-m-prefs/com.tecknobit.kmprefs/-k-m-prefs/store-unsigned-int-array.html",
+    "searchKeys": [
+      "storeUnsignedIntArray",
+      "fun storeUnsignedIntArray(key: String, value: UIntArray?)",
+      "com.tecknobit.kmprefs.KMPrefs.storeUnsignedIntArray"
+    ]
+  },
+  {
+    "name": "fun storeUnsignedLong(key: String, value: ULong?)",
+    "description": "com.tecknobit.kmprefs.KMPrefs.storeUnsignedLong",
+    "location": "-k-m-prefs/com.tecknobit.kmprefs/-k-m-prefs/store-unsigned-long.html",
+    "searchKeys": [
+      "storeUnsignedLong",
+      "fun storeUnsignedLong(key: String, value: ULong?)",
+      "com.tecknobit.kmprefs.KMPrefs.storeUnsignedLong"
+    ]
+  },
+  {
+    "name": "fun storeUnsignedLongArray(key: String, value: ULongArray?)",
+    "description": "com.tecknobit.kmprefs.KMPrefs.storeUnsignedLongArray",
+    "location": "-k-m-prefs/com.tecknobit.kmprefs/-k-m-prefs/store-unsigned-long-array.html",
+    "searchKeys": [
+      "storeUnsignedLongArray",
+      "fun storeUnsignedLongArray(key: String, value: ULongArray?)",
+      "com.tecknobit.kmprefs.KMPrefs.storeUnsignedLongArray"
+    ]
+  },
+  {
+    "name": "fun storeUnsignedShort(key: String, value: UShort?)",
+    "description": "com.tecknobit.kmprefs.KMPrefs.storeUnsignedShort",
+    "location": "-k-m-prefs/com.tecknobit.kmprefs/-k-m-prefs/store-unsigned-short.html",
+    "searchKeys": [
+      "storeUnsignedShort",
+      "fun storeUnsignedShort(key: String, value: UShort?)",
+      "com.tecknobit.kmprefs.KMPrefs.storeUnsignedShort"
+    ]
+  },
+  {
+    "name": "fun storeUnsignedShortArray(key: String, value: UShortArray?)",
+    "description": "com.tecknobit.kmprefs.KMPrefs.storeUnsignedShortArray",
+    "location": "-k-m-prefs/com.tecknobit.kmprefs/-k-m-prefs/store-unsigned-short-array.html",
+    "searchKeys": [
+      "storeUnsignedShortArray",
+      "fun storeUnsignedShortArray(key: String, value: UShortArray?)",
+      "com.tecknobit.kmprefs.KMPrefs.storeUnsignedShortArray"
+    ]
+  },
+  {
+    "name": "inline fun <T> customObjectMatchesTo(key: String, deserializer: KSerializer<T> = serializer(), matcher: T?): Boolean",
+    "description": "com.tecknobit.kmprefs.KMPrefs.customObjectMatchesTo",
+    "location": "-k-m-prefs/com.tecknobit.kmprefs/-k-m-prefs/custom-object-matches-to.html",
+    "searchKeys": [
+      "customObjectMatchesTo",
+      "inline fun <T> customObjectMatchesTo(key: String, deserializer: KSerializer<T> = serializer(), matcher: T?): Boolean",
+      "com.tecknobit.kmprefs.KMPrefs.customObjectMatchesTo"
+    ]
+  },
+  {
+    "name": "inline fun <T> retrieveCustomObject(key: String, deserializer: KSerializer<T> = serializer(), defValue: T? = null): T?",
+    "description": "com.tecknobit.kmprefs.KMPrefs.retrieveCustomObject",
+    "location": "-k-m-prefs/com.tecknobit.kmprefs/-k-m-prefs/retrieve-custom-object.html",
+    "searchKeys": [
+      "retrieveCustomObject",
+      "inline fun <T> retrieveCustomObject(key: String, deserializer: KSerializer<T> = serializer(), defValue: T? = null): T?",
+      "com.tecknobit.kmprefs.KMPrefs.retrieveCustomObject"
+    ]
+  },
+  {
+    "name": "inline fun <T> storeCustomObject(key: String, serializer: KSerializer<T> = serializer(), value: T?)",
+    "description": "com.tecknobit.kmprefs.KMPrefs.storeCustomObject",
+    "location": "-k-m-prefs/com.tecknobit.kmprefs/-k-m-prefs/store-custom-object.html",
+    "searchKeys": [
+      "storeCustomObject",
+      "inline fun <T> storeCustomObject(key: String, serializer: KSerializer<T> = serializer(), value: T?)",
+      "com.tecknobit.kmprefs.KMPrefs.storeCustomObject"
+    ]
+  },
+  {
+    "name": "internal expect class PrefsWorker(path: String)",
+    "description": "com.tecknobit.kmprefs.PrefsWorker",
+    "location": "-k-m-prefs/com.tecknobit.kmprefs/-prefs-worker/index.html",
+    "searchKeys": [
+      "PrefsWorker",
+      "internal expect class PrefsWorker(path: String)",
+      "com.tecknobit.kmprefs.PrefsWorker"
+    ]
+  },
+  {
+    "name": "private inline fun <T> deserializeData(key: String, defValue: T?): T?",
+    "description": "com.tecknobit.kmprefs.KMPrefs.deserializeData",
+    "location": "-k-m-prefs/com.tecknobit.kmprefs/-k-m-prefs/deserialize-data.html",
+    "searchKeys": [
+      "deserializeData",
+      "private inline fun <T> deserializeData(key: String, defValue: T?): T?",
+      "com.tecknobit.kmprefs.KMPrefs.deserializeData"
+    ]
+  },
+  {
+    "name": "private val localStorage: Storage",
+    "description": "com.tecknobit.kmprefs.PrefsWorker.localStorage",
+    "location": "-k-m-prefs/com.tecknobit.kmprefs/-prefs-worker/local-storage.html",
+    "searchKeys": [
+      "localStorage",
+      "private val localStorage: Storage",
+      "com.tecknobit.kmprefs.PrefsWorker.localStorage"
+    ]
+  },
+  {
+    "name": "private val path: String",
+    "description": "com.tecknobit.kmprefs.PrefsWorker.path",
+    "location": "-k-m-prefs/com.tecknobit.kmprefs/-prefs-worker/path.html",
+    "searchKeys": [
+      "path",
+      "private val path: String",
+      "com.tecknobit.kmprefs.PrefsWorker.path"
+    ]
+  },
+  {
+    "name": "private val preferences: Preferences",
+    "description": "com.tecknobit.kmprefs.PrefsWorker.preferences",
+    "location": "-k-m-prefs/com.tecknobit.kmprefs/-prefs-worker/preferences.html",
+    "searchKeys": [
+      "preferences",
+      "private val preferences: Preferences",
+      "com.tecknobit.kmprefs.PrefsWorker.preferences"
+    ]
+  },
+  {
+    "name": "private val prefsWorker: PrefsWorker",
+    "description": "com.tecknobit.kmprefs.KMPrefs.prefsWorker",
+    "location": "-k-m-prefs/com.tecknobit.kmprefs/-k-m-prefs/prefs-worker.html",
+    "searchKeys": [
+      "prefsWorker",
+      "private val prefsWorker: PrefsWorker",
+      "com.tecknobit.kmprefs.KMPrefs.prefsWorker"
+    ]
+  },
+  {
+    "name": "private val sharedPreferences: SharedPreferences",
+    "description": "com.tecknobit.kmprefs.PrefsWorker.sharedPreferences",
+    "location": "-k-m-prefs/com.tecknobit.kmprefs/-prefs-worker/shared-preferences.html",
+    "searchKeys": [
+      "sharedPreferences",
+      "private val sharedPreferences: SharedPreferences",
+      "com.tecknobit.kmprefs.PrefsWorker.sharedPreferences"
+    ]
+  },
+  {
+    "name": "private val userDefaults: NSUserDefaults",
+    "description": "com.tecknobit.kmprefs.PrefsWorker.userDefaults",
+    "location": "-k-m-prefs/com.tecknobit.kmprefs/-prefs-worker/user-defaults.html",
+    "searchKeys": [
+      "userDefaults",
+      "private val userDefaults: NSUserDefaults",
+      "com.tecknobit.kmprefs.PrefsWorker.userDefaults"
+    ]
+  }
+]

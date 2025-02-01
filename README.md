@@ -194,6 +194,7 @@ kmPrefs.valueMatchesTo(
 ```kotlin
 kmPrefs.customObjectMatchesTo(
     key = "your_key",
+    deserializer =,// custom deserializer to use when the matcher value is null 
     matcher = carToStore// the matcher custom object
 )
 ```

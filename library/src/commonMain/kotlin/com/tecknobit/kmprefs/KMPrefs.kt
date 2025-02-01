@@ -980,18 +980,20 @@ class KMPrefs(
      * Method to check whether the custom object with the specified key matches to the [matcher] value
      *
      * @param key The key of the custom object to check
+     * @param deserializer The custom deserializer for the custom object used in the compare
      * @param matcher The custom object to use as matcher on the comparison
      *
      * @return whether the custom objects match as [Boolean]
      *
      */
-    @ExperimentalUnsignedTypes
     inline fun <reified T> customObjectMatchesTo(
         key: String,
+        deserializer: KSerializer<T> = serializer(),
         matcher: T?
     ) : Boolean {
         val value :T? = retrieveCustomObject(
-            key = key
+            key = key,
+            deserializer = deserializer
         )
         return value == matcher
     }
