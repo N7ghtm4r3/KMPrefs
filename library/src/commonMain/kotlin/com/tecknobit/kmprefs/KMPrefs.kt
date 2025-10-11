@@ -1047,6 +1047,30 @@ class KMPrefs(
     }
 
     /**
+     * Method to deserialize raw json data into a [T] object
+     *
+     * @param key Is the key of the object to retrieve
+     * @param defValue Is the value to return if the searched one does not exist
+     *
+     * @return object as [T]
+     */
+    private inline fun <reified T> deserializeData(
+        key: String,
+        defValue: T?
+    ) : T? {
+        val array = prefsWorker.retrieve(
+            key = key,
+            defValue = if(defValue != null)
+                Json.encodeToString(defValue)
+            else
+                null
+        )
+        if(array == null)
+            return null
+        return Json.decodeFromString<T>(array)
+    }
+
+    /**
      * Method to check whether the custom object with the specified key matches to the [matcher] value
      *
      * @param key The key of the custom object to check
@@ -1073,30 +1097,6 @@ class KMPrefs(
      */
     fun clearAll() {
         prefsWorker.clearAll()
-    }
-
-    /**
-     * Method to deserialize raw json data into a [T] object
-     *
-     * @param key Is the key of the object to retrieve
-     * @param defValue Is the value to return if the searched one does not exist
-     *
-     * @return object as [T]
-     */
-    private inline fun <reified T> deserializeData(
-        key: String,
-        defValue: T?
-    ) : T? {
-        val array = prefsWorker.retrieve(
-            key = key,
-            defValue = if(defValue != null)
-                Json.encodeToString(defValue)
-            else
-                null
-        )
-        if(array == null)
-            return null
-        return Json.decodeFromString<T>(array)
     }
 
 }
