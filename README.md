@@ -14,11 +14,27 @@ It leverages the native mechanisms provided by each platform.
 
 ## Implementation
 
-### Version catalog
+### Gradle short
 
-- `libs.version.toml`
+```groovy
+dependencies {
+    implementation 'io.github.n7ghtm4r3:kmprefs:1.1.0'
+}
+```
 
-```gradle
+### Gradle (Kotlin)
+
+```kotlin
+dependencies {
+    implementation("io.github.n7ghtm4r3:kmprefs:1.1.0")
+}
+```
+
+### Gradle (version catalog)
+
+#### libs.versions.toml
+
+```toml
 [versions]
 kmprefs = "1.1.0"
 
@@ -26,27 +42,11 @@ kmprefs = "1.1.0"
 kmprefs = { module = "io.github.n7ghtm4r3:kmprefs", version.ref = "kmprefs" }
 ```
 
-- `build.gradle.kts`
+#### build.gradle.kts
 
-```gradle
+```kotlin
 dependencies {
     implementation(libs.kmprefs)
-}
-```
-
-### Gradle (Kotlin)
-
-```gradle
-dependencies {
-    implementation("io.github.n7ghtm4r3:kmprefs:1.1.0")
-}
-```
-
-### Gradle (Groovy)
-
-```gradle
-dependencies {
-    implementation 'io.github.n7ghtm4r3:kmprefs:1.1.0'
 }
 ```
 
@@ -80,7 +80,6 @@ dependencies {
 | `ULongArray`   | Array of `ULong`             |
 | `String`       | String of characters         |
 | `Serializable` | Custom serializable objects  |
-
 
 ### Store values
 

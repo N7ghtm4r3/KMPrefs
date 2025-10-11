@@ -1,7 +1,10 @@
 package com.tecknobit.kmprefs
 
-import kotlinx.serialization.*
+import kotlinx.serialization.ExperimentalSerializationApi
+import kotlinx.serialization.KSerializer
+import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.serializer
 
 /**
  * The **KMPrefs** class helps to manage the preferences storing the data locally
@@ -761,6 +764,29 @@ class KMPrefs(
             defValue = defValue
         )
     }
+
+    // TODO: TO DOCU
+    fun <E: Enum<E>> storeEnum(
+        key: String,
+        value: E?
+    ) {
+        prefsWorker.store(
+            key = key,
+            value = value
+        )
+    }
+
+    // TODO: TO DOCU
+    fun <E: Enum<E>> retrieveEnum(
+        key: String,
+        defValue: E? = null
+    ): String? {
+        return prefsWorker.retrieve(
+            key = key,
+            defValue = defValue
+        )
+    }
+
 
     /**
      * Method to store locally a [String] value
