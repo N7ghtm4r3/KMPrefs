@@ -9,7 +9,7 @@ package com.tecknobit.kmprefs
  * @author N7ghtm4r3 - Tecknobit
  */
 @Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
-internal expect class PrefsWorker(
+expect class PrefsWorker(
     path: String
 ) {
 

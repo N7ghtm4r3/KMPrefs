@@ -80,6 +80,7 @@ dependencies {
 | `ULongArray`   | Array of `ULong`             |
 | `String`       | String of characters         |
 | `Serializable` | Custom serializable objects  |
+| `Enum`         | Entry of any `Enum`          |
 
 ### Store values
 

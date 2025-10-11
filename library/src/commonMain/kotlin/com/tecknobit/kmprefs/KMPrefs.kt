@@ -5,6 +5,7 @@ import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.serializer
+import kotlin.enums.enumEntries
 
 /**
  * The **KMPrefs** class helps to manage the preferences storing the data locally
@@ -14,7 +15,7 @@ import kotlinx.serialization.serializer
  * @author N7ghtm4r3 - Tecknobit
  */
 class KMPrefs(
-    path: String
+    val path: String
 ) {
 
     /**
@@ -765,29 +766,6 @@ class KMPrefs(
         )
     }
 
-    // TODO: TO DOCU
-    fun <E: Enum<E>> storeEnum(
-        key: String,
-        value: E?
-    ) {
-        prefsWorker.store(
-            key = key,
-            value = value
-        )
-    }
-
-    // TODO: TO DOCU
-    fun <E: Enum<E>> retrieveEnum(
-        key: String,
-        defValue: E? = null
-    ): String? {
-        return prefsWorker.retrieve(
-            key = key,
-            defValue = defValue
-        )
-    }
-
-
     /**
      * Method to store locally a [String] value
      *
@@ -869,6 +847,72 @@ class KMPrefs(
                 key = key
             )!!
         )
+    }
+
+    /**
+     * Method to store locally an [Enum] value
+     *
+     * @param key Is the key of the enum
+     * @param value Is the value to store
+     *
+     * @param E The type of the enum to store
+     */
+    fun <E: Enum<E>> storeEnum(
+        key: String,
+        value: E
+    ) {
+        prefsWorker.store(
+            key = key,
+            value = value
+        )
+    }
+
+    /**
+     * Method to retrieve locally an [Enum] value
+     *
+     * @param key Is the key of the enum to retrieve
+     * @param defValue Is the value to return if the searched one does not exist, if not specified will be returned the
+     * first entry of the [Enum]
+     *
+     * @return retrieved value as [E]
+     *
+     * @param E The type of the enum to retrieve
+     */
+    inline fun <reified E : Enum<E>> retrieveEnum(
+        key: String,
+        defValue: E = enumEntries<E>().first()
+    ): E {
+        return retrieveGeneric {
+            val enumEntryName = retrieve(
+                key = key,
+                defValue = defValue
+            )
+            if(enumEntryName == null)
+                defValue
+            else {
+                enumValueOf<E>(
+                    name = enumEntryName
+                )
+            }
+        }
+    }
+
+    /**
+     * Method used to retrieve a generic value from local storage
+     *
+     * @param retrieval The retrieval routine to execute
+     *
+     * @param T The type of the value to retrieve
+     *
+     * @return the retrieved value as [T]
+     */
+    inline fun <reified T> retrieveGeneric(
+        crossinline retrieval: PrefsWorker.() -> T
+    ): T {
+        val prefsWorker = PrefsWorker(
+            path = path
+        )
+        return retrieval(prefsWorker)
     }
 
     /**

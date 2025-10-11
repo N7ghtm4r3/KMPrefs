@@ -11,7 +11,7 @@ import platform.Foundation.NSUserDefaults
  * @author N7ghtm4r3 - Tecknobit
  */
 @Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
-internal actual class PrefsWorker actual constructor(
+actual class PrefsWorker actual constructor(
     private val path: String
 ) {
 
