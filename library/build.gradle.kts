@@ -1,7 +1,6 @@
 
 import com.vanniktech.maven.publish.JavadocJar
 import com.vanniktech.maven.publish.KotlinMultiplatform
-import com.vanniktech.maven.publish.SonatypeHost
 import org.jetbrains.dokka.DokkaConfiguration.Visibility.*
 import org.jetbrains.dokka.base.DokkaBase
 import org.jetbrains.dokka.base.DokkaBaseConfiguration
@@ -15,8 +14,8 @@ plugins {
     alias(libs.plugins.dokka)
 }
 
-group = "com.tecknobit"
-version = "1.0.1"
+group = "com.tecknobit.kmprefs"
+version = "1.1.0"
 
 kotlin {
     jvm {
@@ -46,10 +45,6 @@ kotlin {
     wasmJs {
         binaries.executable()
         browser {
-            webpackTask {
-                dependencies {
-                }
-            }
         }
     }
     sourceSets {
@@ -95,7 +90,7 @@ mavenPublishing {
     coordinates(
         groupId = "io.github.n7ghtm4r3",
         artifactId = "KMPrefs",
-        version = "1.0.1"
+        version = "1.1.0"
     )
     pom {
         name.set("KMPrefs")
@@ -121,7 +116,7 @@ mavenPublishing {
             url.set("https://github.com/N7ghtm4r3/KMPrefs")
         }
     }
-    publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
+    publishToMavenCentral()
     signAllPublications()
 }
 

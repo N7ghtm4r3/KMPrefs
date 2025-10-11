@@ -4,7 +4,7 @@ import android.content.Context
 import com.tecknobit.equinoxcore.utilities.AppContext
 
 /**
- * The **PrefsWorker** class helps to manage the preferences storing the data locally using the [android.content.SharedPreferences]
+ * The `PrefsWorker` class helps to manage the preferences storing the data locally using the [android.content.SharedPreferences]
  * built-in mechanism
  *
  * @param path Is the path where store the data
@@ -17,7 +17,7 @@ internal actual class PrefsWorker actual constructor(
 ) {
 
     /**
-     * **sharedPreferences** -> the instance used to manage locally the preferences on `Android`
+     * `sharedPreferences` -> the instance used to manage locally the preferences on `Android`
      */
     private val sharedPreferences = AppContext.get().getSharedPreferences(
         path,

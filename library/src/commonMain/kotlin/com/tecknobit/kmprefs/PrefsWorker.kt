@@ -1,7 +1,7 @@
 package com.tecknobit.kmprefs
 
 /**
- * The **PrefsWorker** class helps to manage the preferences storing the data locally using the built-in mechanism for
+ * The `PrefsWorker` class helps to manage the preferences storing the data locally using the built-in mechanism for
  * each platform
  *
  * @param path Is the path where store the data

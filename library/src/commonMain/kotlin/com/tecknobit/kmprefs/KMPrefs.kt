@@ -15,7 +15,7 @@ class KMPrefs(
 ) {
 
     /**
-     * **prefsWorker** -> the implementation of each platform of their preferences management
+     * `prefsWorker` -> the implementation of each platform of their preferences management
      */
     private val prefsWorker = PrefsWorker(
         path = path

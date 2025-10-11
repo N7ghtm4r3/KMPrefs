@@ -3,7 +3,7 @@ package com.tecknobit.kmprefs
 import java.util.prefs.Preferences
 
 /**
- * The **PrefsWorker** class helps to manage the preferences storing the data locally using the [Preferences] built-in
+ * The `PrefsWorker` class helps to manage the preferences storing the data locally using the [Preferences] built-in
  * mechanism
  *
  * @param path Is the path where store the data
@@ -16,7 +16,7 @@ internal actual class PrefsWorker actual constructor(
 ) {
 
     /**
-     * **preferences** -> the instance used to manage locally the preferences on `JVM`
+     * `preferences` -> the instance used to manage locally the preferences on `JVM`
      */
     private val preferences = Preferences.userRoot().node(path)
 

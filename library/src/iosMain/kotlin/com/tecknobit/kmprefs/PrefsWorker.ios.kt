@@ -3,7 +3,7 @@ package com.tecknobit.kmprefs
 import platform.Foundation.NSUserDefaults
 
 /**
- * The **PrefsWorker** class helps to manage the preferences storing the data locally using the [NSUserDefaults]
+ * The `PrefsWorker` class helps to manage the preferences storing the data locally using the [NSUserDefaults]
  * built-in mechanism
  *
  * @param path Is the path where store the data
@@ -16,7 +16,7 @@ internal actual class PrefsWorker actual constructor(
 ) {
 
     /**
-     * **userDefaults** -> the instance used to manage locally the preferences on `iOs`
+     * `userDefaults` -> the instance used to manage locally the preferences on `iOs`
      */
     private val userDefaults = NSUserDefaults(
         suiteName = path

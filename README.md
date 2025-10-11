@@ -7,7 +7,7 @@
 ![Static Badge](https://img.shields.io/badge/desktop-006874?link=https%3A%2F%2Fimg.shields.io%2Fbadge%2Fandroid-4280511051)
 ![Static Badge](https://img.shields.io/badge/wasmjs-834C74?link=https%3A%2F%2Fimg.shields.io%2Fbadge%2Fandroid-4280511051)
 
-**v1.0.1**
+**v1.1.0**
 
 The Kotlin Multiplatform Pref(erence)s system allows you to store, retrieve, and remove data locally on each platform.
 It leverages the native mechanisms provided by each platform.
@@ -20,7 +20,7 @@ It leverages the native mechanisms provided by each platform.
 
 ```gradle
 [versions]
-kmprefs = "1.0.1"
+kmprefs = "1.1.0"
 
 [libraries]
 kmprefs = { module = "io.github.n7ghtm4r3:KMPrefs", version.ref = "kmprefs" }
@@ -38,7 +38,7 @@ dependencies {
 
 ```gradle
 dependencies {
-    implementation("io.github.n7ghtm4r3:KMPrefs:1.0.1")
+    implementation("io.github.n7ghtm4r3:KMPrefs:1.1.0")
 }
 ```
 
@@ -46,7 +46,7 @@ dependencies {
 
 ```gradle
 dependencies {
-    implementation 'io.github.n7ghtm4r3:KMPrefs:1.0.1'
+    implementation 'io.github.n7ghtm4r3:KMPrefs:1.1.0'
 }
 ```
 

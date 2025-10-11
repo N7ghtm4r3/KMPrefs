@@ -1,13 +1,13 @@
 [versions]
-agp = "8.5.2"
-equinox = "1.0.7"
-kotlin = "2.1.0"
+agp = "8.12.3"
+equinox = "1.1.6"
+kotlin = "2.2.20"
 android-minSdk = "24"
-android-compileSdk = "34"
-kotlinxSerializationJson = "1.7.3"
+android-compileSdk = "36"
+kotlinxSerializationJson = "1.9.0"
 startupRuntime = "1.2.0"
 dokka = "2.0.0"
-kotlinxBrowser = "0.3"
+kotlinxBrowser = "0.5.0"
 
 [libraries]
 dokka-base = { module = "org.jetbrains.dokka:dokka-base", version.ref = "dokka" }
@@ -19,5 +19,5 @@ kotlinx-browser = { module = "org.jetbrains.kotlinx:kotlinx-browser", version.re
 [plugins]
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
-vanniktech-mavenPublish = { id = "com.vanniktech.maven.publish", version = "0.30.0" }
+vanniktech-mavenPublish = { id = "com.vanniktech.maven.publish", version = "0.34.0" }
 dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }

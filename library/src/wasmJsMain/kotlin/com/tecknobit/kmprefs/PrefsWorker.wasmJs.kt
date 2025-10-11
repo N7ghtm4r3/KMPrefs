@@ -3,7 +3,7 @@ package com.tecknobit.kmprefs
 import kotlinx.browser.window
 
 /**
- * The **PrefsWorker** class helps to manage the preferences storing the data locally using the [kotlinx.browser.localStorage]
+ * The `PrefsWorker` class helps to manage the preferences storing the data locally using the [kotlinx.browser.localStorage]
  * built-in mechanism
  *
  * @param path Is the path where store the data
@@ -16,7 +16,7 @@ internal actual class PrefsWorker actual constructor(
 ) {
 
     /**
-     * **localStorage** -> the instance used to manage locally the preferences on `WEB`
+     * `localStorage` -> the instance used to manage locally the preferences on `WEB`
      */
     private val localStorage = window.localStorage
 
