@@ -26,7 +26,7 @@ class KMPrefs(
     )
 
     /**
-     * Method to store locally a [Boolean] value
+     * Method to locally store a [Boolean] value
      *
      * @param key Is the key of the boolean
      * @param value Is the value to store
@@ -42,7 +42,7 @@ class KMPrefs(
     }
 
     /**
-     * Method to retrieve locally a [Boolean] value
+     * Method to locally retrieve a [Boolean] value
      *
      * @param key Is the key of the boolean to retrieve
      * @param defValue Is the value to return if the searched one does not exist
@@ -60,7 +60,7 @@ class KMPrefs(
     }
 
     /**
-     * Method to store locally a [BooleanArray] value
+     * Method to locally store a [BooleanArray] value
      *
      * @param key Is the key of the boolean array
      * @param value Is the value to store
@@ -76,7 +76,7 @@ class KMPrefs(
     }
 
     /**
-     * Method to retrieve locally a [BooleanArray] value
+     * Method to locally retrieve a [BooleanArray] value
      *
      * @param key Is the key of the boolean array to retrieve
      * @param defValue Is the value to return if the searched one does not exist
@@ -93,7 +93,7 @@ class KMPrefs(
     }
 
     /**
-     * Method to store locally a [Byte] value
+     * Method to locally store a [Byte] value
      *
      * @param key Is the key of the byte
      * @param value Is the value to store
@@ -109,7 +109,7 @@ class KMPrefs(
     }
 
     /**
-     * Method to retrieve locally a [Byte] value
+     * Method to locally retrieve a [Byte] value
      *
      * @param key Is the key of the byte to retrieve
      * @param defValue Is the value to return if the searched one does not exist
@@ -126,7 +126,7 @@ class KMPrefs(
     }
 
     /**
-     * Method to store locally a [ByteArray] value
+     * Method to locally store a [ByteArray] value
      *
      * @param key Is the key of the byte array
      * @param value Is the value to store
@@ -142,7 +142,7 @@ class KMPrefs(
     }
 
     /**
-     * Method to retrieve locally a [ByteArray] value
+     * Method to locally retrieve a [ByteArray] value
      *
      * @param key Is the key of the byte array to retrieve
      * @param defValue Is the value to return if the searched one does not exist
@@ -159,7 +159,7 @@ class KMPrefs(
     }
 
     /**
-     * Method to store locally a [UByte] value
+     * Method to locally store a [UByte] value
      *
      * @param key Is the key of the unsigned byte
      * @param value Is the value to store
@@ -175,7 +175,7 @@ class KMPrefs(
     }
 
     /**
-     * Method to retrieve locally a [UByte] value
+     * Method to locally retrieve a [UByte] value
      *
      * @param key Is the key of the unsigned byte to retrieve
      * @param defValue Is the value to return if the searched one does not exist
@@ -192,7 +192,7 @@ class KMPrefs(
     }
 
     /**
-     * Method to store locally a [UByteArray] value
+     * Method to locally store a [UByteArray] value
      *
      * @param key Is the key of the unsigned byte array
      * @param value Is the value to store
@@ -209,7 +209,7 @@ class KMPrefs(
     }
 
     /**
-     * Method to retrieve locally a [UByteArray] value
+     * Method to locally retrieve a [UByteArray] value
      *
      * @param key Is the key of the unsigned byte array to retrieve
      * @param defValue Is the value to return if the searched one does not exist
@@ -227,7 +227,7 @@ class KMPrefs(
     }
 
     /**
-     * Method to store locally a [Short] value
+     * Method to locally store a [Short] value
      *
      * @param key Is the key of the short
      * @param value Is the value to store
@@ -243,7 +243,7 @@ class KMPrefs(
     }
 
     /**
-     * Method to retrieve locally a [Short] value
+     * Method to locally retrieve a [Short] value
      *
      * @param key Is the key of the short to retrieve
      * @param defValue Is the value to return if the searched one does not exist
@@ -260,7 +260,7 @@ class KMPrefs(
     }
 
     /**
-     * Method to store locally a [ShortArray] value
+     * Method to locally store a [ShortArray] value
      *
      * @param key Is the key of the short array
      * @param value Is the value to store
@@ -276,7 +276,7 @@ class KMPrefs(
     }
 
     /**
-     * Method to retrieve locally a [ShortArray] value
+     * Method to locally retrieve a [ShortArray] value
      *
      * @param key Is the key of the short array to retrieve
      * @param defValue Is the value to return if the searched one does not exist
@@ -293,7 +293,7 @@ class KMPrefs(
     }
 
     /**
-     * Method to store locally a [UShort] value
+     * Method to locally store a [UShort] value
      *
      * @param key Is the key of the unsigned short
      * @param value Is the value to store
@@ -309,7 +309,7 @@ class KMPrefs(
     }
 
     /**
-     * Method to retrieve locally a [UShort] value
+     * Method to locally retrieve a [UShort] value
      *
      * @param key Is the key of the unsigned short to retrieve
      * @param defValue Is the value to return if the searched one does not exist
@@ -326,7 +326,7 @@ class KMPrefs(
     }
 
     /**
-     * Method to store locally a [UShortArray] value
+     * Method to locally store a [UShortArray] value
      *
      * @param key Is the key of the unsigned short array
      * @param value Is the value to store
@@ -343,7 +343,7 @@ class KMPrefs(
     }
 
     /**
-     * Method to retrieve locally a [UShortArray] value
+     * Method to locally retrieve a [UShortArray] value
      *
      * @param key Is the key of the unsigned short array to retrieve
      * @param defValue Is the value to return if the searched one does not exist
@@ -361,7 +361,7 @@ class KMPrefs(
     }
 
     /**
-     * Method to store locally a [Int] value
+     * Method to locally store a [Int] value
      *
      * @param key Is the key of the int
      * @param value Is the value to store
@@ -377,7 +377,7 @@ class KMPrefs(
     }
 
     /**
-     * Method to retrieve locally a [Int] value
+     * Method to locally retrieve a [Int] value
      *
      * If [defValue] is not specified and the searched [key] not exists will be returned [Int.MIN_VALUE] as default
      *
@@ -396,7 +396,7 @@ class KMPrefs(
     }
 
     /**
-     * Method to store locally a [IntArray] value
+     * Method to locally store a [IntArray] value
      *
      * @param key Is the key of the int array
      * @param value Is the value to store
@@ -412,7 +412,7 @@ class KMPrefs(
     }
 
     /**
-     * Method to retrieve locally a [IntArray] value
+     * Method to locally retrieve a [IntArray] value
      *
      * @param key Is the key of the int array to retrieve
      * @param defValue Is the value to return if the searched one does not exist
@@ -429,7 +429,7 @@ class KMPrefs(
     }
 
     /**
-     * Method to store locally a [UInt] value
+     * Method to locally store a [UInt] value
      *
      * @param key Is the key of the unsigned int
      * @param value Is the value to store
@@ -445,7 +445,7 @@ class KMPrefs(
     }
 
     /**
-     * Method to retrieve locally a [UInt] value
+     * Method to locally retrieve a [UInt] value
      *
      * @param key Is the key of the unsigned int to retrieve
      * @param defValue Is the value to return if the searched one does not exist
@@ -462,7 +462,7 @@ class KMPrefs(
     }
 
     /**
-     * Method to store locally a [UIntArray] value
+     * Method to locally store a [UIntArray] value
      *
      * @param key Is the key of the unsigned int array
      * @param value Is the value to store
@@ -479,7 +479,7 @@ class KMPrefs(
     }
 
     /**
-     * Method to retrieve locally a [UIntArray] value
+     * Method to locally retrieve a [UIntArray] value
      *
      * @param key Is the key of the unsigned int array to retrieve
      * @param defValue Is the value to return if the searched one does not exist
@@ -497,7 +497,7 @@ class KMPrefs(
     }
 
     /**
-     * Method to store locally a [Float] value
+     * Method to locally store a [Float] value
      *
      * @param key Is the key of the float
      * @param value Is the value to store
@@ -513,7 +513,7 @@ class KMPrefs(
     }
 
     /**
-     * Method to retrieve locally a [Float] value
+     * Method to locally retrieve a [Float] value
      *
      * @param key Is the key of the float to retrieve
      * @param defValue Is the value to return if the searched one does not exist
@@ -530,7 +530,7 @@ class KMPrefs(
     }
 
     /**
-     * Method to store locally a [FloatArray] value
+     * Method to locally store a [FloatArray] value
      *
      * @param key Is the key of the float array
      * @param value Is the value to store
@@ -546,7 +546,7 @@ class KMPrefs(
     }
 
     /**
-     * Method to retrieve locally a [FloatArray] value
+     * Method to locally retrieve a [FloatArray] value
      *
      * @param key Is the key of the float array to retrieve
      * @param defValue Is the value to return if the searched one does not exist
@@ -563,7 +563,7 @@ class KMPrefs(
     }
 
     /**
-     * Method to store locally a [Double] value
+     * Method to locally store a [Double] value
      *
      * @param key Is the key of the double
      * @param value Is the value to store
@@ -579,7 +579,7 @@ class KMPrefs(
     }
 
     /**
-     * Method to retrieve locally a [Double] value
+     * Method to locally retrieve a [Double] value
      *
      * @param key Is the key of the double to retrieve
      * @param defValue Is the value to return if the searched one does not exist
@@ -596,7 +596,7 @@ class KMPrefs(
     }
 
     /**
-     * Method to store locally a [DoubleArray] value
+     * Method to locally store a [DoubleArray] value
      *
      * @param key Is the key of the double array
      * @param value Is the value to store
@@ -612,7 +612,7 @@ class KMPrefs(
     }
 
     /**
-     * Method to retrieve locally a [DoubleArray] value
+     * Method to locally retrieve a [DoubleArray] value
      *
      * @param key Is the key of the double array to retrieve
      * @param defValue Is the value to return if the searched one does not exist
@@ -629,7 +629,7 @@ class KMPrefs(
     }
 
     /**
-     * Method to store locally a [Long] value
+     * Method to locally store a [Long] value
      *
      * @param key Is the key of the long
      * @param value Is the value to store
@@ -645,7 +645,7 @@ class KMPrefs(
     }
 
     /**
-     * Method to retrieve locally a [Long] value
+     * Method to locally retrieve a [Long] value
      *
      * @param key Is the key of the long to retrieve
      * @param defValue Is the value to return if the searched one does not exist
@@ -663,7 +663,7 @@ class KMPrefs(
     }
 
     /**
-     * Method to store locally a [LongArray] value
+     * Method to locally store a [LongArray] value
      *
      * @param key Is the key of the long array
      * @param value Is the value to store
@@ -679,7 +679,7 @@ class KMPrefs(
     }
 
     /**
-     * Method to retrieve locally a [LongArray] value
+     * Method to locally retrieve a [LongArray] value
      *
      * @param key Is the key of the long array to retrieve
      * @param defValue Is the value to return if the searched one does not exist
@@ -697,7 +697,7 @@ class KMPrefs(
     }
 
     /**
-     * Method to store locally a [ULong] value
+     * Method to locally store a [ULong] value
      *
      * @param key Is the key of the unsigned long
      * @param value Is the value to store
@@ -713,7 +713,7 @@ class KMPrefs(
     }
 
     /**
-     * Method to retrieve locally a [ULong] value
+     * Method to locally retrieve a [ULong] value
      *
      * @param key Is the key of the unsigned long to retrieve
      * @param defValue Is the value to return if the searched one does not exist
@@ -731,7 +731,7 @@ class KMPrefs(
     }
 
     /**
-     * Method to store locally a [ULongArray] value
+     * Method to locally store a [ULongArray] value
      *
      * @param key Is the key of the unsigned long array
      * @param value Is the value to store
@@ -748,7 +748,7 @@ class KMPrefs(
     }
 
     /**
-     * Method to retrieve locally a [ULongArray] value
+     * Method to locally retrieve a [ULongArray] value
      *
      * @param key Is the key of the unsigned long array to retrieve
      * @param defValue Is the value to return if the searched one does not exist
@@ -767,7 +767,7 @@ class KMPrefs(
     }
 
     /**
-     * Method to store locally a [String] value
+     * Method to locally store a [String] value
      *
      * @param key Is the key of the string
      * @param value Is the value to store
@@ -783,7 +783,7 @@ class KMPrefs(
     }
 
     /**
-     * Method to retrieve locally a [String] value
+     * Method to locally retrieve a [String] value
      *
      * @param key Is the key of the string to retrieve
      * @param defValue Is the value to return if the searched one does not exist
@@ -801,7 +801,7 @@ class KMPrefs(
     }
 
     /**
-     * Method to store locally a custom [Serializable] object
+     * Method to locally store a custom [Serializable] object
      *
      * @param key Is the key of the custom object
      * @param serializer The custom serializer for the custom object used to store it locally
@@ -826,7 +826,7 @@ class KMPrefs(
     }
 
     /**
-     * Method to retrieve locally a custom [Serializable] object
+     * Method to locally retrieve a custom [Serializable] object
      *
      * @param key Is the key of the custom object
      * @param deserializer The custom deserializer for the custom object used to retrieve
@@ -850,7 +850,7 @@ class KMPrefs(
     }
 
     /**
-     * Method to store locally an [Enum] value
+     * Method to locally store an [Enum] value
      *
      * @param key Is the key of the enum
      * @param value Is the value to store
@@ -868,7 +868,7 @@ class KMPrefs(
     }
 
     /**
-     * Method to retrieve locally an [Enum] value
+     * Method to locally retrieve an [Enum] value
      *
      * @param key Is the key of the enum to retrieve
      * @param defValue Is the value to return if the searched one does not exist, if not specified will be returned the
@@ -882,7 +882,7 @@ class KMPrefs(
         key: String,
         defValue: E = enumEntries<E>().first()
     ): E {
-        return retrieveGeneric {
+        return reifiedUse {
             val enumEntryName = retrieve(
                 key = key,
                 defValue = defValue
@@ -898,21 +898,68 @@ class KMPrefs(
     }
 
     /**
-     * Method used to retrieve a generic value from local storage
+     * Method to locally store a [T] value
      *
-     * @param retrieval The retrieval routine to execute
+     * @param key Is the key of the generic value
+     * @param value Is the value to store
+     *
+     * @param T The type of the enum to store
+     */
+    inline fun <reified T> store(
+        key: String,
+        value: T?
+    ) {
+        reifiedUse {
+            println(Json.encodeToString(value))
+            store(
+                key = key,
+                value = Json.encodeToString(value)
+            )
+        }
+    }
+
+    /**
+     * Method to locally retrieve a [T] value
+     *
+     * @param key Is the key of the generic value to retrieve
+     * @param defValue Is the value to return if the searched one does not exist
+     *
+     * @return retrieved value as nullable [T]
      *
      * @param T The type of the value to retrieve
-     *
-     * @return the retrieved value as [T]
      */
-    inline fun <reified T> retrieveGeneric(
-        crossinline retrieval: PrefsWorker.() -> T
+    inline fun <reified T> retrieve(
+        key: String,
+        defValue: T? = null
+    ): T? {
+        return reifiedUse {
+            val localEntry = retrieve(
+                key = key,
+                defValue = defValue
+            )
+            if(localEntry == null)
+                defValue
+            else
+                Json.decodeFromString(localEntry)
+        }
+    }
+
+    /**
+     * Method to use [KMPrefs] with a reified type
+     * 
+     * @param usage The reified routine to work with a reified type
+     * 
+     * @param T The type of the reified item
+     * 
+     * @return the result of the routine execution as [T]
+     */
+    inline fun <reified T> reifiedUse(
+        crossinline usage: PrefsWorker.() -> T
     ): T {
         val prefsWorker = PrefsWorker(
             path = path
         )
-        return retrieval(prefsWorker)
+        return usage(prefsWorker)
     }
 
     /**

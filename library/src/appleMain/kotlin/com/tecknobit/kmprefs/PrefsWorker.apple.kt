@@ -23,7 +23,7 @@ actual class PrefsWorker actual constructor(
     )
 
     /**
-     * Method to store locally a value
+     * Method to locally store a value
      *
      * @param key Is the key of the value
      * @param value Is the value to store
@@ -39,7 +39,7 @@ actual class PrefsWorker actual constructor(
     }
 
     /**
-     * Method to retrieve locally a value
+     * Method to locally retrieve a value
      *
      * @param key Is the key of the value to retrieve
      * @param defValue Is the value to return if the searched one does not exist
