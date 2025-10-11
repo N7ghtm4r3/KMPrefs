@@ -34,10 +34,12 @@ kotlin {
     listOf(
         iosX64(),
         iosArm64(),
-        iosSimulatorArm64()
+        iosSimulatorArm64(),
+        macosX64(),
+        macosArm64()
     ).forEach { iosTarget ->
         iosTarget.binaries.framework {
-            baseName = "KMPrefs"
+            baseName = "kmprefs"
             isStatic = true
         }
     }
@@ -62,11 +64,15 @@ kotlin {
         val iosX64Main by getting
         val iosArm64Main by getting
         val iosSimulatorArm64Main by getting
-        val iosMain by creating {
+        val macosX64Main by getting
+        val macosArm64Main by getting
+        val appleMain by creating {
             dependsOn(commonMain)
             iosX64Main.dependsOn(this)
             iosArm64Main.dependsOn(this)
             iosSimulatorArm64Main.dependsOn(this)
+            macosX64Main.dependsOn(this)
+            macosArm64Main.dependsOn(this)
             dependencies {
             }
         }
@@ -89,7 +95,7 @@ mavenPublishing {
     )
     coordinates(
         groupId = "io.github.n7ghtm4r3",
-        artifactId = "KMPrefs",
+        artifactId = "kmprefs",
         version = "1.1.0"
     )
     pom {

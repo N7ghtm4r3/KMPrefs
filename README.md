@@ -3,7 +3,7 @@
 ![Maven Central](https://img.shields.io/maven-central/v/io.github.n7ghtm4r3/KMPrefs.svg?label=Maven%20Central)
 
 ![Static Badge](https://img.shields.io/badge/android-4280511051?link=https%3A%2F%2Fimg.shields.io%2Fbadge%2Fandroid-4280511051)
-![Static Badge](https://img.shields.io/badge/ios-445E91?link=https%3A%2F%2Fimg.shields.io%2Fbadge%2Fandroid-4280511051)
+![Static Badge](https://img.shields.io/badge/apple-445E91?link=https%3A%2F%2Fimg.shields.io%2Fbadge%2Fandroid-4280511051)
 ![Static Badge](https://img.shields.io/badge/desktop-006874?link=https%3A%2F%2Fimg.shields.io%2Fbadge%2Fandroid-4280511051)
 ![Static Badge](https://img.shields.io/badge/wasmjs-834C74?link=https%3A%2F%2Fimg.shields.io%2Fbadge%2Fandroid-4280511051)
 
@@ -23,7 +23,7 @@ It leverages the native mechanisms provided by each platform.
 kmprefs = "1.1.0"
 
 [libraries]
-kmprefs = { module = "io.github.n7ghtm4r3:KMPrefs", version.ref = "kmprefs" }
+kmprefs = { module = "io.github.n7ghtm4r3:kmprefs", version.ref = "kmprefs" }
 ```
 
 - `build.gradle.kts`
@@ -38,7 +38,7 @@ dependencies {
 
 ```gradle
 dependencies {
-    implementation("io.github.n7ghtm4r3:KMPrefs:1.1.0")
+    implementation("io.github.n7ghtm4r3:kmprefs:1.1.0")
 }
 ```
 
@@ -46,7 +46,7 @@ dependencies {
 
 ```gradle
 dependencies {
-    implementation 'io.github.n7ghtm4r3:KMPrefs:1.1.0'
+    implementation 'io.github.n7ghtm4r3:kmprefs:1.1.0'
 }
 ```
 
