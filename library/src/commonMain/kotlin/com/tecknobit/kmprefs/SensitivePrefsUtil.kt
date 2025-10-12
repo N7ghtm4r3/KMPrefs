@@ -1,0 +1,39 @@
+package com.tecknobit.kmprefs
+
+import com.tecknobit.kassaforte.key.genspec.BlockMode.CBC
+import com.tecknobit.kassaforte.key.genspec.EncryptionPadding.PKCS7
+import com.tecknobit.kassaforte.services.KassaforteSymmetricService
+
+internal object SensitivePrefsUtil {
+
+    inline fun String.resolveAlias(): String {
+        return hashCode().toHexString()
+    }
+
+    suspend inline fun encryptPref(
+        alias: String,
+        value: String?
+    ) : String? {
+        if(value == null)
+            return value
+        return KassaforteSymmetricService.encrypt(
+            alias = alias,
+            blockMode = CBC,
+            padding = PKCS7,
+            data = value
+        )
+    }
+
+    suspend inline fun decryptPref(
+        alias: String,
+        value: String
+    ) : String {
+        return KassaforteSymmetricService.decrypt(
+            alias = alias,
+            blockMode = CBC,
+            padding = PKCS7,
+            data = value
+        )
+    }
+
+}

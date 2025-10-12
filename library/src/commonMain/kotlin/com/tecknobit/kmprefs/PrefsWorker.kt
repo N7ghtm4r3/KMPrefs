@@ -13,15 +13,20 @@ expect class PrefsWorker(
     path: String
 ) {
 
+    // TODO: TO DOCU
+    internal val sensitiveKeyAlias: String
+
     /**
      * Method to locally store a value
      *
      * @param key Is the key of the value
      * @param value Is the value to store
      */
+    // TODO: TO DOCU
     fun <T> store(
         key: String,
-        value: T?
+        value: T?,
+        isSensitive: Boolean = false
     )
 
     /**
@@ -31,9 +36,11 @@ expect class PrefsWorker(
      * @param defValue Is the value to return if the searched one does not exist
      * @return fetched value as [String]
      */
+    // TODO: TO DOCU
     fun <T> retrieve(
         key: String,
-        defValue: T?
+        defValue: T?,
+        isSensitive: Boolean = false
     ) : String?
 
     /**

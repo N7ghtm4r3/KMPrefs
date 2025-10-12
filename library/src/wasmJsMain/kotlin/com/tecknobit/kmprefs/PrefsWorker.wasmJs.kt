@@ -1,5 +1,6 @@
 package com.tecknobit.kmprefs
 
+import com.tecknobit.kmprefs.SensitivePrefsUtil.resolveAlias
 import kotlinx.browser.window
 
 /**
@@ -15,6 +16,9 @@ actual class PrefsWorker actual constructor(
     path: String
 ) {
 
+    // TODO: TO DOCU
+    internal actual val sensitiveKeyAlias: String = path.resolveAlias()
+
     /**
      * `localStorage` -> the instance used to manage locally the preferences on `WEB`
      */
@@ -26,9 +30,11 @@ actual class PrefsWorker actual constructor(
      * @param key Is the key of the value
      * @param value Is the value to store
      */
+    // TODO: TO DOCU
     actual fun <T> store(
         key: String,
         value: T?,
+        isSensitive: Boolean,
     ) {
         if(value == null) {
             remove(
@@ -49,9 +55,11 @@ actual class PrefsWorker actual constructor(
      * @param defValue Is the value to return if the searched one does not exist
      * @return fetched value as [String]
      */
+    // TODO: TO DOCU
     actual fun <T> retrieve(
         key: String,
         defValue: T?,
+        isSensitive: Boolean,
     ): String? {
         val value = localStorage.getItem(
             key = key

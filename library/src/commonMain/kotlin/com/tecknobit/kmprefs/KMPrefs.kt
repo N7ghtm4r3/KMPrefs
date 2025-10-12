@@ -1,5 +1,13 @@
 package com.tecknobit.kmprefs
 
+import com.tecknobit.kassaforte.key.genspec.Algorithm
+import com.tecknobit.kassaforte.key.genspec.BlockMode.CBC
+import com.tecknobit.kassaforte.key.genspec.EncryptionPadding.PKCS7
+import com.tecknobit.kassaforte.key.genspec.KeySize.S192
+import com.tecknobit.kassaforte.key.genspec.SymmetricKeyGenSpec
+import com.tecknobit.kassaforte.key.usages.KeyPurposes
+import com.tecknobit.kassaforte.services.KassaforteSymmetricService
+import com.tecknobit.kmprefs.SensitivePrefsUtil.resolveAlias
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
@@ -8,7 +16,7 @@ import kotlinx.serialization.serializer
 import kotlin.enums.enumEntries
 
 /**
- * The **KMPrefs** class helps to manage the preferences storing the data locally
+ * The `KMPrefs` class helps to manage the preferences storing the data locally
  *
  * @param path Is the path where store the data
  *
@@ -17,6 +25,25 @@ import kotlin.enums.enumEntries
 class KMPrefs(
     val path: String
 ) {
+
+    init {
+        try {
+            KassaforteSymmetricService.generateKey(
+                algorithm = Algorithm.AES,
+                alias = path.resolveAlias(),
+                keyGenSpec = SymmetricKeyGenSpec(
+                    keySize = S192,
+                    encryptionPadding = PKCS7,
+                    blockMode = CBC
+                ),
+                purposes = KeyPurposes(
+                    canEncrypt = true,
+                    canDecrypt = true
+                )
+            )
+        } catch (_: Exception) {
+        }
+    }
 
     /**
      * `prefsWorker` -> the implementation of each platform of their preferences management
@@ -31,13 +58,16 @@ class KMPrefs(
      * @param key Is the key of the boolean
      * @param value Is the value to store
      */
+    // TODO: TO DOCU
     fun storeBoolean(
         key: String,
-        value: Boolean?
+        value: Boolean?,
+        isSensitive: Boolean = false
     ) {
         prefsWorker.store(
             key = key,
-            value = value
+            value = value,
+            isSensitive = isSensitive
         )
     }
 
@@ -49,13 +79,16 @@ class KMPrefs(
      * @return retrieved value as [Boolean]
      *
      */
+    // TODO: TO DOCU
     fun retrieveBoolean(
         key: String,
-        defValue: Boolean? = null
+        defValue: Boolean? = null,
+        isSensitive: Boolean = false
     ): Boolean {
         return prefsWorker.retrieve(
             key = key,
-            defValue = defValue
+            defValue = defValue,
+            isSensitive = isSensitive
         ).toBoolean()
     }
 
@@ -910,7 +943,6 @@ class KMPrefs(
         value: T?
     ) {
         reifiedUse {
-            println(Json.encodeToString(value))
             store(
                 key = key,
                 value = Json.encodeToString(value)

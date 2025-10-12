@@ -2,6 +2,10 @@ package com.tecknobit.kmprefs
 
 import android.content.Context
 import com.tecknobit.equinoxcore.utilities.AppContext
+import com.tecknobit.kmprefs.SensitivePrefsUtil.decryptPref
+import com.tecknobit.kmprefs.SensitivePrefsUtil.encryptPref
+import com.tecknobit.kmprefs.SensitivePrefsUtil.resolveAlias
+import kotlinx.coroutines.runBlocking
 
 /**
  * The `PrefsWorker` class helps to manage the preferences storing the data locally using the [android.content.SharedPreferences]
@@ -15,6 +19,9 @@ import com.tecknobit.equinoxcore.utilities.AppContext
 actual class PrefsWorker actual constructor(
     path: String
 ) {
+
+    // TODO: TO DOCU
+    internal actual val sensitiveKeyAlias: String = path.resolveAlias()
 
     /**
      * `sharedPreferences` -> the instance used to manage locally the preferences on `Android`
@@ -30,11 +37,22 @@ actual class PrefsWorker actual constructor(
      * @param key Is the key of the value
      * @param value Is the value to store
      */
+    // TODO: TO DOCU
     actual fun <T> store(
         key: String,
         value: T?,
+        isSensitive: Boolean,
     ) {
-        sharedPreferences.edit().putString(key, value?.toString()).apply()
+        var valueToStore = value?.toString()
+        if(isSensitive) {
+            runBlocking {
+                valueToStore = encryptPref(
+                    alias = sensitiveKeyAlias,
+                    value = valueToStore
+                )
+            }
+        }
+        sharedPreferences.edit().putString(key, valueToStore).apply()
     }
 
     /**
@@ -44,11 +62,22 @@ actual class PrefsWorker actual constructor(
      * @param defValue Is the value to return if the searched one does not exist
      * @return fetched value as [String]
      */
+    // TODO: TO DOCU
     actual fun <T> retrieve(
         key: String,
         defValue: T?,
+        isSensitive: Boolean,
     ): String? {
-        return sharedPreferences.getString(key, defValue?.toString())
+        val storedValue = sharedPreferences.getString(key, null) ?: return defValue?.toString()
+        return if(isSensitive) {
+            runBlocking {
+                decryptPref(
+                    alias = sensitiveKeyAlias,
+                    value = storedValue
+                )
+            }
+        } else
+            storedValue
     }
 
     /**

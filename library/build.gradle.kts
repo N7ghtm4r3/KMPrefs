@@ -58,6 +58,13 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(libs.kotlinx.serialization.json)
+                implementation(libs.kotlinx.coroutines.core)
+                implementation(libs.kassaforte)
+            }
+        }
+        val jvmMain by getting {
+            dependencies {
+                implementation(libs.kotlinx.coroutines.swing)
             }
         }
         val iosX64Main by getting

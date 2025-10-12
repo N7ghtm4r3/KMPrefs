@@ -1,9 +1,11 @@
 [versions]
 agp = "8.12.3"
 equinox = "1.1.6"
+kassaforte = "1.0.0beta-01"
 kotlin = "2.2.20"
 android-minSdk = "24"
 android-compileSdk = "36"
+kotlinxCoroutinesCore = "1.10.2"
 kotlinxSerializationJson = "1.9.0"
 startupRuntime = "1.2.0"
 dokka = "2.0.0"
@@ -13,6 +15,9 @@ kotlinxBrowser = "0.5.0"
 dokka-base = { module = "org.jetbrains.dokka:dokka-base", version.ref = "dokka" }
 androidx-startup-runtime = { group = "androidx.startup", name = "startup-runtime", version.ref = "startupRuntime" }
 equinox-core = { module = "io.github.n7ghtm4r3:equinox-core", version.ref = "equinox" }
+kassaforte = { module = "io.github.n7ghtm4r3:kassaforte", version.ref = "kassaforte" }
+kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutinesCore" }
+kotlinx-coroutines-swing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "kotlinxCoroutinesCore" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
 kotlinx-browser = { module = "org.jetbrains.kotlinx:kotlinx-browser", version.ref = "kotlinxBrowser" }
 
