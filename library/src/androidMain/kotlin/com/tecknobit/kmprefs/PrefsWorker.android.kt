@@ -79,6 +79,20 @@ actual class PrefsWorker actual constructor(
             storedValue
     }
 
+    actual fun <T> consumeRetrieval(
+        key: String,
+        defValue: T?,
+        isSensitive: Boolean,
+        usage: (String?) -> Unit,
+    ) {
+        val storedValue = retrieve(
+            key = key,
+            defValue = defValue,
+            isSensitive = isSensitive
+        )
+        usage(storedValue)
+    }
+
     /**
      * Method to remove locally a value by its key
      *

@@ -45,6 +45,14 @@ expect class PrefsWorker(
         isSensitive: Boolean = false
     ) : String?
 
+    // TODO: TO DOCU
+    fun <T> consumeRetrieval(
+        key: String,
+        defValue: T?,
+        isSensitive: Boolean = false,
+        usage: (String?) -> Unit
+    )
+
     /**
      * Method to remove locally a value by its key
      *

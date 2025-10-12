@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalSerializationApi::class, ExperimentalUnsignedTypes::class, ExperimentalUnsignedTypes::class)
+
 package com.tecknobit.kmprefs
 
 import com.tecknobit.kassaforte.key.genspec.Algorithm
@@ -9,7 +11,6 @@ import com.tecknobit.kassaforte.key.usages.KeyPurposes
 import com.tecknobit.kassaforte.services.KassaforteSymmetricService
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.KSerializer
-import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.serializer
 
@@ -20,8 +21,9 @@ import kotlinx.serialization.serializer
  *
  * @author N7ghtm4r3 - Tecknobit
  */
+// TODO: TO DOCU CHANGES AND ADD 1.1.0
 class KMPrefs(
-    val path: String
+    path: String
 ) {
 
     init {
@@ -44,9 +46,9 @@ class KMPrefs(
     }
 
     /**
-     * `prefsWorker` the implementation of each platform of their preferences management
+     * `prefsWorker` The implementation of each platform of their preferences management
      */
-    private val prefsWorker = PrefsWorker(
+    val prefsWorker = PrefsWorker(
         path = path
     )
 
@@ -61,15 +63,21 @@ class KMPrefs(
     inline fun <reified T> store(
         key: String,
         value: T?,
+        serializer: KSerializer<T> = serializer(),
         isSensitive: Boolean = false
     ) {
-        reifiedUse {
-            store(
-                key = key,
-                value = Json.encodeToString(value),
-                isSensitive = isSensitive
-            )
+        if(value == null) {
+            removeValue(key)
+            return
         }
+        prefsWorker.store(
+            key = key,
+            value = Json.encodeToString(
+                serializer = serializer,
+                value = value,
+            ),
+            isSensitive = isSensitive
+        )
     }
 
     /**
@@ -85,37 +93,24 @@ class KMPrefs(
     inline fun <reified T> retrieve(
         key: String,
         defValue: T? = null,
+        deserializer: KSerializer<T> = serializer(),
         isSensitive: Boolean = false
     ): T? {
-        return reifiedUse {
-            val localEntry = retrieve(
-                key = key,
-                defValue = defValue,
-                isSensitive = isSensitive
-            )
-            if(localEntry == null)
-                defValue
-            else
-                Json.decodeFromString(localEntry)
-        }
-    }
-
-    /**
-     * Method to use [KMPrefs] with a reified type
-     * 
-     * @param usage The reified routine to work with a reified type
-     * 
-     * @param T The type of the reified item
-     * 
-     * @return the result of the routine execution as [T]
-     */
-    inline fun <reified T> reifiedUse(
-        crossinline usage: PrefsWorker.() -> T
-    ): T {
-        val prefsWorker = PrefsWorker(
-            path = path
+        if(!hasKey(key))
+            return defValue
+        val localEntry = prefsWorker.retrieve(
+            key = key,
+            defValue = defValue,
+            isSensitive = isSensitive
         )
-        return usage(prefsWorker)
+        return if(localEntry == null)
+            defValue
+        else {
+            Json.decodeFromString(
+                deserializer = deserializer,
+                string = localEntry
+            )
+        }
     }
 
     /**
@@ -157,206 +152,45 @@ class KMPrefs(
      *
      */
     @ExperimentalUnsignedTypes
-    fun <T> valueMatchesTo(
+    inline fun <reified T> valueMatchesTo(
         key: String,
         matcher: T?,
+        serializer: KSerializer<T> = serializer(),
         isSensitive: Boolean = false
     ) : Boolean {
-        return when (matcher) {
-            is BooleanArray -> {
-                val array = deserializeData(
-                    key = key,
-                    defValue = booleanArrayOf(),
-                    isSensitive = isSensitive
-                )
-                matcher.contentEquals(array)
-            }
-            is ByteArray -> {
-                val array = deserializeData(
-                    key = key,
-                    defValue = byteArrayOf(),
-                    isSensitive = isSensitive
-                )
-                matcher.contentEquals(array)
-            }
-            is UByteArray -> {
-                val array = deserializeData(
-                    key = key,
-                    defValue = ubyteArrayOf(),
-                    isSensitive = isSensitive
-                )
-                matcher.contentEquals(array)
-            }
-            is ShortArray -> {
-                val array = deserializeData(
-                    key = key,
-                    defValue = shortArrayOf(),
-                    isSensitive = isSensitive
-                )
-                matcher.contentEquals(array)
-            }
-            is UShortArray -> {
-                val array = deserializeData(
-                    key = key,
-                    defValue = ushortArrayOf(),
-                    isSensitive = isSensitive
-                )
-                matcher.contentEquals(array)
-            }
-            is IntArray -> {
-                val array = deserializeData(
-                    key = key,
-                    defValue = intArrayOf(),
-                    isSensitive = isSensitive
-                )
-                matcher.contentEquals(array)
-            }
-            is UIntArray -> {
-                val array = deserializeData(
-                    key = key,
-                    defValue = uintArrayOf(),
-                    isSensitive = isSensitive
-                )
-                matcher.contentEquals(array)
-            }
-            is LongArray -> {
-                val array = deserializeData(
-                    key = key,
-                    defValue = longArrayOf(),
-                    isSensitive = isSensitive
-                )
-                matcher.contentEquals(array)
-            }
-            is ULongArray -> {
-                val array = deserializeData(
-                    key = key,
-                    defValue = ulongArrayOf(),
-                    isSensitive = isSensitive
-                )
-                matcher.contentEquals(array)
-            }
-            is FloatArray -> {
-                val array = deserializeData(
-                    key = key,
-                    defValue = floatArrayOf(),
-                    isSensitive = isSensitive
-                )
-                matcher.contentEquals(array)
-            }
-            is DoubleArray -> {
-                val array = deserializeData(
-                    key = key,
-                    defValue = doubleArrayOf(),
-                    isSensitive = isSensitive
-                )
-                matcher.contentEquals(array)
-            }
-            else -> {
-                val value = prefsWorker.retrieve(
-                    key = key,
-                    defValue = null,
-                    isSensitive = isSensitive
-                )
-                value == matcher.toString()
-            }
-        }
-    }
-
-    /**
-     * Method to deserialize raw json data into a [T] object
-     *
-     * @param key Is the key of the object to retrieve
-     * @param defValue Is the value to return if the searched one does not exist
-     *
-     * @return object as [T]
-     */
-    private inline fun <reified T> deserializeData(
-        key: String,
-        defValue: T?,
-        isSensitive: Boolean = false
-    ) : T? {
-        val array = prefsWorker.retrieve(
+        val storedValue = retrieve(
             key = key,
-            defValue = if(defValue != null)
-                Json.encodeToString(defValue)
-            else
-                null,
+            deserializer = serializer,
             isSensitive = isSensitive
         )
-        if(array == null)
-            return null
-        return Json.decodeFromString<T>(array)
-    }
-
-    /**
-     * Method to check whether the custom object with the specified key matches to the [matcher] value
-     *
-     * @param key The key of the custom object to check
-     * @param deserializer The custom deserializer for the custom object used in the compare
-     * @param matcher The custom object to use as matcher on the comparison
-     *
-     * @return whether the custom objects match as [Boolean]
-     *
-     */
-    inline fun <reified T> customObjectMatchesTo(
-        key: String,
-        deserializer: KSerializer<T> = serializer(),
-        matcher: T?
-    ) : Boolean {
-        val value :T? = retrieveCustomObject(
-            key = key,
-            deserializer = deserializer
+        return checkMatching(
+            matcher = matcher,
+            stored = storedValue
         )
-        return value == matcher
     }
-
-    /**
-     * Method to locally store a custom [Serializable] object
-     *
-     * @param key Is the key of the custom object
-     * @param serializer The custom serializer for the custom object used to store it locally
-     * @param value Is the value to store
-     */
-    @ExperimentalSerializationApi
-    inline fun <reified T> storeCustomObject(
-        key: String,
-        serializer: KSerializer<T> = serializer(),
-        value: T?
-    ) {
-        if(value == null) {
-            removeValue(
-                key = key
-            )
-            return
+    
+    @ExperimentalUnsignedTypes
+    fun <T> checkMatching(
+        matcher: T?,
+        stored: T?
+    ): Boolean {
+        if(matcher == null && stored == null)
+            return true
+        return when (matcher) {
+            is BooleanArray -> matcher.contentEquals(stored as BooleanArray)
+            is ByteArray -> matcher.contentEquals(stored as ByteArray)
+            is UByteArray -> matcher.contentEquals(stored as UByteArray)
+            is ShortArray -> matcher.contentEquals(stored as ShortArray)
+            is UShortArray -> matcher.contentEquals(stored as UShortArray)
+            is IntArray -> matcher.contentEquals(stored as IntArray)
+            is UIntArray -> matcher.contentEquals(stored as UIntArray)
+            is LongArray -> matcher.contentEquals(stored as LongArray)
+            is ULongArray -> matcher.contentEquals(stored as ULongArray)
+            is FloatArray -> matcher.contentEquals(stored as FloatArray)
+            is DoubleArray -> matcher.contentEquals(stored as DoubleArray)
+            is Array<*> -> matcher.contentDeepEquals(stored as Array<*>)
+            else -> matcher == stored
         }
-        store(
-            key = key,
-            value = Json.encodeToString(serializer, value)
-        )
-    }
-
-    /**
-     * Method to locally retrieve a custom [Serializable] object
-     *
-     * @param key Is the key of the custom object
-     * @param deserializer The custom deserializer for the custom object used to retrieve
-     * @param defValue - Is the value to return if the searched one does not exist
-     *
-     * @return the custom object locally stored as [T]
-     */
-    inline fun <reified T> retrieveCustomObject(
-        key: String,
-        deserializer: KSerializer<T> = serializer(),
-        defValue: T? = null
-    ) : T? {
-        if(!hasKey(key))
-            return defValue
-        return Json.decodeFromString(
-            deserializer = deserializer,
-            string = retrieve(
-                key = key
-            )!!
-        )
     }
 
     /**
