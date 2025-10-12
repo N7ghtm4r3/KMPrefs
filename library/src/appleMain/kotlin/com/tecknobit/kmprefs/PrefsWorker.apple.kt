@@ -1,8 +1,5 @@
 package com.tecknobit.kmprefs
 
-import com.tecknobit.kmprefs.SensitivePrefsUtil.decryptPref
-import com.tecknobit.kmprefs.SensitivePrefsUtil.encryptPref
-import com.tecknobit.kmprefs.SensitivePrefsUtil.resolveAlias
 import kotlinx.coroutines.runBlocking
 import platform.Foundation.NSUserDefaults
 
@@ -19,11 +16,13 @@ actual class PrefsWorker actual constructor(
     private val path: String
 ) {
 
-    // TODO: TO DOCU
+    /**
+     * `sensitiveKeyAlias` the alias of the key used to encrypt and decrypt sensitive data
+     */
     internal actual val sensitiveKeyAlias: String = path.resolveAlias()
 
     /**
-     * `userDefaults` -> the instance used to manage locally the preferences on `iOs`
+     * `userDefaults` the instance used to manage locally the preferences on `iOs`
      */
     private val userDefaults = NSUserDefaults(
         suiteName = path

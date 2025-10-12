@@ -3,17 +3,15 @@ package com.tecknobit.kmprefs
 import com.tecknobit.kassaforte.key.genspec.Algorithm
 import com.tecknobit.kassaforte.key.genspec.BlockMode.CBC
 import com.tecknobit.kassaforte.key.genspec.EncryptionPadding.PKCS7
-import com.tecknobit.kassaforte.key.genspec.KeySize.S192
+import com.tecknobit.kassaforte.key.genspec.KeySize.S256
 import com.tecknobit.kassaforte.key.genspec.SymmetricKeyGenSpec
 import com.tecknobit.kassaforte.key.usages.KeyPurposes
 import com.tecknobit.kassaforte.services.KassaforteSymmetricService
-import com.tecknobit.kmprefs.SensitivePrefsUtil.resolveAlias
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.serializer
-import kotlin.enums.enumEntries
 
 /**
  * The `KMPrefs` class helps to manage the preferences storing the data locally
@@ -32,7 +30,7 @@ class KMPrefs(
                 algorithm = Algorithm.AES,
                 alias = path.resolveAlias(),
                 keyGenSpec = SymmetricKeyGenSpec(
-                    keySize = S192,
+                    keySize = S256,
                     encryptionPadding = PKCS7,
                     blockMode = CBC
                 ),
@@ -46,889 +44,11 @@ class KMPrefs(
     }
 
     /**
-     * `prefsWorker` -> the implementation of each platform of their preferences management
+     * `prefsWorker` the implementation of each platform of their preferences management
      */
     private val prefsWorker = PrefsWorker(
         path = path
     )
-
-    /**
-     * Method to locally store a [Boolean] value
-     *
-     * @param key Is the key of the boolean
-     * @param value Is the value to store
-     */
-    // TODO: TO DOCU
-    fun storeBoolean(
-        key: String,
-        value: Boolean?,
-        isSensitive: Boolean = false
-    ) {
-        prefsWorker.store(
-            key = key,
-            value = value,
-            isSensitive = isSensitive
-        )
-    }
-
-    /**
-     * Method to locally retrieve a [Boolean] value
-     *
-     * @param key Is the key of the boolean to retrieve
-     * @param defValue Is the value to return if the searched one does not exist
-     * @return retrieved value as [Boolean]
-     *
-     */
-    // TODO: TO DOCU
-    fun retrieveBoolean(
-        key: String,
-        defValue: Boolean? = null,
-        isSensitive: Boolean = false
-    ): Boolean {
-        return prefsWorker.retrieve(
-            key = key,
-            defValue = defValue,
-            isSensitive = isSensitive
-        ).toBoolean()
-    }
-
-    /**
-     * Method to locally store a [BooleanArray] value
-     *
-     * @param key Is the key of the boolean array
-     * @param value Is the value to store
-     */
-    fun storeBooleanArray(
-        key: String,
-        value: BooleanArray?
-    ) {
-        prefsWorker.store(
-            key = key,
-            value = value?.contentToString()
-        )
-    }
-
-    /**
-     * Method to locally retrieve a [BooleanArray] value
-     *
-     * @param key Is the key of the boolean array to retrieve
-     * @param defValue Is the value to return if the searched one does not exist
-     * @return retrieved value as [BooleanArray]
-     */
-    fun retrieveBooleanArray(
-        key: String,
-        defValue: BooleanArray? = null
-    ): BooleanArray? {
-        return deserializeData(
-            key = key,
-            defValue = defValue
-        )
-    }
-
-    /**
-     * Method to locally store a [Byte] value
-     *
-     * @param key Is the key of the byte
-     * @param value Is the value to store
-     */
-    fun storeByte(
-        key: String,
-        value: Byte?
-    ) {
-        prefsWorker.store(
-            key = key,
-            value = value
-        )
-    }
-
-    /**
-     * Method to locally retrieve a [Byte] value
-     *
-     * @param key Is the key of the byte to retrieve
-     * @param defValue Is the value to return if the searched one does not exist
-     * @return retrieved value as [Byte]
-     */
-    fun retrieveByte(
-        key: String,
-        defValue: Byte? = null
-    ): Byte? {
-        return prefsWorker.retrieve(
-            key = key,
-            defValue = defValue
-        )?.toByteOrNull()
-    }
-
-    /**
-     * Method to locally store a [ByteArray] value
-     *
-     * @param key Is the key of the byte array
-     * @param value Is the value to store
-     */
-    fun storeByteArray(
-        key: String,
-        value: ByteArray?
-    ) {
-        prefsWorker.store(
-            key = key,
-            value = value?.contentToString()
-        )
-    }
-
-    /**
-     * Method to locally retrieve a [ByteArray] value
-     *
-     * @param key Is the key of the byte array to retrieve
-     * @param defValue Is the value to return if the searched one does not exist
-     * @return retrieved value as [ByteArray]
-     */
-    fun retrieveByteArray(
-        key: String,
-        defValue: ByteArray? = null
-    ): ByteArray? {
-        return deserializeData(
-            key = key,
-            defValue = defValue
-        )
-    }
-
-    /**
-     * Method to locally store a [UByte] value
-     *
-     * @param key Is the key of the unsigned byte
-     * @param value Is the value to store
-     */
-    fun storeUnsignedByte(
-        key: String,
-        value: UByte?
-    ) {
-        prefsWorker.store(
-            key = key,
-            value = value
-        )
-    }
-
-    /**
-     * Method to locally retrieve a [UByte] value
-     *
-     * @param key Is the key of the unsigned byte to retrieve
-     * @param defValue Is the value to return if the searched one does not exist
-     * @return retrieved value as [UByte]
-     */
-    fun retrieveUnsignedByte(
-        key: String,
-        defValue: UByte? = null
-    ): UByte? {
-        return prefsWorker.retrieve(
-            key = key,
-            defValue = defValue
-        )?.toUByteOrNull()
-    }
-
-    /**
-     * Method to locally store a [UByteArray] value
-     *
-     * @param key Is the key of the unsigned byte array
-     * @param value Is the value to store
-     */
-    @OptIn(ExperimentalUnsignedTypes::class)
-    fun storeUnsignedByteArray(
-        key: String,
-        value: UByteArray?
-    ) {
-        prefsWorker.store(
-            key = key,
-            value = value?.contentToString()
-        )
-    }
-
-    /**
-     * Method to locally retrieve a [UByteArray] value
-     *
-     * @param key Is the key of the unsigned byte array to retrieve
-     * @param defValue Is the value to return if the searched one does not exist
-     * @return retrieved value as [UByteArray]
-     */
-    @OptIn(ExperimentalUnsignedTypes::class)
-    fun retrieveUnsignedByteArray(
-        key: String,
-        defValue: UByteArray? = null
-    ): UByteArray? {
-        return deserializeData(
-            key = key,
-            defValue = defValue
-        )
-    }
-
-    /**
-     * Method to locally store a [Short] value
-     *
-     * @param key Is the key of the short
-     * @param value Is the value to store
-     */
-    fun storeShort(
-        key: String,
-        value: Short?
-    ) {
-        prefsWorker.store(
-            key = key,
-            value = value
-        )
-    }
-
-    /**
-     * Method to locally retrieve a [Short] value
-     *
-     * @param key Is the key of the short to retrieve
-     * @param defValue Is the value to return if the searched one does not exist
-     * @return retrieved value as [Short]
-     */
-    fun retrieveShort(
-        key: String,
-        defValue: Short? = null
-    ): Short? {
-        return prefsWorker.retrieve(
-            key = key,
-            defValue = defValue
-        )?.toShortOrNull()
-    }
-
-    /**
-     * Method to locally store a [ShortArray] value
-     *
-     * @param key Is the key of the short array
-     * @param value Is the value to store
-     */
-    fun storeShortArray(
-        key: String,
-        value: ShortArray?
-    ) {
-        prefsWorker.store(
-            key = key,
-            value = value?.contentToString()
-        )
-    }
-
-    /**
-     * Method to locally retrieve a [ShortArray] value
-     *
-     * @param key Is the key of the short array to retrieve
-     * @param defValue Is the value to return if the searched one does not exist
-     * @return retrieved value as [ShortArray]
-     */
-    fun retrieveShortArray(
-        key: String,
-        defValue: ShortArray? = null
-    ): ShortArray? {
-        return deserializeData(
-            key = key,
-            defValue = defValue
-        )
-    }
-
-    /**
-     * Method to locally store a [UShort] value
-     *
-     * @param key Is the key of the unsigned short
-     * @param value Is the value to store
-     */
-    fun storeUnsignedShort(
-        key: String,
-        value: UShort?
-    ) {
-        prefsWorker.store(
-            key = key,
-            value = value
-        )
-    }
-
-    /**
-     * Method to locally retrieve a [UShort] value
-     *
-     * @param key Is the key of the unsigned short to retrieve
-     * @param defValue Is the value to return if the searched one does not exist
-     * @return retrieved value as [UShort]
-     */
-    fun retrieveUnsignedShort(
-        key: String,
-        defValue: UShort = UShort.MIN_VALUE
-    ): UShort? {
-        return prefsWorker.retrieve(
-            key = key,
-            defValue = defValue
-        )?.toUShortOrNull()
-    }
-
-    /**
-     * Method to locally store a [UShortArray] value
-     *
-     * @param key Is the key of the unsigned short array
-     * @param value Is the value to store
-     */
-    @OptIn(ExperimentalUnsignedTypes::class)
-    fun storeUnsignedShortArray(
-        key: String,
-        value: UShortArray?
-    ) {
-        prefsWorker.store(
-            key = key,
-            value = value?.contentToString()
-        )
-    }
-
-    /**
-     * Method to locally retrieve a [UShortArray] value
-     *
-     * @param key Is the key of the unsigned short array to retrieve
-     * @param defValue Is the value to return if the searched one does not exist
-     * @return retrieved value as [UShortArray]
-     */
-    @OptIn(ExperimentalUnsignedTypes::class)
-    fun retrieveUnsignedShortArray(
-        key: String,
-        defValue: UShortArray? = null
-    ): UShortArray? {
-        return deserializeData(
-            key = key,
-            defValue = defValue
-        )
-    }
-
-    /**
-     * Method to locally store a [Int] value
-     *
-     * @param key Is the key of the int
-     * @param value Is the value to store
-     */
-    fun storeInt(
-        key: String,
-        value: Int?
-    ) {
-        prefsWorker.store(
-            key = key,
-            value = value
-        )
-    }
-
-    /**
-     * Method to locally retrieve a [Int] value
-     *
-     * If [defValue] is not specified and the searched [key] not exists will be returned [Int.MIN_VALUE] as default
-     *
-     * @param key Is the key of the int to retrieve
-     * @param defValue Is the value to return if the searched one does not exist
-     * @return retrieved value as [Int]
-     */
-    fun retrieveInt(
-        key: String,
-        defValue: Int? = null
-    ): Int? {
-        return prefsWorker.retrieve(
-            key = key,
-            defValue = defValue
-        )?.toIntOrNull()
-    }
-
-    /**
-     * Method to locally store a [IntArray] value
-     *
-     * @param key Is the key of the int array
-     * @param value Is the value to store
-     */
-    fun storeIntArray(
-        key: String,
-        value: IntArray?
-    ) {
-        prefsWorker.store(
-            key = key,
-            value = value?.contentToString()
-        )
-    }
-
-    /**
-     * Method to locally retrieve a [IntArray] value
-     *
-     * @param key Is the key of the int array to retrieve
-     * @param defValue Is the value to return if the searched one does not exist
-     * @return retrieved value as [IntArray]
-     */
-    fun retrieveIntArray(
-        key: String,
-        defValue: IntArray? = null
-    ): IntArray? {
-        return deserializeData(
-            key = key,
-            defValue = defValue
-        )
-    }
-
-    /**
-     * Method to locally store a [UInt] value
-     *
-     * @param key Is the key of the unsigned int
-     * @param value Is the value to store
-     */
-    fun storeUnsignedInt(
-        key: String,
-        value: UInt?
-    ) {
-        prefsWorker.store(
-            key = key,
-            value = value
-        )
-    }
-
-    /**
-     * Method to locally retrieve a [UInt] value
-     *
-     * @param key Is the key of the unsigned int to retrieve
-     * @param defValue Is the value to return if the searched one does not exist
-     * @return retrieved value as [UInt]
-     */
-    fun retrieveUnsignedInt(
-        key: String,
-        defValue: UInt? = null
-    ): UInt? {
-        return prefsWorker.retrieve(
-            key = key,
-            defValue = defValue
-        )?.toUIntOrNull()
-    }
-
-    /**
-     * Method to locally store a [UIntArray] value
-     *
-     * @param key Is the key of the unsigned int array
-     * @param value Is the value to store
-     */
-    @OptIn(ExperimentalUnsignedTypes::class)
-    fun storeUnsignedIntArray(
-        key: String,
-        value: UIntArray?
-    ) {
-        prefsWorker.store(
-            key = key,
-            value = value?.contentToString()
-        )
-    }
-
-    /**
-     * Method to locally retrieve a [UIntArray] value
-     *
-     * @param key Is the key of the unsigned int array to retrieve
-     * @param defValue Is the value to return if the searched one does not exist
-     * @return retrieved value as [UIntArray]
-     */
-    @OptIn(ExperimentalUnsignedTypes::class)
-    fun retrieveUnsignedIntArray(
-        key: String,
-        defValue: UIntArray? = null
-    ): UIntArray? {
-        return deserializeData(
-            key = key,
-            defValue = defValue
-        )
-    }
-
-    /**
-     * Method to locally store a [Float] value
-     *
-     * @param key Is the key of the float
-     * @param value Is the value to store
-     */
-    fun storeFloat(
-        key: String,
-        value: Float?
-    ) {
-        prefsWorker.store(
-            key = key,
-            value = value
-        )
-    }
-
-    /**
-     * Method to locally retrieve a [Float] value
-     *
-     * @param key Is the key of the float to retrieve
-     * @param defValue Is the value to return if the searched one does not exist
-     * @return retrieved value as [Float]
-     */
-    fun retrieveFloat(
-        key: String,
-        defValue: Float? = null
-    ): Float? {
-        return prefsWorker.retrieve(
-            key = key,
-            defValue = defValue
-        )?.toFloatOrNull()
-    }
-
-    /**
-     * Method to locally store a [FloatArray] value
-     *
-     * @param key Is the key of the float array
-     * @param value Is the value to store
-     */
-    fun storeFloatArray(
-        key: String,
-        value: FloatArray?
-    ) {
-        prefsWorker.store(
-            key = key,
-            value = value?.contentToString()
-        )
-    }
-
-    /**
-     * Method to locally retrieve a [FloatArray] value
-     *
-     * @param key Is the key of the float array to retrieve
-     * @param defValue Is the value to return if the searched one does not exist
-     * @return retrieved value as [FloatArray]
-     */
-    fun retrieveFloatArray(
-        key: String,
-        defValue: FloatArray? = null
-    ): FloatArray? {
-        return deserializeData(
-            key = key,
-            defValue = defValue
-        )
-    }
-
-    /**
-     * Method to locally store a [Double] value
-     *
-     * @param key Is the key of the double
-     * @param value Is the value to store
-     */
-    fun storeDouble(
-        key: String,
-        value: Double?
-    ) {
-        prefsWorker.store(
-            key = key,
-            value = value
-        )
-    }
-
-    /**
-     * Method to locally retrieve a [Double] value
-     *
-     * @param key Is the key of the double to retrieve
-     * @param defValue Is the value to return if the searched one does not exist
-     * @return retrieved value as [Double]
-     */
-    fun retrieveDouble(
-        key: String,
-        defValue: Double? = null
-    ): Double? {
-        return prefsWorker.retrieve(
-            key = key,
-            defValue = defValue
-        )?.toDoubleOrNull()
-    }
-
-    /**
-     * Method to locally store a [DoubleArray] value
-     *
-     * @param key Is the key of the double array
-     * @param value Is the value to store
-     */
-    fun storeDoubleArray(
-        key: String,
-        value: DoubleArray?
-    ) {
-        prefsWorker.store(
-            key = key,
-            value = value?.contentToString()
-        )
-    }
-
-    /**
-     * Method to locally retrieve a [DoubleArray] value
-     *
-     * @param key Is the key of the double array to retrieve
-     * @param defValue Is the value to return if the searched one does not exist
-     * @return retrieved value as [DoubleArray]
-     */
-    fun retrieveDoubleArray(
-        key: String,
-        defValue: DoubleArray? = null
-    ): DoubleArray? {
-        return deserializeData(
-            key = key,
-            defValue = defValue
-        )
-    }
-
-    /**
-     * Method to locally store a [Long] value
-     *
-     * @param key Is the key of the long
-     * @param value Is the value to store
-     */
-    fun storeLong(
-        key: String,
-        value: Long?
-    ) {
-        prefsWorker.store(
-            key = key,
-            value = value
-        )
-    }
-
-    /**
-     * Method to locally retrieve a [Long] value
-     *
-     * @param key Is the key of the long to retrieve
-     * @param defValue Is the value to return if the searched one does not exist
-     *
-     * @return retrieved value as [Long]
-     */
-    fun retrieveLong(
-        key: String,
-        defValue: Long? = null
-    ): Long? {
-        return prefsWorker.retrieve(
-            key = key,
-            defValue = defValue
-        )?.toLongOrNull()
-    }
-
-    /**
-     * Method to locally store a [LongArray] value
-     *
-     * @param key Is the key of the long array
-     * @param value Is the value to store
-     */
-    fun storeLongArray(
-        key: String,
-        value: LongArray?
-    ) {
-        prefsWorker.store(
-            key = key,
-            value = value?.contentToString()
-        )
-    }
-
-    /**
-     * Method to locally retrieve a [LongArray] value
-     *
-     * @param key Is the key of the long array to retrieve
-     * @param defValue Is the value to return if the searched one does not exist
-     *
-     * @return retrieved value as [LongArray]
-     */
-    fun retrieveLongArray(
-        key: String,
-        defValue: LongArray? = null
-    ): LongArray? {
-        return deserializeData(
-            key = key,
-            defValue = defValue
-        )
-    }
-
-    /**
-     * Method to locally store a [ULong] value
-     *
-     * @param key Is the key of the unsigned long
-     * @param value Is the value to store
-     */
-    fun storeUnsignedLong(
-        key: String,
-        value: ULong?
-    ) {
-        prefsWorker.store(
-            key = key,
-            value = value
-        )
-    }
-
-    /**
-     * Method to locally retrieve a [ULong] value
-     *
-     * @param key Is the key of the unsigned long to retrieve
-     * @param defValue Is the value to return if the searched one does not exist
-     *
-     * @return retrieved value as [ULong]
-     */
-    fun retrieveUnsignedLong(
-        key: String,
-        defValue: ULong? = null
-    ): ULong? {
-        return prefsWorker.retrieve(
-            key = key,
-            defValue = defValue
-        )?.toULongOrNull()
-    }
-
-    /**
-     * Method to locally store a [ULongArray] value
-     *
-     * @param key Is the key of the unsigned long array
-     * @param value Is the value to store
-     */
-    @OptIn(ExperimentalUnsignedTypes::class)
-    fun storeUnsignedLongArray(
-        key: String,
-        value: ULongArray?
-    ) {
-        prefsWorker.store(
-            key = key,
-            value = value?.contentToString()
-        )
-    }
-
-    /**
-     * Method to locally retrieve a [ULongArray] value
-     *
-     * @param key Is the key of the unsigned long array to retrieve
-     * @param defValue Is the value to return if the searched one does not exist
-     *
-     * @return retrieved value as [ULongArray]
-     */
-    @OptIn(ExperimentalUnsignedTypes::class)
-    fun retrieveUnsignedLongArray(
-        key: String,
-        defValue: ULongArray? = null
-    ): ULongArray? {
-        return deserializeData(
-            key = key,
-            defValue = defValue
-        )
-    }
-
-    /**
-     * Method to locally store a [String] value
-     *
-     * @param key Is the key of the string
-     * @param value Is the value to store
-     */
-    fun storeString(
-        key: String,
-        value: String?
-    ) {
-        prefsWorker.store(
-            key = key,
-            value = value
-        )
-    }
-
-    /**
-     * Method to locally retrieve a [String] value
-     *
-     * @param key Is the key of the string to retrieve
-     * @param defValue Is the value to return if the searched one does not exist
-     *
-     * @return retrieved value as [String]
-     */
-    fun retrieveString(
-        key: String,
-        defValue: String? = null
-    ): String? {
-        return prefsWorker.retrieve(
-            key = key,
-            defValue = defValue
-        )
-    }
-
-    /**
-     * Method to locally store a custom [Serializable] object
-     *
-     * @param key Is the key of the custom object
-     * @param serializer The custom serializer for the custom object used to store it locally
-     * @param value Is the value to store
-     */
-    @ExperimentalSerializationApi
-    inline fun <reified T> storeCustomObject(
-        key: String,
-        serializer: KSerializer<T> = serializer(),
-        value: T?
-    ) {
-        if(value == null) {
-            removeValue(
-                key = key
-            )
-            return
-        }
-        storeString(
-            key = key,
-            value = Json.encodeToString(serializer, value)
-        )
-    }
-
-    /**
-     * Method to locally retrieve a custom [Serializable] object
-     *
-     * @param key Is the key of the custom object
-     * @param deserializer The custom deserializer for the custom object used to retrieve
-     * @param defValue - Is the value to return if the searched one does not exist
-     *
-     * @return the custom object locally stored as [T]
-     */
-    inline fun <reified T> retrieveCustomObject(
-        key: String,
-        deserializer: KSerializer<T> = serializer(),
-        defValue: T? = null
-    ) : T? {
-        if(!hasKey(key))
-            return defValue
-        return Json.decodeFromString(
-            deserializer = deserializer,
-            string = retrieveString(
-                key = key
-            )!!
-        )
-    }
-
-    /**
-     * Method to locally store an [Enum] value
-     *
-     * @param key Is the key of the enum
-     * @param value Is the value to store
-     *
-     * @param E The type of the enum to store
-     */
-    fun <E: Enum<E>> storeEnum(
-        key: String,
-        value: E
-    ) {
-        prefsWorker.store(
-            key = key,
-            value = value
-        )
-    }
-
-    /**
-     * Method to locally retrieve an [Enum] value
-     *
-     * @param key Is the key of the enum to retrieve
-     * @param defValue Is the value to return if the searched one does not exist, if not specified will be returned the
-     * first entry of the [Enum]
-     *
-     * @return retrieved value as [E]
-     *
-     * @param E The type of the enum to retrieve
-     */
-    inline fun <reified E : Enum<E>> retrieveEnum(
-        key: String,
-        defValue: E = enumEntries<E>().first()
-    ): E {
-        return reifiedUse {
-            val enumEntryName = retrieve(
-                key = key,
-                defValue = defValue
-            )
-            if(enumEntryName == null)
-                defValue
-            else {
-                enumValueOf<E>(
-                    name = enumEntryName
-                )
-            }
-        }
-    }
 
     /**
      * Method to locally store a [T] value
@@ -940,12 +60,14 @@ class KMPrefs(
      */
     inline fun <reified T> store(
         key: String,
-        value: T?
+        value: T?,
+        isSensitive: Boolean = false
     ) {
         reifiedUse {
             store(
                 key = key,
-                value = Json.encodeToString(value)
+                value = Json.encodeToString(value),
+                isSensitive = isSensitive
             )
         }
     }
@@ -962,12 +84,14 @@ class KMPrefs(
      */
     inline fun <reified T> retrieve(
         key: String,
-        defValue: T? = null
+        defValue: T? = null,
+        isSensitive: Boolean = false
     ): T? {
         return reifiedUse {
             val localEntry = retrieve(
                 key = key,
-                defValue = defValue
+                defValue = defValue,
+                isSensitive = isSensitive
             )
             if(localEntry == null)
                 defValue
@@ -1035,90 +159,103 @@ class KMPrefs(
     @ExperimentalUnsignedTypes
     fun <T> valueMatchesTo(
         key: String,
-        matcher: T?
+        matcher: T?,
+        isSensitive: Boolean = false
     ) : Boolean {
         return when (matcher) {
             is BooleanArray -> {
                 val array = deserializeData(
                     key = key,
-                    defValue = booleanArrayOf()
+                    defValue = booleanArrayOf(),
+                    isSensitive = isSensitive
                 )
                 matcher.contentEquals(array)
             }
             is ByteArray -> {
                 val array = deserializeData(
                     key = key,
-                    defValue = byteArrayOf()
+                    defValue = byteArrayOf(),
+                    isSensitive = isSensitive
                 )
                 matcher.contentEquals(array)
             }
             is UByteArray -> {
                 val array = deserializeData(
                     key = key,
-                    defValue = ubyteArrayOf()
+                    defValue = ubyteArrayOf(),
+                    isSensitive = isSensitive
                 )
                 matcher.contentEquals(array)
             }
             is ShortArray -> {
                 val array = deserializeData(
                     key = key,
-                    defValue = shortArrayOf()
+                    defValue = shortArrayOf(),
+                    isSensitive = isSensitive
                 )
                 matcher.contentEquals(array)
             }
             is UShortArray -> {
                 val array = deserializeData(
                     key = key,
-                    defValue = ushortArrayOf()
+                    defValue = ushortArrayOf(),
+                    isSensitive = isSensitive
                 )
                 matcher.contentEquals(array)
             }
             is IntArray -> {
                 val array = deserializeData(
                     key = key,
-                    defValue = intArrayOf()
+                    defValue = intArrayOf(),
+                    isSensitive = isSensitive
                 )
                 matcher.contentEquals(array)
             }
             is UIntArray -> {
                 val array = deserializeData(
                     key = key,
-                    defValue = uintArrayOf()
+                    defValue = uintArrayOf(),
+                    isSensitive = isSensitive
                 )
                 matcher.contentEquals(array)
             }
             is LongArray -> {
                 val array = deserializeData(
                     key = key,
-                    defValue = longArrayOf()
+                    defValue = longArrayOf(),
+                    isSensitive = isSensitive
                 )
                 matcher.contentEquals(array)
             }
             is ULongArray -> {
                 val array = deserializeData(
                     key = key,
-                    defValue = ulongArrayOf()
+                    defValue = ulongArrayOf(),
+                    isSensitive = isSensitive
                 )
                 matcher.contentEquals(array)
             }
             is FloatArray -> {
                 val array = deserializeData(
                     key = key,
-                    defValue = floatArrayOf()
+                    defValue = floatArrayOf(),
+                    isSensitive = isSensitive
                 )
                 matcher.contentEquals(array)
             }
             is DoubleArray -> {
                 val array = deserializeData(
                     key = key,
-                    defValue = doubleArrayOf()
+                    defValue = doubleArrayOf(),
+                    isSensitive = isSensitive
                 )
                 matcher.contentEquals(array)
             }
             else -> {
                 val value = prefsWorker.retrieve(
                     key = key,
-                    defValue = null
+                    defValue = null,
+                    isSensitive = isSensitive
                 )
                 value == matcher.toString()
             }
@@ -1135,14 +272,16 @@ class KMPrefs(
      */
     private inline fun <reified T> deserializeData(
         key: String,
-        defValue: T?
+        defValue: T?,
+        isSensitive: Boolean = false
     ) : T? {
         val array = prefsWorker.retrieve(
             key = key,
             defValue = if(defValue != null)
                 Json.encodeToString(defValue)
             else
-                null
+                null,
+            isSensitive = isSensitive
         )
         if(array == null)
             return null
@@ -1169,6 +308,55 @@ class KMPrefs(
             deserializer = deserializer
         )
         return value == matcher
+    }
+
+    /**
+     * Method to locally store a custom [Serializable] object
+     *
+     * @param key Is the key of the custom object
+     * @param serializer The custom serializer for the custom object used to store it locally
+     * @param value Is the value to store
+     */
+    @ExperimentalSerializationApi
+    inline fun <reified T> storeCustomObject(
+        key: String,
+        serializer: KSerializer<T> = serializer(),
+        value: T?
+    ) {
+        if(value == null) {
+            removeValue(
+                key = key
+            )
+            return
+        }
+        store(
+            key = key,
+            value = Json.encodeToString(serializer, value)
+        )
+    }
+
+    /**
+     * Method to locally retrieve a custom [Serializable] object
+     *
+     * @param key Is the key of the custom object
+     * @param deserializer The custom deserializer for the custom object used to retrieve
+     * @param defValue - Is the value to return if the searched one does not exist
+     *
+     * @return the custom object locally stored as [T]
+     */
+    inline fun <reified T> retrieveCustomObject(
+        key: String,
+        deserializer: KSerializer<T> = serializer(),
+        defValue: T? = null
+    ) : T? {
+        if(!hasKey(key))
+            return defValue
+        return Json.decodeFromString(
+            deserializer = deserializer,
+            string = retrieve(
+                key = key
+            )!!
+        )
     }
 
     /**

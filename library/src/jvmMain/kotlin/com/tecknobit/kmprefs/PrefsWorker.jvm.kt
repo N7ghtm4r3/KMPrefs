@@ -1,8 +1,5 @@
 package com.tecknobit.kmprefs
 
-import com.tecknobit.kmprefs.SensitivePrefsUtil.decryptPref
-import com.tecknobit.kmprefs.SensitivePrefsUtil.encryptPref
-import com.tecknobit.kmprefs.SensitivePrefsUtil.resolveAlias
 import kotlinx.coroutines.runBlocking
 import java.util.prefs.Preferences
 
@@ -19,11 +16,13 @@ actual class PrefsWorker actual constructor(
     path: String
 ) {
 
-    // TODO: TO DOCU
+    /**
+     * `sensitiveKeyAlias` the alias of the key used to encrypt and decrypt sensitive data
+     */
     internal actual val sensitiveKeyAlias: String = path.resolveAlias()
 
     /**
-     * `preferences` -> the instance used to manage locally the preferences on `JVM`
+     * `preferences` the instance used to manage locally the preferences on `JVM`
      */
     private val preferences = Preferences.userRoot().node(path)
 

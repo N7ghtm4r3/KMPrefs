@@ -1,7 +1,12 @@
+@file:OptIn(ExperimentalCoroutinesApi::class)
+
 package com.tecknobit.kmprefs
 
-import com.tecknobit.kmprefs.SensitivePrefsUtil.resolveAlias
 import kotlinx.browser.window
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import org.w3c.dom.DedicatedWorkerGlobalScope
+
+external val self: DedicatedWorkerGlobalScope
 
 /**
  * The `PrefsWorker` class helps to manage the preferences storing the data locally using the [kotlinx.browser.localStorage]
@@ -16,11 +21,13 @@ actual class PrefsWorker actual constructor(
     path: String
 ) {
 
-    // TODO: TO DOCU
+    /**
+     * `sensitiveKeyAlias` the alias of the key used to encrypt and decrypt sensitive data
+     */
     internal actual val sensitiveKeyAlias: String = path.resolveAlias()
 
     /**
-     * `localStorage` -> the instance used to manage locally the preferences on `WEB`
+     * `localStorage` the instance used to manage locally the preferences on `WEB`
      */
     private val localStorage = window.localStorage
 

@@ -13,7 +13,9 @@ expect class PrefsWorker(
     path: String
 ) {
 
-    // TODO: TO DOCU
+    /**
+     * `sensitiveKeyAlias` the alias of the key used to encrypt and decrypt sensitive data
+     */
     internal val sensitiveKeyAlias: String
 
     /**
