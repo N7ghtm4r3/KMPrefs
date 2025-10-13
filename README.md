@@ -198,7 +198,7 @@ sensitive data and then consuming it:
 kmPrefs.consumeRetrieval<Double>(
     key = "constant",
     defValue = 1.6180339887, // a default value to use whether the searched one is not stored yet
-    isSensitive = isSensitive, // the value will be retrieved decrypted 
+    isSensitive = true, // the value will be retrieved decrypted 
     consume = { retrievedValue ->
         println(retrievedValue) // decrypted value locally retrieved
     }
