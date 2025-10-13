@@ -143,57 +143,6 @@ class KMPrefs(
     }
 
     /**
-     * Method to check whether the value with the specified key matches to the [matcher] value
-     *
-     * @param key The key of the value to check
-     * @param matcher The value to use as matcher on the comparison
-     *
-     * @return whether the values match as [Boolean]
-     *
-     */
-    @ExperimentalUnsignedTypes
-    inline fun <reified T> valueMatchesTo(
-        key: String,
-        matcher: T?,
-        serializer: KSerializer<T> = serializer(),
-        isSensitive: Boolean = false
-    ) : Boolean {
-        val storedValue = retrieve(
-            key = key,
-            deserializer = serializer,
-            isSensitive = isSensitive
-        )
-        return checkMatching(
-            matcher = matcher,
-            stored = storedValue
-        )
-    }
-    
-    @ExperimentalUnsignedTypes
-    fun <T> checkMatching(
-        matcher: T?,
-        stored: T?
-    ): Boolean {
-        if(matcher == null && stored == null)
-            return true
-        return when (matcher) {
-            is BooleanArray -> matcher.contentEquals(stored as BooleanArray)
-            is ByteArray -> matcher.contentEquals(stored as ByteArray)
-            is UByteArray -> matcher.contentEquals(stored as UByteArray)
-            is ShortArray -> matcher.contentEquals(stored as ShortArray)
-            is UShortArray -> matcher.contentEquals(stored as UShortArray)
-            is IntArray -> matcher.contentEquals(stored as IntArray)
-            is UIntArray -> matcher.contentEquals(stored as UIntArray)
-            is LongArray -> matcher.contentEquals(stored as LongArray)
-            is ULongArray -> matcher.contentEquals(stored as ULongArray)
-            is FloatArray -> matcher.contentEquals(stored as FloatArray)
-            is DoubleArray -> matcher.contentEquals(stored as DoubleArray)
-            is Array<*> -> matcher.contentDeepEquals(stored as Array<*>)
-            else -> matcher == stored
-        }
-    }
-
-    /**
      * Method to clear the all preferences specified by the path
      */
     fun clearAll() {
