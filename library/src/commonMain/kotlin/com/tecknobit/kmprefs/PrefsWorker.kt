@@ -36,7 +36,7 @@ expect class PrefsWorker(
      *
      * @param key Is the key of the value to retrieve
      * @param defValue Is the value to return if the searched one does not exist
-     * @return fetched value as [String]
+     * @return retrieved value as [String]
      */
     // TODO: TO DOCU
     fun <T> retrieve(

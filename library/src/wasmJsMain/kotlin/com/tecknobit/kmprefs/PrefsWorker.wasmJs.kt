@@ -2,8 +2,15 @@
 
 package com.tecknobit.kmprefs
 
+import com.tecknobit.kassaforte.key.genspec.BlockMode.CTR
+import com.tecknobit.kmprefs.util.decryptPref
+import com.tecknobit.kmprefs.util.encryptPref
+import com.tecknobit.kmprefs.util.resolveAlias
 import kotlinx.browser.window
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.launch
 import org.w3c.dom.DedicatedWorkerGlobalScope
 
 external val self: DedicatedWorkerGlobalScope
@@ -31,6 +38,11 @@ actual class PrefsWorker actual constructor(
      */
     private val localStorage = window.localStorage
 
+    // TODO: TO DOCU
+    private val workerScope: CoroutineScope = CoroutineScope(
+        context = Dispatchers.Main
+    )
+
     /**
      * Method to locally store a value
      *
@@ -48,19 +60,49 @@ actual class PrefsWorker actual constructor(
                 key = key
             )
         } else {
-            localStorage.setItem(
-                key = key,
-                value = value.toString()
-            )
+            val valueToStore = value.toString()
+            if(isSensitive) {
+                workerScope.launch {
+                    val encryptedValue = encryptPref(
+                        alias = sensitiveKeyAlias,
+                        value = valueToStore
+                    )!!
+                    locallyStore(
+                        key = key,
+                        value = encryptedValue,
+                    )
+                }
+            } else {
+                locallyStore(
+                    key = key,
+                    value = valueToStore
+                )
+            }
         }
+    }
+
+    private fun locallyStore(
+        key: String,
+        value: String
+    ) {
+        localStorage.setItem(
+            key = key,
+            value = value
+        )
     }
 
     /**
      * Method to locally retrieve a value
-     *
+     * 
      * @param key Is the key of the value to retrieve
      * @param defValue Is the value to return if the searched one does not exist
-     * @return fetched value as [String]
+     * 
+     * @return retrieved value as [String]
+     *
+     * #### API Note
+     *
+     * The [isSensitive] params will be ignored in this method and will be returned encrypted if was a sensitive data.
+     * Use the [consumeRetrieval] method to retrieve and to consume the decrypted data
      */
     // TODO: TO DOCU
     actual fun <T> retrieve(
@@ -82,10 +124,21 @@ actual class PrefsWorker actual constructor(
     ) {
         val storedValue = retrieve(
             key = key,
-            defValue = defValue,
+            defValue = null,
             isSensitive = isSensitive
         )
-        usage(storedValue)
+        if(!isSensitive || storedValue == null)
+            usage(storedValue)
+        else {
+            workerScope.launch {
+                val decryptedValue = decryptPref(
+                    alias = sensitiveKeyAlias,
+                    value = storedValue,
+                    blockMode = CTR
+                )
+                usage(decryptedValue)
+            }
+        }
     }
 
     /**

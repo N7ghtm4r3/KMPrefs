@@ -1,5 +1,6 @@
-package com.tecknobit.kmprefs
+package com.tecknobit.kmprefs.util
 
+import com.tecknobit.kassaforte.key.genspec.BlockMode
 import com.tecknobit.kassaforte.key.genspec.BlockMode.CBC
 import com.tecknobit.kassaforte.key.genspec.EncryptionPadding.PKCS7
 import com.tecknobit.kassaforte.services.KassaforteSymmetricService
@@ -27,11 +28,12 @@ suspend inline fun encryptPref(
 // TODO: TO DOCU
 suspend inline fun decryptPref(
     alias: String,
-    value: String
+    value: String,
+    blockMode: BlockMode = CBC
 ) : String {
     return KassaforteSymmetricService.decrypt(
         alias = alias,
-        blockMode = CBC,
+        blockMode = blockMode,
         padding = PKCS7,
         data = value
     )

@@ -9,6 +9,8 @@ import com.tecknobit.kassaforte.key.genspec.KeySize.S256
 import com.tecknobit.kassaforte.key.genspec.SymmetricKeyGenSpec
 import com.tecknobit.kassaforte.key.usages.KeyPurposes
 import com.tecknobit.kassaforte.services.KassaforteSymmetricService
+import com.tecknobit.kmprefs.util.resolveAlias
+import com.tecknobit.kmprefs.util.resolveRetrieval
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.json.Json
@@ -98,19 +100,36 @@ class KMPrefs(
     ): T? {
         if(!hasKey(key))
             return defValue
-        val localEntry = prefsWorker.retrieve(
+        val storedValue = prefsWorker.retrieve(
             key = key,
             defValue = defValue,
             isSensitive = isSensitive
         )
-        return if(localEntry == null)
-            defValue
-        else {
-            Json.decodeFromString(
-                deserializer = deserializer,
-                string = localEntry
-            )
-        }
+        return storedValue.resolveRetrieval(
+            defValue = defValue,
+            deserializer = deserializer
+        )
+    }
+
+    inline fun <reified T> consumeRetrieval(
+        key: String,
+        defValue: T? = null,
+        deserializer: KSerializer<T> = serializer(),
+        isSensitive: Boolean = false,
+        crossinline consume: (T?) -> Unit
+    ) {
+        prefsWorker.consumeRetrieval(
+            key = key,
+            defValue = defValue,
+            isSensitive = isSensitive,
+            usage = { storedValue ->
+                val retrieval: T? = storedValue.resolveRetrieval(
+                    defValue = defValue,
+                    deserializer = deserializer
+                )
+                consume(retrieval)
+            }
+        )
     }
 
     /**

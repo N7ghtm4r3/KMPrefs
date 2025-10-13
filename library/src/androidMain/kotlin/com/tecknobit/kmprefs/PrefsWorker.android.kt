@@ -2,6 +2,9 @@ package com.tecknobit.kmprefs
 
 import android.content.Context
 import com.tecknobit.equinoxcore.utilities.AppContext
+import com.tecknobit.kmprefs.util.decryptPref
+import com.tecknobit.kmprefs.util.encryptPref
+import com.tecknobit.kmprefs.util.resolveAlias
 import kotlinx.coroutines.runBlocking
 
 /**
@@ -59,7 +62,7 @@ actual class PrefsWorker actual constructor(
      *
      * @param key Is the key of the value to retrieve
      * @param defValue Is the value to return if the searched one does not exist
-     * @return fetched value as [String]
+     * @return retrieved value as [String]
      */
     // TODO: TO DOCU
     actual fun <T> retrieve(
