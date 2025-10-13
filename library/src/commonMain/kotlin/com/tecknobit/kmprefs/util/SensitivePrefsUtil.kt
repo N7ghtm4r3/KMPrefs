@@ -5,13 +5,28 @@ import com.tecknobit.kassaforte.key.genspec.BlockMode.CBC
 import com.tecknobit.kassaforte.key.genspec.EncryptionPadding.PKCS7
 import com.tecknobit.kassaforte.services.KassaforteSymmetricService
 
-// TODO: TO DOCU
-inline fun String.resolveAlias(): String {
+/**
+ * Method used to resolve the alias of the key used to safeguard sensitive data
+ *
+ * @return the alias of the key as [String]
+ *
+ * @since 1.1.0
+ */
+internal inline fun String.resolveAlias(): String {
     return hashCode().toHexString()
 }
 
-// TODO: TO DOCU
-suspend inline fun encryptPref(
+/**
+ * Method used to encrypt a sensitive preference
+ *
+ * @param alias The alias of the key to use
+ * @param value The value of the preference to encrypt
+ *
+ * @return the preference encrypted as nullable [String], is `null` when the original value is `null`
+ *
+ * @since 1.1.0
+ */
+internal suspend inline fun encryptPref(
     alias: String,
     value: String?
 ) : String? {
@@ -25,8 +40,18 @@ suspend inline fun encryptPref(
     )
 }
 
-// TODO: TO DOCU
-suspend inline fun decryptPref(
+/**
+ * Method used to decrypt a sensitive preference
+ *
+ * @param alias The alias of the key to use
+ * @param value The value of the preference to decrypt
+ * @param blockMode The type of the block to use to decrypt a sensitive preference
+ *
+ * @return the preference decrypted as [String]
+ *
+ * @since 1.1.0
+ */
+internal suspend inline fun decryptPref(
     alias: String,
     value: String,
     blockMode: BlockMode = CBC

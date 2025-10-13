@@ -1,4 +1,4 @@
-@file:OptIn(ExperimentalSerializationApi::class, ExperimentalUnsignedTypes::class, ExperimentalUnsignedTypes::class)
+@file:OptIn(ExperimentalSerializationApi::class)
 
 package com.tecknobit.kmprefs
 
@@ -23,7 +23,6 @@ import kotlinx.serialization.serializer
  *
  * @author N7ghtm4r3 - Tecknobit
  */
-// TODO: TO DOCU CHANGES AND ADD 1.1.0
 class KMPrefs(
     path: String
 ) {
@@ -59,6 +58,8 @@ class KMPrefs(
      *
      * @param key Is the key of the generic value
      * @param value Is the value to store
+     * @param serializer Custom serializer used to serialize the data before storing it
+     * @param isSensitive Whether the data to store needs to be protected due to its sensitivity
      *
      * @param T The type of the enum to store
      */
@@ -86,7 +87,9 @@ class KMPrefs(
      * Method to locally retrieve a [T] value
      *
      * @param key Is the key of the generic value to retrieve
-     * @param defValue Is the value to return if the searched one does not exist
+     * @param defValue Is the value to return whether the searched one does not exist
+     * @param deserializer Custom deserializer used to deserialize the data after retrieving it
+     * @param isSensitive Whether the data to retrieve was protected due to its sensitivity
      *
      * @return retrieved value as nullable [T]
      *
@@ -111,6 +114,21 @@ class KMPrefs(
         )
     }
 
+    /**
+     * Method to locally retrieve and then consume a [T] value. This method is useful when the project targets also `Web`
+     * platform and when [isSensitive] is `true` to correctly use the decrypted data before using it, otherwise is
+     * suggested just to use [retrieve] method
+     *
+     * @param key Is the key of the generic value to retrieve
+     * @param defValue Is the value to return whether the searched one does not exist
+     * @param deserializer Custom deserializer used to deserialize the data after retrieving it
+     * @param isSensitive Whether the data to retrieve was protected due to its sensitivity
+     * @param consume The routine executed to consume the retrieved value
+     *
+     * @param T The type of the value to retrieve
+     *
+     * @since 1.1.0
+     */
     inline fun <reified T> consumeRetrieval(
         key: String,
         defValue: T? = null,
@@ -122,7 +140,7 @@ class KMPrefs(
             key = key,
             defValue = defValue,
             isSensitive = isSensitive,
-            usage = { storedValue ->
+            consume = { storedValue ->
                 val retrieval: T? = storedValue.resolveRetrieval(
                     defValue = defValue,
                     deserializer = deserializer
