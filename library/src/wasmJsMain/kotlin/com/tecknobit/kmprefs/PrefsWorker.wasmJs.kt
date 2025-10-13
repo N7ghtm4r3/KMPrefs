@@ -64,7 +64,10 @@ actual class PrefsWorker actual constructor(
                 key = key
             )
         } else {
-            val valueToStore = value.toString()
+            val valueToStore = if(value is Enum<*>)
+                value.name
+            else
+                value.toString()
             if(isSensitive) {
                 workerScope.launch {
                     val encryptedValue = encryptPref(
