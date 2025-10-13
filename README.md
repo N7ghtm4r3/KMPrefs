@@ -9,8 +9,8 @@
 
 **v1.1.0**
 
-The Kotlin Multiplatform Pref(erence)s system allows you to store, retrieve, and remove data locally on each platform.
-It leverages the native mechanisms provided by each platform.
+The Kotlin Multiplatform Pref(erence)s system allows you to locally store, retrieve, and remove data on each platform.
+It leverages the native APIs provided by each platform
 
 ## Implementation
 
@@ -50,7 +50,7 @@ dependencies {
 }
 ```
 
-## Core functionality
+## Usage
 
 ### Supported types
 
@@ -82,25 +82,22 @@ dependencies {
 | `Serializable` | Custom serializable objects  |
 | `Enum`         | Entry of any `Enum`          |
 
-### Store values
+### Storing values
 
-Same procedure for all the types
-
-#### Primitives and String
+#### Primitives
 
 ```kotlin
 val kmPrefs = KMPrefs("your_storage_path") // create an instance
 
-// for example store a Double value
-kmPrefs.storeDouble(
-    key = "constant", // the key of the double value to store
-    value = 3.14159265359 // the double value to store
+kmPrefs.store(
+    key = "constant", // the key of the value to store
+    value = 3.14159265359 // a primitive value to store
 )
 ```
 
-#### Custom serializable objects
+#### Custom objects
 
-Under the hood the `KMPrefs` works with the [kotlinx-serialization](https://github.com/Kotlin/kotlinx.serialization) library
+Under the hood `KMPrefs` works with the [kotlinx-serialization](https://github.com/Kotlin/kotlinx.serialization) library
 so it is required to import both the library and the plugin to correctly store and retrieve custom objects
 
 <h6>Create the @Serializable object</h6>
@@ -124,42 +121,86 @@ val carToStore = Car(
     hp = 450
 )
 
-// store the instance created
-kmPrefs.storeCustomObject(
+// store the created instance 
+kmPrefs.store(
     key = "your_key",
     value = carToStore
 ) 
 ```
 
-### Retrieve values
+#### Sensitive data
 
-Same procedure for all the types
-
-#### Primitives and String
+To safeguard sensitive data (such as token, ids, etc...) you can do as follows to encrypt values before their storage:
 
 ```kotlin
-// for example retrive a Double value
-val constant = kmPrefs.retrieveDouble(
-    key = "constant",
-    defValue = 1.6180339887 // a default value to use if the searched one is not stored yet
+val kmPrefs = KMPrefs("your_storage_path") // create an instance
+
+kmPrefs.store(
+    key = "constant", // the key of the value to store
+    value = 3.14159265359, // a primitive value to store,
+    isSensitive = true // the value will be stored encrypted 
 )
 ```
 
-#### Custom serializable objects
+### Retrieving values
+
+#### Primitives
+
+```kotlin
+val constant: Double? = kmPrefs.retrieve(
+    key = "constant",
+    defValue = 1.6180339887 // a default value to use whether the searched one is not stored yet
+)
+```
+
+#### Custom objects
 
 ```kotlin
 // retrieve the car
-val carToStore: Car = kmPrefs.retrieveCustomObject(
+val carToStore: Car = kmPrefs.retrieve(
     key = "your_key",
-    deserializer = ,// custom deserializer to use during the retrieve if the type is not explicit
+    deserializer = ,// custom deserializer to use during the retrieve whether the type is not explicit
     defValue = Car(
         plate = "not_found",
         hp = 0
-    ) // a default value to use if the searched one is not stored yet
+    ) // a default value to use whether the searched one is not stored yet
 )
 ```
 
-### Remove values
+#### Sensitive data
+
+To correctly retrieve and use a sensitive data previously stored you can follow the below guide
+
+<h6>Project does not target Web platform</h6>
+
+If your project does not target the `Web` platform you can normally use the `retrieve` method to retrieve the sensitive 
+data and then using it:
+
+```kotlin
+val constant: Double? = kmPrefs.retrieve(
+    key = "constant",
+    defValue = 1.6180339887, // a default value to use whether the searched one is not stored yet
+    isSensitive = true // the value will be retrieved decrypted 
+)
+```
+
+<h6>Project targets Web platform</h6>
+
+Otherwise, if your project targets the `Web` platform you have to use the `consumeRetrieval` method to retrieve the 
+sensitive data and then consuming it:
+
+```kotlin
+kmPrefs.consumeRetrieval<Double>(
+    key = "constant",
+    defValue = 1.6180339887, // a default value to use whether the searched one is not stored yet
+    isSensitive = isSensitive, // the value will be retrieved decrypted 
+    consume = { retrievedValue ->
+        println(retrievedValue) // decrypted value locally retrieved
+    }
+)
+```
+
+### Removing values
 
 ```kotlin
 // same method for all the types
@@ -174,28 +215,6 @@ kmPrefs.removeValue(
 // same method for all the types
 kmPrefs.hasKey(
     key = "your_key"
-)
-```
-
-### Check whether a value matches with a specified one
-
-#### Primitives and String
-
-```kotlin
-// same method for all the types
-kmPrefs.valueMatchesTo(
-    key = "your_key",
-    matcher = // the matcher value such "Hello World!", 22, doubleArrayOf(8, 1) etc...
-)
-```
-
-#### Custom serializable objects
-
-```kotlin
-kmPrefs.customObjectMatchesTo(
-    key = "your_key",
-    deserializer =,// custom deserializer to use when the matcher value is null 
-    matcher = carToStore// the matcher custom object
 )
 ```
 
