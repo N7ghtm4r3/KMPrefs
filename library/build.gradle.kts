@@ -1,4 +1,5 @@
 
+import com.vanniktech.maven.publish.JavadocJar
 import com.vanniktech.maven.publish.KotlinMultiplatform
 import org.jetbrains.dokka.DokkaConfiguration.Visibility.*
 import org.jetbrains.dokka.base.DokkaBase
@@ -94,8 +95,7 @@ kotlin {
 mavenPublishing {
     configure(
         KotlinMultiplatform(
-            // TODO: TO ENABLE WHEN PUBLISH 
-            // javadocJar = JavadocJar.Dokka("dokkaHtml"),
+            javadocJar = JavadocJar.Dokka("dokkaHtml"),
             sourcesJar = true,
             androidVariantsToPublish = listOf("release"),
         )
@@ -152,7 +152,7 @@ subprojects {
 }
 
 tasks.dokkaHtml {
-    outputDirectory.set(layout.projectDirectory.dir("../docs"))
+    outputDirectory.set(layout.projectDirectory.dir("../docs/dokka"))
     dokkaSourceSets.configureEach {
         moduleName = "KMPrefs"
         includeNonPublic.set(true)

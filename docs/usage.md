@@ -1,63 +1,4 @@
-# KMPrefs
-
-![Maven Central](https://img.shields.io/maven-central/v/io.github.n7ghtm4r3/KMPrefs.svg?label=Maven%20Central)
-
-![Static Badge](https://img.shields.io/badge/android-4280511051?link=https%3A%2F%2Fimg.shields.io%2Fbadge%2Fandroid-4280511051)
-![Static Badge](https://img.shields.io/badge/apple-445E91?link=https%3A%2F%2Fimg.shields.io%2Fbadge%2Fandroid-4280511051)
-![Static Badge](https://img.shields.io/badge/desktop-006874?link=https%3A%2F%2Fimg.shields.io%2Fbadge%2Fandroid-4280511051)
-![Static Badge](https://img.shields.io/badge/wasmjs-834C74?link=https%3A%2F%2Fimg.shields.io%2Fbadge%2Fandroid-4280511051)
-
-**v1.1.0**
-
-**Kotlin Multiplatform Pref(erence)s** system allows you to locally store, retrieve, and remove data on each platform,
-leveraging the native APIs provided by each platform:
-
-- The `Android` target leverages the [SharedPreferences](https://developer.android.com/reference/android/content/SharedPreferences) APIs
-- The `iOS` and `macOS` targets leverage the [UserDefaults](https://developer.apple.com/documentation/foundation/userdefaults) APIs
-- The `JVM` target leverages the [Preferences](https://docs.oracle.com/javase/8/docs/api/java/util/prefs/Preferences.html) APIs
-- The `Web` target leverages the [LocalStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage) APIs
-
-## Implementation
-
-### Gradle short
-
-```groovy
-dependencies {
-    implementation 'io.github.n7ghtm4r3:kmprefs:1.1.0'
-}
-```
-
-### Gradle (Kotlin)
-
-```kotlin
-dependencies {
-    implementation("io.github.n7ghtm4r3:kmprefs:1.1.0")
-}
-```
-
-### Gradle (version catalog)
-
-#### libs.versions.toml
-
-```toml
-[versions]
-kmprefs = "1.1.0"
-
-[libraries]
-kmprefs = { module = "io.github.n7ghtm4r3:kmprefs", version.ref = "kmprefs" }
-```
-
-#### build.gradle.kts
-
-```kotlin
-dependencies {
-    implementation(libs.kmprefs)
-}
-```
-
-## Usage
-
-### Supported types
+## Supported types
 
 | **Type**       | **Description**              |
 |----------------|------------------------------|
@@ -87,9 +28,13 @@ dependencies {
 | `Serializable` | Custom serializable objects  |
 | `Enum`         | Entry of any `Enum`          |
 
-### Storing values
+## Storing values
 
-#### Primitives
+### Primitives
+
+!!! Info
+
+    For _Primitives_ is meaning all the types natively provided such **Int**, **String**, **Enum** and all the **primitive arrays** 
 
 ```kotlin
 val kmPrefs = KMPrefs("your_storage_path") // create an instance
@@ -100,12 +45,12 @@ kmPrefs.store(
 )
 ```
 
-#### Custom objects
+### Custom objects
 
 Under the hood `KMPrefs` works with the [kotlinx-serialization](https://github.com/Kotlin/kotlinx.serialization) library
 so it is required to import both the library and the plugin to correctly store and retrieve custom objects
 
-<h6>Create the @Serializable object</h6>
+#### Create the @Serializable object
 
 ```kotlin
 @Serializable // required
@@ -115,7 +60,7 @@ data class Car(
 )
 ```
 
-<h6>Store the object</h6>
+#### Store the object
 
 ```kotlin
 val kmPrefs = KMPrefs("your_storage_path") // create an instance
@@ -133,7 +78,7 @@ kmPrefs.store(
 ) 
 ```
 
-#### Sensitive data
+### Sensitive data
 
 To safeguard sensitive data (such as token, ids, etc...) you can do as follows to encrypt values before their storage:
 
@@ -147,9 +92,9 @@ kmPrefs.store(
 )
 ```
 
-### Retrieving values
+## Retrieving values
 
-#### Primitives
+### Primitives
 
 ```kotlin
 val constant: Double? = kmPrefs.retrieve(
@@ -158,7 +103,7 @@ val constant: Double? = kmPrefs.retrieve(
 )
 ```
 
-#### Custom objects
+### Custom objects
 
 ```kotlin
 // retrieve the car
@@ -172,13 +117,13 @@ val carToStore: Car = kmPrefs.retrieve(
 )
 ```
 
-#### Sensitive data
+### Sensitive data
 
 To correctly retrieve and use a sensitive data previously stored you can follow the below guide
 
-<h6>Project does not target Web platform</h6>
+#### Project does not target Web platform
 
-If your project does not target the `Web` platform you can normally use the `retrieve` method to retrieve the sensitive 
+If your project does not target the `Web` platform you can normally use the `retrieve` method to retrieve the sensitive
 data and then using it:
 
 ```kotlin
@@ -189,10 +134,10 @@ val constant: Double? = kmPrefs.retrieve(
 )
 ```
 
-<h6>Project targets Web platform</h6>
+#### Project targets Web platform
 
-Otherwise, if your project targets the `Web` platform you have to use the `consumeRetrieval` method to retrieve the 
-sensitive data and then consuming it:
+Otherwise, if your project targets the `Web` platform you have to use the `consumeRetrieval` method to retrieve the
+sensitive data and then consuming it: 
 
 ```kotlin
 kmPrefs.consumeRetrieval<Double>(
@@ -205,9 +150,14 @@ kmPrefs.consumeRetrieval<Double>(
 )
 ```
 
-### Removing values
+!!! Warning
 
-#### Single preference
+    Normally using the `retrieve` method when the data to retrieve is a **sensitive data** on the `Web` platform, will 
+    cause a crash of the web app due wrong deserialization of the encrypted data
+
+## Removing values
+
+### Single preference
 
 With the `removeValue` method you can remove a preference previously stored, it has no effect if the specified key is not
 used by any preference
@@ -218,7 +168,7 @@ kmPrefs.removeValue(
 )  
 ```
 
-#### All preferences
+### All preferences
 
 With the `clearAll` method you can remove all the preferences currently stored by the library:
 
@@ -226,42 +176,13 @@ With the `clearAll` method you can remove all the preferences currently stored b
 kmPrefs.clearAll()  
 ```
 
-### Checking key availability
+## Checking key availability
 
-With the `hasKey` method you can check whether a key has been previously used to store a preference or whether a
-specific preference is currently stored:
+With the `hasKey` method you can check whether a key has been previously used to store a preference or whether a 
+specific preference is currently stored: 
 
 ```kotlin
 kmPrefs.hasKey(
     key = "your_key"
 )
 ```
-
-## Documentation
-
-Check out the library documentation [here!](https://n7ghtm4r3.github.io/KMPrefs/)
-
-## Support
-
-If you need help using the library or encounter any problems or bugs, please contact us via the
-following links:
-
-- Support via <a href="mailto:infotecknobitcompany@gmail.com">email</a>
-- Support via <a href="https://github.com/N7ghtm4r3/KMPrefs/issues/new">GitHub</a>
-
-Thank you for your help!
-
-## Donations
-
-If you want support project and developer
-
-| Crypto                                                                                              | Address                                          | Network  |
-|-----------------------------------------------------------------------------------------------------|--------------------------------------------------|----------|
-| ![](https://img.shields.io/badge/Bitcoin-000000?style=for-the-badge&logo=bitcoin&logoColor=white)   | **3H3jyCzcRmnxroHthuXh22GXXSmizin2yp**           | Bitcoin  |
-| ![](https://img.shields.io/badge/Ethereum-3C3C3D?style=for-the-badge&logo=Ethereum&logoColor=white) | **0x1b45bc41efeb3ed655b078f95086f25fc83345c4**   | Ethereum |
-| ![](https://img.shields.io/badge/Solana-000?style=for-the-badge&logo=Solana&logoColor=9945FF)       | **AtPjUnxYFHw3a6Si9HinQtyPTqsdbfdKX3dJ1xiDjbrL** | Solana   |
-
-If you want support project and developer
-with <a href="https://www.paypal.com/donate/?hosted_button_id=5QMN5UQH7LDT4">PayPal</a>
-
-Copyright © 2025 Tecknobit
