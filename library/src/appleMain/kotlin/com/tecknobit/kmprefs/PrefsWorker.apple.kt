@@ -1,22 +1,13 @@
-@file:OptIn(ExperimentalCoroutinesApi::class)
-
 package com.tecknobit.kmprefs
 
-import com.tecknobit.kassaforte.key.genspec.BlockMode.CTR
 import com.tecknobit.kmprefs.util.decryptPref
 import com.tecknobit.kmprefs.util.encryptPref
 import com.tecknobit.kmprefs.util.resolveAlias
-import kotlinx.browser.window
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.launch
-import org.w3c.dom.DedicatedWorkerGlobalScope
-
-external val self: DedicatedWorkerGlobalScope
+import kotlinx.coroutines.runBlocking
+import platform.Foundation.NSUserDefaults
 
 /**
- * The `PrefsWorker` class helps to manage the preferences storing the data locally using the [kotlinx.browser.localStorage]
+ * The `PrefsWorker` class helps to manage the preferences storing the data locally using the [NSUserDefaults]
  * built-in mechanism
  *
  * @param path Is the path where store the data
@@ -25,7 +16,7 @@ external val self: DedicatedWorkerGlobalScope
  */
 @Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
 actual class PrefsWorker actual constructor(
-    path: String
+    private val path: String
 ) {
 
     /**
@@ -34,15 +25,10 @@ actual class PrefsWorker actual constructor(
     internal actual val sensitiveKeyAlias: String = path.resolveAlias()
 
     /**
-     * `localStorage` the instance used to manage locally the preferences on `WEB`
+     * `userDefaults` the instance used to manage locally the preferences on `iOs`
      */
-    private val localStorage = window.localStorage
-
-    /**
-     * `workerScope` the scope of the worker used to execute background operations
-     */
-    private val workerScope: CoroutineScope = CoroutineScope(
-        context = Dispatchers.Main
+    private val userDefaults = NSUserDefaults(
+        suiteName = path
     )
 
     /**
@@ -59,54 +45,24 @@ actual class PrefsWorker actual constructor(
         value: T?,
         isSensitive: Boolean,
     ) {
-        if(value == null) {
-            remove(
-                key = key
-            )
-        } else {
-            val valueToStore = if(value is Enum<*>)
-                value.name
-            else
-                value.toString()
-            if(isSensitive) {
-                workerScope.launch {
-                    val encryptedValue = encryptPref(
-                        alias = sensitiveKeyAlias,
-                        value = valueToStore
-                    )!!
-                    locallyStore(
-                        key = key,
-                        value = encryptedValue,
-                    )
-                }
-            } else {
-                locallyStore(
-                    key = key,
+        var valueToStore = value?.toString()
+        if(isSensitive) {
+            runBlocking {
+                valueToStore = encryptPref(
+                    alias = sensitiveKeyAlias,
                     value = valueToStore
                 )
             }
         }
-    }
-
-    /**
-     * Core method to locally store a value
-     *
-     * @param key Is the key of the value
-     * @param value Is the value to store
-     */
-    private fun locallyStore(
-        key: String,
-        value: String
-    ) {
-        localStorage.setItem(
-            key = key,
-            value = value
+        userDefaults.setObject(
+            value = valueToStore,
+            forKey = key
         )
     }
 
     /**
      * Method to locally retrieve a value
-     * 
+     *
      * @param key Is the key of the value to retrieve
      * @param defValue Is the value to return whether the searched one does not exist
      * @param isSensitive Whether the value to retrieve was protected due to its sensitivity
@@ -114,21 +70,22 @@ actual class PrefsWorker actual constructor(
      * @return retrieved value as nullable [String]
      *
      * @param T The type of the value
-     *
-     * #### API Note
-     *
-     * The [isSensitive] params will be ignored in this method and will be returned encrypted if was a sensitive data.
-     * Use the [consumeRetrieval] method to retrieve and then correctly consume the decrypted data
      */
     actual fun <T> retrieve(
         key: String,
         defValue: T?,
         isSensitive: Boolean,
     ): String? {
-        val value = localStorage.getItem(
-            key = key
-        )
-        return value ?: defValue?.toString()
+        val storedValue = userDefaults.stringForKey(key) ?: return defValue?.toString()
+        return if(isSensitive) {
+            runBlocking {
+                decryptPref(
+                    alias = sensitiveKeyAlias,
+                    value = storedValue
+                )
+            }
+        } else
+            storedValue
     }
 
     /**
@@ -153,21 +110,10 @@ actual class PrefsWorker actual constructor(
     ) {
         val storedValue = retrieve(
             key = key,
-            defValue = null,
+            defValue = defValue,
             isSensitive = isSensitive
         )
-        if(!isSensitive || storedValue == null)
-            consume(storedValue)
-        else {
-            workerScope.launch {
-                val decryptedValue = decryptPref(
-                    alias = sensitiveKeyAlias,
-                    value = storedValue,
-                    blockMode = CTR
-                )
-                consume(decryptedValue)
-            }
-        }
+        consume(storedValue)
     }
 
     /**
@@ -178,8 +124,8 @@ actual class PrefsWorker actual constructor(
     actual fun remove(
         key: String
     ) {
-        localStorage.removeItem(
-            key = key
+        return userDefaults.removeObjectForKey(
+            defaultName = key
         )
     }
 
@@ -194,9 +140,8 @@ actual class PrefsWorker actual constructor(
     actual fun hasKey(
         key: String
     ): Boolean {
-        return retrieve(
-            key = key,
-            defValue = null
+        return userDefaults.dataForKey(
+            defaultName = key
         ) != null
     }
 
@@ -204,7 +149,9 @@ actual class PrefsWorker actual constructor(
      * Method to clear the all preferences specified by the path
      */
     actual fun clearAll() {
-        localStorage.clear()
+        userDefaults.removePersistentDomainForName(
+            domainName = path
+        )
     }
 
 }

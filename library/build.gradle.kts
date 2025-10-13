@@ -1,7 +1,6 @@
 
 import com.vanniktech.maven.publish.JavadocJar
 import com.vanniktech.maven.publish.KotlinMultiplatform
-import com.vanniktech.maven.publish.SonatypeHost
 import org.jetbrains.dokka.DokkaConfiguration.Visibility.*
 import org.jetbrains.dokka.base.DokkaBase
 import org.jetbrains.dokka.base.DokkaBaseConfiguration
@@ -15,8 +14,8 @@ plugins {
     alias(libs.plugins.dokka)
 }
 
-group = "com.tecknobit"
-version = "1.0.1"
+group = "com.tecknobit.kmprefs"
+version = "1.1.0"
 
 kotlin {
     jvm {
@@ -35,10 +34,12 @@ kotlin {
     listOf(
         iosX64(),
         iosArm64(),
-        iosSimulatorArm64()
+        iosSimulatorArm64(),
+        macosX64(),
+        macosArm64()
     ).forEach { iosTarget ->
         iosTarget.binaries.framework {
-            baseName = "KMPrefs"
+            baseName = "kmprefs"
             isStatic = true
         }
     }
@@ -46,10 +47,6 @@ kotlin {
     wasmJs {
         binaries.executable()
         browser {
-            webpackTask {
-                dependencies {
-                }
-            }
         }
     }
     sourceSets {
@@ -62,16 +59,27 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(libs.kotlinx.serialization.json)
+                implementation(libs.kotlinx.coroutines.core)
+                implementation(libs.kassaforte)
+            }
+        }
+        val jvmMain by getting {
+            dependencies {
+                implementation(libs.kotlinx.coroutines.swing)
             }
         }
         val iosX64Main by getting
         val iosArm64Main by getting
         val iosSimulatorArm64Main by getting
-        val iosMain by creating {
+        val macosX64Main by getting
+        val macosArm64Main by getting
+        val appleMain by creating {
             dependsOn(commonMain)
             iosX64Main.dependsOn(this)
             iosArm64Main.dependsOn(this)
             iosSimulatorArm64Main.dependsOn(this)
+            macosX64Main.dependsOn(this)
+            macosArm64Main.dependsOn(this)
             dependencies {
             }
         }
@@ -94,8 +102,8 @@ mavenPublishing {
     )
     coordinates(
         groupId = "io.github.n7ghtm4r3",
-        artifactId = "KMPrefs",
-        version = "1.0.1"
+        artifactId = "kmprefs",
+        version = "1.1.0"
     )
     pom {
         name.set("KMPrefs")
@@ -121,7 +129,7 @@ mavenPublishing {
             url.set("https://github.com/N7ghtm4r3/KMPrefs")
         }
     }
-    publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
+    publishToMavenCentral()
     signAllPublications()
 }
 
@@ -144,7 +152,7 @@ subprojects {
 }
 
 tasks.dokkaHtml {
-    outputDirectory.set(layout.projectDirectory.dir("../docs"))
+    outputDirectory.set(layout.projectDirectory.dir("../docs/dokka"))
     dokkaSourceSets.configureEach {
         moduleName = "KMPrefs"
         includeNonPublic.set(true)

@@ -1,9 +1,13 @@
 package com.tecknobit.kmprefs
 
+import com.tecknobit.kmprefs.util.decryptPref
+import com.tecknobit.kmprefs.util.encryptPref
+import com.tecknobit.kmprefs.util.resolveAlias
+import kotlinx.coroutines.runBlocking
 import java.util.prefs.Preferences
 
 /**
- * The **PrefsWorker** class helps to manage the preferences storing the data locally using the [Preferences] built-in
+ * The `PrefsWorker` class helps to manage the preferences storing the data locally using the [Preferences] built-in
  * mechanism
  *
  * @param path Is the path where store the data
@@ -11,45 +15,106 @@ import java.util.prefs.Preferences
  * @author N7ghtm4r3 - Tecknobit
  */
 @Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
-internal actual class PrefsWorker actual constructor(
+actual class PrefsWorker actual constructor(
     path: String
 ) {
 
     /**
-     * **preferences** -> the instance used to manage locally the preferences on `JVM`
+     * `sensitiveKeyAlias` the alias of the key used to encrypt and decrypt sensitive data
+     */
+    internal actual val sensitiveKeyAlias: String = path.resolveAlias()
+
+    /**
+     * `preferences` the instance used to manage locally the preferences on `JVM`
      */
     private val preferences = Preferences.userRoot().node(path)
 
     /**
-     * Method to store locally a value
+     * Method to locally store a value
      *
      * @param key Is the key of the value
      * @param value Is the value to store
+     * @param isSensitive Whether the value to store needs to be protected due to its sensitivity
+     *
+     * @param T The type of the value
      */
     actual fun <T> store(
         key: String,
         value: T?,
+        isSensitive: Boolean,
     ) {
         if(value == null) {
             remove(
                 key = key
             )
-        } else
-            preferences.put(key, value.toString())
+        } else {
+            var valueToStore: String? = value.toString()
+            if(isSensitive) {
+                runBlocking {
+                    valueToStore = encryptPref(
+                        alias = sensitiveKeyAlias,
+                        value = valueToStore
+                    )
+                }
+            }
+            preferences.put(key, valueToStore)
+        }
     }
 
     /**
-     * Method to retrieve locally a value
+     * Method to locally retrieve a value
      *
      * @param key Is the key of the value to retrieve
-     * @param defValue Is the value to return if the searched one does not exist
-     * @return fetched value as [String]
+     * @param defValue Is the value to return whether the searched one does not exist
+     * @param isSensitive Whether the value to retrieve was protected due to its sensitivity
+     * 
+     * @return retrieved value as nullable [String]
+     *
+     * @param T The type of the value
      */
     actual fun <T> retrieve(
         key: String,
         defValue: T?,
+        isSensitive: Boolean,
     ): String? {
-        return preferences.get(key, defValue?.toString())
+        val storedValue = preferences.get(key, null) ?: return defValue?.toString()
+        return if(isSensitive) {
+            runBlocking {
+                decryptPref(
+                    alias = sensitiveKeyAlias,
+                    value = storedValue
+                )
+            }
+        } else
+            storedValue
+    }
+
+    /**
+     * Method to locally retrieve a value and then consume it. This method is useful when the project targets also `Web`
+     * platform and when [isSensitive] is `true` to correctly use the decrypted data before using it, otherwise is
+     * suggested just to use [retrieve] method
+     *
+     * @param key Is the key of the value to retrieve
+     * @param defValue Is the value to consume whether the searched one does not exist
+     * @param isSensitive Whether the value to consume was protected due to its sensitivity
+     * @param consume The routine executed to consume the retrieved value
+     *
+     * @param T The type of the value
+     *
+     * @since 1.1.0
+     */
+    actual fun <T> consumeRetrieval(
+        key: String,
+        defValue: T?,
+        isSensitive: Boolean,
+        consume: (String?) -> Unit,
+    ) {
+        val storedValue = retrieve(
+            key = key,
+            defValue = defValue,
+            isSensitive = isSensitive
+        )
+        consume(storedValue)
     }
 
     /**
