@@ -1,6 +1,6 @@
 # KMPrefs
 
-![Maven Central](https://img.shields.io/maven-central/v/io.github.n7ghtm4r3/KMPrefs.svg?label=Maven%20Central)
+![Maven Central](https://img.shields.io/maven-central/v/io.github.n7ghtm4r3/kmprefs.svg?label=Maven%20Central)
 
 ![Static Badge](https://img.shields.io/badge/android-4280511051?link=https%3A%2F%2Fimg.shields.io%2Fbadge%2Fandroid-4280511051)
 ![Static Badge](https://img.shields.io/badge/apple-445E91?link=https%3A%2F%2Fimg.shields.io%2Fbadge%2Fandroid-4280511051)
