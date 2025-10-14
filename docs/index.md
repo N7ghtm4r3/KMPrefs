@@ -1,10 +1,5 @@
 # Overview
 
-![Static Badge](https://img.shields.io/badge/android-4280511051?link=https%3A%2F%2Fimg.shields.io%2Fbadge%2Fandroid-4280511051)
-![Static Badge](https://img.shields.io/badge/apple-445E91?link=https%3A%2F%2Fimg.shields.io%2Fbadge%2Fandroid-4280511051)
-![Static Badge](https://img.shields.io/badge/desktop-006874?link=https%3A%2F%2Fimg.shields.io%2Fbadge%2Fandroid-4280511051)
-![Static Badge](https://img.shields.io/badge/wasmjs-834C74?link=https%3A%2F%2Fimg.shields.io%2Fbadge%2Fandroid-4280511051)
-
 **Kotlin Multiplatform Pref(erence)s** system allows you to locally store, retrieve, and remove data on each platform, 
 leveraging the native APIs provided by each platform:
 
