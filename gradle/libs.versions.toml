@@ -1,18 +1,18 @@
 [versions]
-agp = "8.12.3"
-equinox = "1.1.6"
-kassaforte = "1.0.0beta-01"
-kotlin = "2.2.20"
+agp = "9.0.0"
+kotlin = "2.3.0"
 android-minSdk = "24"
 android-compileSdk = "36"
+mavenPublish = "0.36.0"
+equinox = "1.1.9beta-01"
+kassaforte = "1.0.0beta-03"
 kotlinxCoroutinesCore = "1.10.2"
-kotlinxSerializationJson = "1.9.0"
+kotlinxSerializationJson = "1.10.0"
 startupRuntime = "1.2.0"
-dokka = "2.0.0"
+dokka = "2.1.0"
 kotlinxBrowser = "0.5.0"
 
 [libraries]
-dokka-base = { module = "org.jetbrains.dokka:dokka-base", version.ref = "dokka" }
 androidx-startup-runtime = { group = "androidx.startup", name = "startup-runtime", version.ref = "startupRuntime" }
 equinox-core = { module = "io.github.n7ghtm4r3:equinox-core", version.ref = "equinox" }
 kassaforte = { module = "io.github.n7ghtm4r3:kassaforte", version.ref = "kassaforte" }
@@ -22,7 +22,10 @@ kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serializa
 kotlinx-browser = { module = "org.jetbrains.kotlinx:kotlinx-browser", version.ref = "kotlinxBrowser" }
 
 [plugins]
+androidApplication = { id = "com.android.application", version.ref = "agp" }
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
-vanniktech-mavenPublish = { id = "com.vanniktech.maven.publish", version = "0.34.0" }
+androidKotlinMultiplatformLibrary = { id = "com.android.kotlin.multiplatform.library", version.ref = "agp" }
+kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
+vanniktech-mavenPublish = { id = "com.vanniktech.maven.publish", version.ref = "mavenPublish" }
