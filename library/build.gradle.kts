@@ -12,7 +12,7 @@ plugins {
 }
 
 group = "com.tecknobit.kmprefs"
-version = "1.1.0"
+version = "1.1.1"
 
 kotlin {
     androidLibrary {
@@ -125,12 +125,12 @@ mavenPublishing {
     coordinates(
         groupId = "io.github.n7ghtm4r3",
         artifactId = "kmprefs",
-        version = "1.1.0"
+        version = "1.1.1"
     )
     pom {
         name.set("KMPrefs")
         description.set("The Kotlin Multiplatform Pref(erence)s system allows you to store, retrieve, and remove data locally on each platform. It leverages the native mechanisms provided by each platform.")
-        inceptionYear.set("2025")
+        inceptionYear.set("2026")
         url.set("https://github.com/N7ghtm4r3/KMPrefs")
 
         licenses {

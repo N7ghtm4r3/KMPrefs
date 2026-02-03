@@ -12,7 +12,7 @@ import com.tecknobit.kassaforte.services.KassaforteSymmetricService
  *
  * @since 1.1.0
  */
-internal inline fun String.resolveAlias(): String {
+internal fun String.resolveAlias(): String {
     return hashCode().toHexString()
 }
 

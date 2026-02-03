@@ -14,7 +14,7 @@ leveraging the native APIs provided by each platform:
 
 ```groovy
 dependencies {
-    implementation 'io.github.n7ghtm4r3:kmprefs:1.1.0'
+    implementation 'io.github.n7ghtm4r3:kmprefs:1.1.1'
 }
 ```
 
@@ -22,7 +22,7 @@ dependencies {
 
 ```kotlin
 dependencies {
-    implementation("io.github.n7ghtm4r3:kmprefs:1.1.0")
+    implementation("io.github.n7ghtm4r3:kmprefs:1.1.1")
 }
 ```
 
@@ -32,7 +32,7 @@ dependencies {
 
 ```toml
 [versions]
-kmprefs = "1.1.0"
+kmprefs = "1.1.1"
 
 [libraries]
 kmprefs = { module = "io.github.n7ghtm4r3:kmprefs", version.ref = "kmprefs" }
@@ -69,4 +69,4 @@ If you want support project and developer
 If you want support project and developer
 with <a href="https://www.paypal.com/donate/?hosted_button_id=5QMN5UQH7LDT4">PayPal</a>
 
-Copyright © 2025 Tecknobit
+Copyright © 2026 Tecknobit
