@@ -1,6 +1,5 @@
 package com.tecknobit.kmprefs.util
 
-import com.tecknobit.kassaforte.key.genspec.BlockMode
 import com.tecknobit.kassaforte.key.genspec.BlockMode.CBC
 import com.tecknobit.kassaforte.key.genspec.EncryptionPadding.PKCS7
 import com.tecknobit.kassaforte.services.KassaforteSymmetricService
@@ -45,7 +44,6 @@ internal suspend inline fun encryptPref(
  *
  * @param alias The alias of the key to use
  * @param value The value of the preference to decrypt
- * @param blockMode The type of the block to use to decrypt a sensitive preference
  *
  * @return the preference decrypted as [String]
  *
@@ -53,12 +51,11 @@ internal suspend inline fun encryptPref(
  */
 internal suspend inline fun decryptPref(
     alias: String,
-    value: String,
-    blockMode: BlockMode = CBC
+    value: String
 ) : String {
     return KassaforteSymmetricService.decrypt(
         alias = alias,
-        blockMode = blockMode,
+        blockMode = CBC,
         padding = PKCS7,
         data = value
     )

@@ -2,7 +2,6 @@
 
 package com.tecknobit.kmprefs
 
-import com.tecknobit.kassaforte.key.genspec.BlockMode.CTR
 import com.tecknobit.kmprefs.util.decryptPref
 import com.tecknobit.kmprefs.util.encryptPref
 import com.tecknobit.kmprefs.util.resolveAlias
@@ -162,8 +161,7 @@ actual class PrefsWorker actual constructor(
             workerScope.launch {
                 val decryptedValue = decryptPref(
                     alias = sensitiveKeyAlias,
-                    value = storedValue,
-                    blockMode = CTR
+                    value = storedValue
                 )
                 consume(decryptedValue)
             }
