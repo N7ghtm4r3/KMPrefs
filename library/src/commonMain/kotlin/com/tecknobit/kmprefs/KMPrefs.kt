@@ -179,6 +179,31 @@ class KMPrefs(
     }
 
     /**
+     * Method to remove an [element] from a local stored collection
+     *
+     * @param element The element to remove from the local stored collection
+     * @param key Is the key of the collection from remove element
+     * @param isSensitive Whether the data of the collection was protected due to their sensitivity
+     *
+     * @throws IllegalStateException When the key is not associated with a valid collection
+     *
+     * @since 1.2.0
+     */
+    inline fun <reified T> removeFromCollection(
+        element: T,
+        key: String,
+        isSensitive: Boolean = false
+    ) {
+        useMutableCollection(
+            key = key,
+            isSensitive = isSensitive,
+            usage = { collection ->
+                collection.remove(element)
+            }
+        )
+    }
+
+    /**
      * Method to add [elements] to a local stored collection
      * 
      * @param elements The elements to add to the local stored collection
@@ -199,31 +224,6 @@ class KMPrefs(
             isSensitive = isSensitive,
             usage = { collection ->
                 collection.addAll(elements)
-            }
-        )
-    }
-
-    /**
-     * Method to remove an [element] from a local stored collection
-     * 
-     * @param element The element to remove from the local stored collection
-     * @param key Is the key of the collection from remove element
-     * @param isSensitive Whether the data of the collection was protected due to their sensitivity
-     * 
-     * @throws IllegalStateException When the key is not associated with a valid collection
-     * 
-     * @since 1.2.0
-     */
-    inline fun <reified T> removeFromCollection(
-        element: T,
-        key: String,
-        isSensitive: Boolean = false
-    ) {
-        useMutableCollection(
-            key = key,
-            isSensitive = isSensitive,
-            usage = { collection ->
-                collection.remove(element)
             }
         )
     }

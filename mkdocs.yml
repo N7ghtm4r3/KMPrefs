@@ -55,6 +55,12 @@ markdown_extensions:
 plugins:
   - search
 
+nav:
+  - Overview: index.md
+  - Usage:
+    - Overview: usage.md
+    - Collections Util: collections_util.md
+
 extra:
   social:
     - icon: material/email
