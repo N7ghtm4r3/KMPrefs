@@ -153,6 +153,17 @@ class KMPrefs(
         )
     }
 
+    /**
+     * Method to add an [element] to a local stored collection
+     * 
+     * @param element The element to add to the local stored collection
+     * @param key Is the key of the collection to add element
+     * @param isSensitive Whether the data of the collection was protected due to their sensitivity
+     * 
+     * @throws IllegalStateException When the key is not associated with a valid collection
+     * 
+     * @since 1.2.0
+     */
     inline fun <reified T> addToCollection(
         element: T,
         key: String,
@@ -167,6 +178,17 @@ class KMPrefs(
         )
     }
 
+    /**
+     * Method to add [elements] to a local stored collection
+     * 
+     * @param elements The elements to add to the local stored collection
+     * @param key Is the key of the collection where add elements
+     * @param isSensitive Whether the data of the collection was protected due to their sensitivity
+     * 
+     * @throws IllegalStateException When the key is not associated with a valid collection
+     * 
+     * @since 1.2.0
+     */
     inline fun <reified T> addAllToCollection(
         elements: Collection<T>,
         key: String,
@@ -181,6 +203,17 @@ class KMPrefs(
         )
     }
 
+    /**
+     * Method to remove an [element] from a local stored collection
+     * 
+     * @param element The element to remove from the local stored collection
+     * @param key Is the key of the collection from remove element
+     * @param isSensitive Whether the data of the collection was protected due to their sensitivity
+     * 
+     * @throws IllegalStateException When the key is not associated with a valid collection
+     * 
+     * @since 1.2.0
+     */
     inline fun <reified T> removeFromCollection(
         element: T,
         key: String,
@@ -195,6 +228,17 @@ class KMPrefs(
         )
     }
 
+    /**
+     * Method to remove [elements] from a local stored collection
+     * 
+     * @param elements The elements to remove from the local stored collection
+     * @param key Is the key of the collection from remove elements
+     * @param isSensitive Whether the data of the collection was protected due to their sensitivity
+     * 
+     * @throws IllegalStateException When the key is not associated with a valid collection
+     * 
+     * @since 1.2.0
+     */
     inline fun <reified T> removeAllFromCollection(
         elements: Collection<T>,
         key: String,
@@ -209,6 +253,17 @@ class KMPrefs(
         )
     }
 
+    /**
+     * This method provides a way to access to a local stored collection and use it with a custom [usage].
+     * 
+     * @param key Is the key of the collection value to retrieve
+     * @param isSensitive Whether the data of the collection was protected due to their sensitivity
+     * @param usage The custom usage to perform on the retrieved collection
+     * 
+     * @throws IllegalStateException When the key is not associated with a valid collection
+     * 
+     * @since 1.2.0
+     */
     inline fun <reified T> useMutableCollection(
         key: String,
         isSensitive: Boolean = false,
