@@ -73,6 +73,7 @@ class KMPrefs(
             removeValue(key)
             return
         }
+
         prefsWorker.store(
             key = key,
             value = Json.encodeToString(
@@ -103,6 +104,7 @@ class KMPrefs(
     ): T? {
         if(!hasKey(key))
             return defValue
+
         val storedValue = prefsWorker.retrieve(
             key = key,
             defValue = defValue,
@@ -147,6 +149,29 @@ class KMPrefs(
                 )
                 consume(retrieval)
             }
+        )
+    }
+
+    inline fun <reified T> add(
+        element: T,
+        key: String,
+        deserializer: KSerializer<MutableCollection<T>> = serializer(),
+        isSensitive: Boolean = false
+    ) {
+        val collection = retrieve(
+            key = key,
+            deserializer = deserializer,
+            isSensitive = isSensitive
+        )
+        if(collection == null)
+            throw IllegalStateException("That key does not related to a stored collection")
+
+        collection.add(element)
+        store(
+            key = key,
+            value = collection,
+            serializer = deserializer,
+            isSensitive = isSensitive
         )
     }
 
