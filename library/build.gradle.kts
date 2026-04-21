@@ -12,7 +12,7 @@ plugins {
 }
 
 group = "com.tecknobit.kmprefs"
-version = "1.1.1"
+version = "1.2.0"
 
 kotlin {
     androidLibrary {
@@ -41,7 +41,6 @@ kotlin {
         iosX64(),
         iosArm64(),
         iosSimulatorArm64(),
-        macosX64(),
         macosArm64()
     ).forEach { iosTarget ->
         iosTarget.binaries.framework {
@@ -125,7 +124,7 @@ mavenPublishing {
     coordinates(
         groupId = "io.github.n7ghtm4r3",
         artifactId = "kmprefs",
-        version = "1.1.1"
+        version = "1.2.0"
     )
     pom {
         name.set("KMPrefs")

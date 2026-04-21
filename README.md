@@ -7,7 +7,7 @@
 ![Static Badge](https://img.shields.io/badge/desktop-006874?link=https%3A%2F%2Fimg.shields.io%2Fbadge%2Fandroid-4280511051)
 ![Static Badge](https://img.shields.io/badge/web-834C74?link=https%3A%2F%2Fimg.shields.io%2Fbadge%2Fandroid-4280511051)
 
-**v1.1.1**
+**v1.2.0**
 
 **Kotlin Multiplatform Pref(erence)s** system allows you to locally store, retrieve, and remove data on each platform,
 leveraging the native APIs provided by each platform:
@@ -23,7 +23,7 @@ leveraging the native APIs provided by each platform:
 
 ```groovy
 dependencies {
-    implementation 'io.github.n7ghtm4r3:kmprefs:1.1.1'
+    implementation 'io.github.n7ghtm4r3:kmprefs:1.2.0'
 }
 ```
 
@@ -31,7 +31,7 @@ dependencies {
 
 ```kotlin
 dependencies {
-    implementation("io.github.n7ghtm4r3:kmprefs:1.1.1")
+    implementation("io.github.n7ghtm4r3:kmprefs:1.2.0")
 }
 ```
 
@@ -41,7 +41,7 @@ dependencies {
 
 ```toml
 [versions]
-kmprefs = "1.1.1"
+kmprefs = "1.2.0"
 
 [libraries]
 kmprefs = { module = "io.github.n7ghtm4r3:kmprefs", version.ref = "kmprefs" }
