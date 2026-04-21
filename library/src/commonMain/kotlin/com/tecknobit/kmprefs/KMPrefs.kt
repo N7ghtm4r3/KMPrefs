@@ -13,6 +13,7 @@ import com.tecknobit.kmprefs.util.resolveAlias
 import com.tecknobit.kmprefs.util.resolveRetrieval
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.KSerializer
+import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.serializer
 
@@ -152,24 +153,88 @@ class KMPrefs(
         )
     }
 
-    inline fun <reified T> add(
+    inline fun <reified T> addToCollection(
         element: T,
         key: String,
-        deserializer: KSerializer<MutableCollection<T>> = serializer(),
         isSensitive: Boolean = false
     ) {
-        val collection = retrieve(
+        useMutableCollection(
             key = key,
-            deserializer = deserializer,
-            isSensitive = isSensitive
+            isSensitive = isSensitive,
+            usage = { collection ->
+                collection.add(element)
+            }
         )
-        if(collection == null)
-            throw IllegalStateException("That key does not related to a stored collection")
+    }
 
-        collection.add(element)
+    inline fun <reified T> addAllToCollection(
+        elements: Collection<T>,
+        key: String,
+        isSensitive: Boolean = false
+    ) {
+        useMutableCollection(
+            key = key,
+            isSensitive = isSensitive,
+            usage = { collection ->
+                collection.addAll(elements)
+            }
+        )
+    }
+
+    inline fun <reified T> removeFromCollection(
+        element: T,
+        key: String,
+        isSensitive: Boolean = false
+    ) {
+        useMutableCollection(
+            key = key,
+            isSensitive = isSensitive,
+            usage = { collection ->
+                collection.remove(element)
+            }
+        )
+    }
+
+    inline fun <reified T> removeAllFromCollection(
+        elements: Collection<T>,
+        key: String,
+        isSensitive: Boolean = false
+    ) {
+        useMutableCollection(
+            key = key,
+            isSensitive = isSensitive,
+            usage = { collection ->
+                collection.removeAll(elements.toSet())
+            }
+        )
+    }
+
+    inline fun <reified T> useMutableCollection(
+        key: String,
+        isSensitive: Boolean = false,
+        usage: (MutableCollection<T>) -> Unit
+    ) {
+        val deserializer = ListSerializer(
+            elementSerializer = serializer<T>()
+        )
+
+        val collection = try {
+            retrieve(
+                key = key,
+                deserializer = deserializer,
+                isSensitive = isSensitive
+            )
+        } catch (e: IllegalArgumentException) {
+            throw IllegalStateException("That key is not associated to a stored collection")
+        }
+        if(collection == null)
+            throw IllegalStateException("That key is not associated to a stored collection")
+
+        val tempCollection = collection.toMutableList()
+        usage(tempCollection)
         store(
             key = key,
-            value = collection,
+            value = tempCollection,
             serializer = deserializer,
             isSensitive = isSensitive
         )
