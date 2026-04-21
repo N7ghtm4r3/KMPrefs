@@ -15,7 +15,7 @@ group = "com.tecknobit.kmprefs"
 version = "1.2.0"
 
 kotlin {
-    androidLibrary {
+    android {
         compileSdk = libs.versions.android.compileSdk.get().toInt()
         minSdk = libs.versions.android.minSdk.get().toInt()
         namespace = "com.tecknobit.kmprefs"
