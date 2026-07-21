@@ -14,7 +14,7 @@ leveraging the native APIs provided by each platform:
 
 ```groovy
 dependencies {
-    implementation 'io.github.n7ghtm4r3:kmprefs:1.2.0'
+    implementation 'io.github.n7ghtm4r3:kmprefs:1.2.1'
 }
 ```
 
@@ -22,7 +22,7 @@ dependencies {
 
 ```kotlin
 dependencies {
-    implementation("io.github.n7ghtm4r3:kmprefs:1.2.0")
+    implementation("io.github.n7ghtm4r3:kmprefs:1.2.1")
 }
 ```
 
@@ -32,7 +32,7 @@ dependencies {
 
 ```toml
 [versions]
-kmprefs = "1.2.0"
+kmprefs = "1.2.1"
 
 [libraries]
 kmprefs = { module = "io.github.n7ghtm4r3:kmprefs", version.ref = "kmprefs" }
