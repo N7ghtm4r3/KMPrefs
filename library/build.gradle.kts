@@ -12,7 +12,7 @@ plugins {
 }
 
 group = "com.tecknobit.kmprefs"
-version = "1.2.0"
+version = "1.2.1"
 
 kotlin {
     android {
@@ -124,7 +124,7 @@ mavenPublishing {
     coordinates(
         groupId = "io.github.n7ghtm4r3",
         artifactId = "kmprefs",
-        version = "1.2.0"
+        version = "1.2.1"
     )
     pom {
         name.set("KMPrefs")
