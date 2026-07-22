@@ -1,0 +1,4 @@
+interface:
+  display_name: "Route Test Designer"
+  short_description: "Design route tests from authorization and behavior branches."
+  default_prompt: "Create route tests that cover the behavior and role scenarios required by the route implementation."
