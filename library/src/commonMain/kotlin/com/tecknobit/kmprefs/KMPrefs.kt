@@ -257,6 +257,7 @@ class KMPrefs(
      * This method provides a way to access to a local stored collection and use it with a custom [usage].
      * 
      * @param key Is the key of the collection value to retrieve
+     * @param forceCreation Whether the collection is to create when missing
      * @param isSensitive Whether the data of the collection was protected due to their sensitivity
      * @param usage The custom usage to perform on the retrieved collection
      * 
@@ -266,6 +267,7 @@ class KMPrefs(
      */
     inline fun <reified T> useMutableCollection(
         key: String,
+        forceCreation: Boolean = false,
         isSensitive: Boolean = false,
         usage: (MutableCollection<T>) -> Unit
     ) {
@@ -277,9 +279,13 @@ class KMPrefs(
             retrieve(
                 key = key,
                 deserializer = deserializer,
-                isSensitive = isSensitive
+                isSensitive = isSensitive,
+                defValue = if(forceCreation)
+                    emptyList()
+                else
+                    null
             )
-        } catch (e: IllegalArgumentException) {
+        } catch (_: IllegalArgumentException) {
             throw IllegalStateException("That key is not associated to a stored collection")
         }
         if(collection == null)
@@ -293,6 +299,38 @@ class KMPrefs(
             serializer = deserializer,
             isSensitive = isSensitive
         )
+    }
+
+    inline fun <reified T, S> upsertToCollection(
+        element: T,
+        elementSelector: (T) -> S,
+        key: String,
+        isSensitive: Boolean = false
+    ) {
+        useMutableCollection(
+            key = key,
+            forceCreation = true,
+            isSensitive = isSensitive,
+            usage = { collection ->
+                collection.removeTargetBySelector(
+                    elementSelector = elementSelector,
+                    selectorTarget = elementSelector(element)
+                )
+
+                collection.add(element)
+            }
+        )
+    }
+
+    inline fun <reified T, S> MutableCollection<T>.removeTargetBySelector(
+        elementSelector: (T) -> S,
+        selectorTarget: S
+    ) {
+        val elementToRemove = this.find { element ->
+            selectorTarget == elementSelector(element)
+        }
+
+        this.remove(elementToRemove)
     }
 
     /**
