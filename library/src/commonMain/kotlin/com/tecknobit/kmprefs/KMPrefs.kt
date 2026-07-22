@@ -281,15 +281,11 @@ class KMPrefs(
         elementSelector: (T) -> S,
         selectorTarget: S
     ) {
-        var removalIndex = 0
-        val elementToRemove = this.filterIndexed { index, element ->
-            removalIndex = index
+        val elementToRemove = this.find { element ->
             selectorTarget == elementSelector(element)
         }
 
-        println(removalIndex)
-
-        remove(elementToRemove[removalIndex])
+        remove(elementToRemove)
     }
 
     /**
