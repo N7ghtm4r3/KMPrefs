@@ -263,29 +263,39 @@ class KMPrefs(
             key = key,
             isSensitive = isSensitive,
             usage = { collection ->
-                collection.removeTargetBySelector(
+                val index = collection.removeTargetBySelector(
                     elementSelector = elementSelector,
                     selectorTarget = elementSelector(element)
                 )
-            }
-        )
 
-        addToCollection(
-            element = element,
-            key = key,
-            isSensitive = isSensitive
+                val supportCollection = collection.toMutableList()
+                supportCollection.add(
+                    index = index,
+                    element = element
+                )
+
+                collection.clear()
+                collection.addAll(supportCollection)
+            }
         )
     }
 
     inline fun <reified T, S> MutableCollection<T>.removeTargetBySelector(
         elementSelector: (T) -> S,
         selectorTarget: S
-    ) {
-        val elementToRemove = this.find { element ->
-            selectorTarget == elementSelector(element)
+    ): Int {
+        val supportCollection = toMutableList()
+
+        var targetIndex = 0
+        forEachIndexed { index, element ->
+            if(selectorTarget == elementSelector(element))
+                targetIndex = index
         }
 
-        remove(elementToRemove)
+        supportCollection.removeAt(targetIndex)
+        retainAll(supportCollection.toSet())
+
+        return targetIndex
     }
 
     /**
