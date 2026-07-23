@@ -315,16 +315,11 @@ class KMPrefs(
             isSensitive = isSensitive
         )
 
-        if(collection == null) {
-            collection = emptyList()
-
-            store(
-                key = key,
-                value = collection,
-                serializer = deserializer,
-                isSensitive = isSensitive
-            )
-        }
+        collection = collection.guaranteeExistence(
+            key = key,
+            deserializer = deserializer,
+            isSensitive = isSensitive
+        )
 
         val tempCollection = collection.toMutableList()
         usage(tempCollection)
@@ -334,6 +329,25 @@ class KMPrefs(
             serializer = deserializer,
             isSensitive = isSensitive
         )
+    }
+
+    inline fun <reified T> List<T>?.guaranteeExistence(
+        key: String,
+        deserializer: KSerializer<List<T>>,
+        isSensitive: Boolean = false
+    ): List<T> {
+        if(this != null)
+            return this
+
+        val supportCollection = emptyList<T>()
+        store(
+            key = key,
+            value = supportCollection,
+            serializer = deserializer,
+            isSensitive = isSensitive
+        )
+
+        return supportCollection
     }
 
     /**
