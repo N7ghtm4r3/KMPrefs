@@ -1,0 +1,4 @@
+interface:
+  display_name: "Bench Test Gen"
+  short_description: "Generate tests; benchmarks only on request"
+  default_prompt: "Use $bench-test-gen to create concrete behavioral coverage test files for this library without modifying production code or executing them; generate benchmark files only if I explicitly request their implementation."
