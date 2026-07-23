@@ -253,6 +253,19 @@ class KMPrefs(
         )
     }
 
+    /**
+     * Method used to insert an [element] into a locally stored collection or replace the first element with the same
+     * selector value
+     *
+     * @param element The element to insert or replace
+     * @param elementSelector The selector used to identify matching elements
+     * @param key The key of the locally stored collection
+     * @param isSensitive Whether the collection data was protected due to its sensitivity
+     * @param T The type of the collection elements
+     * @param S The type of the selector value
+     *
+     * @since 1.2.1
+     */
     inline fun <reified T, S> upsertToCollection(
         element: T,
         elementSelector: (T) -> S,
@@ -280,6 +293,18 @@ class KMPrefs(
         )
     }
 
+    /**
+     * Method used to find the first collection element matching the [selectorTarget]
+     *
+     * @param elementSelector The selector used to obtain the value of each element
+     * @param selectorTarget The selector value to match
+     * @param T The type of the collection elements
+     * @param S The type of the selector value
+     *
+     * @return the index of the first matching element or `-1` when no element matches as [Int]
+     *
+     * @since 1.2.1
+     */
     inline fun <reified T, S> MutableCollection<T>.resolveUpsertTargetIndex(
         elementSelector: (T) -> S,
         selectorTarget: S
@@ -331,6 +356,19 @@ class KMPrefs(
         )
     }
 
+    /**
+     * Method used to return the retrieved collection or store and return an empty collection when it does not exist
+     *
+     * @receiver The retrieved collection
+     * @param key The key of the locally stored collection
+     * @param deserializer The serializer used to store an empty collection
+     * @param isSensitive Whether the collection data needs to be protected due to its sensitivity
+     * @param T The type of the collection elements
+     *
+     * @return the existing or newly stored empty collection as [List] of [T]
+     *
+     * @since 1.2.1
+     */
     inline fun <reified T> List<T>?.guaranteeExistence(
         key: String,
         deserializer: KSerializer<List<T>>,
