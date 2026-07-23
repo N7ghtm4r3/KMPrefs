@@ -52,6 +52,84 @@ kmPrefs.addAllToCollection(
 // [hello, world, !]
 ```
 
+## Upserting an element
+
+The `upsertToCollection` method allows to upsert an element into a stored collection
+
+### Example element
+
+Any type could be used in this method
+
+```kotlin
+@Serializable
+data class Test(
+    val id: String,
+    var name: Int
+)
+```
+
+### Current stored collection
+
+```json
+[
+  {
+    "id": "1",
+    "name": 1
+  },
+  {
+    "id": "2",
+    "name": 2
+  },
+  {
+    "id": "3",
+    "name": 3
+  }
+]
+```
+
+### Usage
+
+```kotlin
+val kmPrefs = KMPrefs("your_storage_path") // create an instance
+
+val upsertingElement = Test(
+    id = "1",
+    name = 12
+)
+
+kmPrefs.upsertToCollection(
+    element = upsertingElement,
+    // selector to point the element to update 
+    elementSelector = { element ->
+        element.id
+    },
+    key = key
+)
+```
+
+### Updated collection
+
+```json
+[
+  {
+    "id": "1",
+    "name": 12
+  },
+  {
+    "id": "2",
+    "name": 2
+  },
+  {
+    "id": "3",
+    "name": 3
+  }
+]
+```
+
+!!! Info
+
+    Whether is provided an element with an id currently not stored will be added to the collection
+
 ## Remove multiple elements
 
 Using the `removeAllFromCollection` method you can remove multiple elements from a local stored collection
