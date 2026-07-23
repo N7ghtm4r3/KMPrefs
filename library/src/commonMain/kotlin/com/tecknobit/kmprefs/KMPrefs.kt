@@ -263,16 +263,16 @@ class KMPrefs(
             key = key,
             isSensitive = isSensitive,
             usage = { collection ->
-                val index = collection.removeTargetBySelector(
+                val supportCollection = collection.toMutableList()
+                val index = collection.resolveUpsertTargetIndex(
                     elementSelector = elementSelector,
                     selectorTarget = elementSelector(element)
                 )
 
-                val supportCollection = collection.toMutableList()
-                supportCollection.add(
-                    index = index,
-                    element = element
-                )
+                if(index < 0)
+                    supportCollection.add(element)
+                else
+                    supportCollection[index] = element
 
                 collection.clear()
                 collection.addAll(supportCollection)
@@ -280,22 +280,13 @@ class KMPrefs(
         )
     }
 
-    inline fun <reified T, S> MutableCollection<T>.removeTargetBySelector(
+    inline fun <reified T, S> MutableCollection<T>.resolveUpsertTargetIndex(
         elementSelector: (T) -> S,
         selectorTarget: S
     ): Int {
-        val supportCollection = toMutableList()
-
-        var targetIndex = 0
-        forEachIndexed { index, element ->
-            if(selectorTarget == elementSelector(element))
-                targetIndex = index
+        return indexOfFirst { element ->
+            selectorTarget == elementSelector(element)
         }
-
-        supportCollection.removeAt(targetIndex)
-        retainAll(supportCollection.toSet())
-
-        return targetIndex
     }
 
     /**
