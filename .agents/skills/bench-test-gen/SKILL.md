@@ -1,42 +1,59 @@
 ---
 name: bench-test-gen
-description: Generate concrete, language-agnostic, repository-native behavioral test files for the main features of a software library, and generate performance benchmark sources only when the user explicitly requests benchmark implementation. Use when Codex must inspect a library and actually create or expand compile-ready tests for executable behavior and branch coverage, generate regression test files, or—after explicit authorization—create separate latency, throughput, and allocation benchmark files without modifying production code or executing generated artifacts.
+description: Generate concrete, language-agnostic, repository-native behavioral tests and all test-scoped infrastructure required to discover, compile, and run them; generate performance benchmarks and all benchmark-scoped infrastructure only when benchmark implementation is explicitly requested. Use when Codex must create or expand executable tests, regression suites, cross-target coverage, test setup, or authorized latency, throughput, and allocation benchmarks without changing production behavior, production dependencies, published artifacts, or anything outside the requested scope.
 ---
 
 # Bench Test Gen
 
 ## Core Contract
 
-Inspect the repository in read-only mode, identify the library's principal consumer-facing features, and generate only test-related source files.
+Inspect the repository in read-only mode first, identify the library's principal consumer-facing features, and then implement the requested test artifacts together with every strictly test-scoped change required to make them discoverable, compilable, and runnable through the repository's native workflow.
+
+When benchmark implementation is explicitly authorized, implement the benchmark artifacts together with every strictly benchmark-scoped change required to make them discoverable, compilable, and runnable.
+
+A test or benchmark source file without its required dependencies, source-set registration, runner, harness, task, manifest, adapter, or target configuration is incomplete. Do not stop at source generation when repository-local setup can make the artifact runnable.
+
+Treat repository-local setup as a mandatory part of generation, not as an optional recommendation or follow-up for the user. Do not ask the user to add an in-scope dependency, harness, runner, task, source set, target opt-in, or equivalent setup that this skill can add without affecting production or leaving the requested scope.
 
 Allowed writes:
 
 - unit, integration, compatibility, property-based, and regression test sources;
 - performance benchmark sources;
 - fixtures, fakes, test data, and helpers stored inside existing test or benchmark areas;
-- new test or benchmark directories when their location follows repository conventions.
+- new test or benchmark directories when their location follows repository conventions;
+- test-scoped and authorized benchmark-scoped dependency declarations;
+- minimal lockfile updates caused only by those scoped dependencies;
+- source-set, suite, target, compilation, discovery, runner, harness, adapter, and task configuration used only by tests or authorized benchmarks;
+- test or benchmark manifests, resources, launchers, and environment-independent execution settings;
+- minimal edits inside shared build or project files when the edited declarations affect only test or authorized benchmark workflows.
 
 Forbidden writes:
 
 - production sources;
 - public or internal library implementation;
-- build files, dependency manifests, lockfiles, compiler configuration, CI workflows, or coverage configuration;
+- production dependency declarations or changes to the production dependency graph;
+- production compiler options, supported targets, runtime resources, packaging, publication, deployment, or generated production artifacts;
+- broad dependency upgrades, lockfile refreshes, or configuration rewrites unrelated to the required test or benchmark setup;
+- CI workflows, coverage configuration, or automation unless the user explicitly includes them in scope;
 - documentation, examples, generated production assets, or unrelated files;
 - existing tests outside the requested scope unless the user explicitly asks to expand them.
 
-Never run tests, benchmarks, coverage, builds, compilers, linters, formatters, profilers, or generated code. Never install dependencies. Generate the requested test artifacts and leave execution to the user.
+Never run tests, benchmarks, coverage, builds, compilers, linters, formatters, profilers, or generated code. Generate and configure the requested artifacts and leave their execution to the user.
 
-If correct test generation would require a production change, new dependency, build configuration, or unsupported harness, do not make that change. Generate every valid in-scope artifact possible and report the exact missing prerequisite.
+Use the repository's native dependency mechanism to declare and, when required to complete repository-local setup, materialize only test-scoped or explicitly authorized benchmark-scoped dependencies. Preserve unrelated dependency versions and lockfile entries.
+
+If a required setup change cannot be isolated from production behavior, production dependencies, production artifacts, or the requested scope, do not make that change. Generate every valid in-scope artifact possible and report the exact remaining prerequisite.
 
 ## Mandatory Generated Deliverable
 
-Always create or update concrete test source files. Analysis is preparation, not the deliverable.
+Always create or update concrete source files for every requested generation track. Analysis is preparation, not the deliverable.
 
 A successful use of this skill must produce:
 
 - at least one real coverage test file when coverage generation is requested;
 - at least one real benchmark source file when benchmark implementation is explicitly requested;
-- both kinds of files when both generations are explicitly requested.
+- both kinds of files when both generations are explicitly requested;
+- every repository-local dependency and configuration change required to discover, compile, and run each generated track.
 
 Do not stop after:
 
@@ -49,7 +66,9 @@ Do not stop after:
 
 Write complete repository-native source code with the correct language, file extension, package/module declaration, imports, framework annotations or registration, fixtures, setup, assertions, and benchmark methods. Do not leave `TODO`, placeholder bodies, ellipses, pseudocode, or examples that still need to be converted into files.
 
-Do not claim completion until the files exist in the repository. If no valid test or benchmark file can be generated with the repository's existing dependencies and configuration, mark the generation as blocked and name the missing prerequisite. Never substitute a test plan for the required source files.
+Do not claim completion until the files exist in the repository. If no valid test or benchmark file can be generated even after every allowed repository-local setup change has been implemented, mark the generation as blocked and name the remaining prerequisite. Never substitute a test plan for the required source files.
+
+Do not claim completion merely because source files exist. Confirm statically that the repository exposes a native command, task, target, suite, or runner that will execute them. External prerequisites such as a physical device, simulator, browser, service, credential, or operating system may remain user-provided, but all repository-local setup must be implemented.
 
 ## Keep Coverage and Performance Separate
 
@@ -58,7 +77,7 @@ Treat the two outputs as independent suites.
 - **Coverage suite**: generate tests that exercise the public behaviors, meaningful inputs, failures, state transitions, side effects, and consumer-reachable executable branches of the principal features.
 - **Performance suite**: generate benchmark code that can measure latency, throughput, and allocations reliably when the user runs it.
 
-Never present coverage as a performance signal. Never present benchmark design as behavioral coverage. Keep files, fixtures, setup, commands, tables, and conclusions distinct even when both suites target the same feature.
+Never present coverage as a performance signal. Never present benchmark design as behavioral coverage. Keep files, dependencies, fixtures, setup, tasks, commands, tables, and conclusions distinct even when both suites target the same feature.
 
 Because this skill never executes generated code:
 
@@ -66,7 +85,7 @@ Because this skill never executes generated code:
 - do not claim actual coverage percentages;
 - do not report measured performance values;
 - describe expected coverage and intended benchmark metrics only;
-- provide optional commands for the user to run without running them.
+- provide exact commands for the user to run without running them.
 
 ## Require Explicit Benchmark Implementation
 
@@ -91,7 +110,7 @@ Without explicit authorization, perform only read-only benchmark analysis when r
 
 When the request is ambiguous, do not infer permission from the skill name or from a mention of performance. Keep benchmark files unchanged and ask whether the user wants to proceed with their implementation.
 
-Once benchmark implementation is explicitly authorized, generate complete repository-native benchmark source files. The authorization covers only benchmark files and benchmark-local fixtures/helpers; it does not authorize production, dependency, build, lockfile, coverage, or CI changes.
+Once benchmark implementation is explicitly authorized, generate complete repository-native benchmark source files and every benchmark-scoped dependency, harness, source-set, task, runner, adapter, manifest, or minimal shared configuration edit required to run them. The authorization never permits production changes, unrelated dependency changes, coverage or CI changes outside the request, or any other out-of-scope mutation.
 
 ## 1. Detect the Ecosystem Without Assuming a Language
 
@@ -100,7 +119,7 @@ Infer the repository's language and conventions from its files. Do not prefer a 
 Read:
 
 1. source layout and package/module exports;
-2. build and dependency files without modifying them;
+2. build and dependency files before making any scoped setup edit;
 3. existing test and benchmark directories;
 4. existing test imports, lifecycle hooks, assertions, fixtures, and naming;
 5. documentation and examples that describe supported consumer workflows;
@@ -116,8 +135,12 @@ If multiple ecosystems coexist:
 - use shared/common tests for genuinely shared behavior;
 - add platform-specific tests only for platform-specific contracts;
 - avoid duplicating identical scenarios across targets without a compatibility reason.
+- wire the suite into every supported target that owns or implements the tested behavior;
+- treat a target as covered only when its native test workflow discovers and can execute the generated tests.
 
-If no test framework is established, do not add dependencies or configuration. Generate concrete test files only when the language provides a usable built-in facility. Otherwise mark generation as blocked and report the missing harness; do not present an inventory or pseudocode as completed test generation.
+If no test framework is established, add the smallest repository-native test-scoped framework, dependency, source-set registration, and runner configuration that supports the repository's declared targets. Reuse a built-in facility when it provides native discovery, assertions, reporting, and execution. Do not invent a standalone runner when the ecosystem has a conventional test integration.
+
+If a supported target requires repository-local opt-in or registration, add it. If execution additionally requires an external runtime such as a device, simulator, browser, service, credential, or operating system, complete the repository-local setup and report only that external prerequisite.
 
 ## 2. Identify the Principal Features
 
@@ -198,6 +221,15 @@ Generate regression tests for desired behavior when the user asks for a bug fix 
 
 Create or expand actual test source files through public library interfaces. Avoid private access, reflection, exported test hooks, or internal call assertions unless the repository already treats them as supported test boundaries.
 
+Implement the complete coverage harness:
+
+- declare required test-scoped dependencies;
+- register all required test source sets, suites, targets, and compilations;
+- configure framework discovery, runners, adapters, manifests, and test tasks;
+- connect shared tests to every supported target that owns the behavior;
+- add deterministic test-only resources, fixtures, and environment setup;
+- expose the exact repository-native commands that execute the suite.
+
 Follow existing conventions for:
 
 - file placement and naming;
@@ -229,13 +261,23 @@ Avoid:
 - tests created only to touch a line without proving a consumer-visible outcome;
 - snapshots for stable scalar behavior better expressed with explicit assertions.
 
-Use property-based tests only when the repository already supports them or the language has an established built-in equivalent. Do not add a property-testing dependency.
+Use property-based tests when they materially improve coverage of invariants or input spaces. Reuse existing or built-in support first; when property-based tests are selected for the requested suite and no support exists, add the smallest test-scoped dependency and registration required to run them. Do not add property-testing infrastructure speculatively.
+
+Before considering coverage generation complete, confirm statically that every generated test is included in a runnable suite. A source file ignored by the build, runner, or target graph is not a generated deliverable.
 
 ## 5. Generate Performance Benchmarks
 
 Enter this generation step only after explicit benchmark implementation authorization. Otherwise stop after read-only benchmark analysis and leave all benchmark files unchanged.
 
-After authorization, create actual benchmark source files separately from coverage tests. Use the repository's existing benchmark framework and directory layout.
+After authorization, create actual benchmark source files separately from coverage tests. Use the repository's existing benchmark framework and directory layout. If the repository lacks a benchmark harness, add the smallest repository-native benchmark-scoped dependency and configuration that supports the requested measurements without affecting production artifacts.
+
+Implement the complete performance harness:
+
+- declare required benchmark-scoped dependencies;
+- register benchmark source sets, suites, targets, compilations, and tasks;
+- configure warmup, measurement, reporting, and dead-code-elimination support through the native harness;
+- add benchmark-only fixtures and parameter sources;
+- expose the exact repository-native commands that execute the benchmarks.
 
 Design benchmarks for:
 
@@ -255,7 +297,7 @@ For every benchmark:
 8. Keep environment-sensitive thresholds out of ordinary tests.
 9. Prefer baseline comparison hooks already supported by the repository.
 
-Do not invent an allocation metric the harness cannot collect. Generate latency and throughput benchmarks when valid, mark allocation measurement as unsupported, and report the missing capability instead of adding tools or dependencies.
+Do not invent an allocation metric the harness cannot collect. When allocation measurement is explicitly requested or part of the authorized benchmark suite, add a compatible benchmark-scoped profiler, plugin, adapter, or dependency when one exists and can be isolated from production. Mark allocation measurement as unsupported only when no compatible in-scope capability can be added without affecting production or leaving the requested scope.
 
 Never place performance assertions in the coverage suite. Never generate fixed nanosecond or throughput thresholds without an existing calibrated baseline or explicit repository policy.
 
@@ -265,13 +307,16 @@ Before writing, inspect the working tree and existing files. Preserve user chang
 
 When creating artifacts:
 
-- write only inside test or benchmark locations;
+- write source artifacts only inside test or benchmark locations;
+- edit shared build, dependency, manifest, workspace, or lock files only through minimal test-scoped or authorized benchmark-scoped changes;
 - reuse existing helpers before adding new test-local helpers;
 - keep fixtures minimal and scoped;
 - avoid changing existing snapshots through execution;
 - do not create production-facing abstractions for test convenience;
 - do not change visibility or expose internals;
-- do not modify a method body even when a generated regression test is expected to fail.
+- do not modify a method body even when a generated regression test is expected to fail;
+- do not alter production dependency resolution, compiler behavior, supported targets, packaging, publication, runtime resources, or generated artifacts;
+- do not reformat or rewrite unrelated parts of a shared configuration file.
 
 If the requested scope cannot be completed without a forbidden write, stop at the boundary and report it.
 
@@ -280,10 +325,14 @@ If the requested scope cannot be completed without a forbidden write, stop at th
 After generation, perform a read-only review:
 
 - confirm that every authorized generation track produced at least one concrete source file;
-- confirm every changed file is a test, benchmark, or test-local fixture/helper;
+- confirm every changed source file is a test, benchmark, or scoped fixture/helper;
+- confirm every changed shared configuration, dependency, manifest, workspace, or lock file contains only the minimal setup required by tests or authorized benchmarks;
 - confirm imports and APIs follow nearby repository examples;
 - confirm no generated file contains pseudocode, placeholders, `TODO`, or incomplete bodies;
-- confirm no production, configuration, dependency, or lock file changed;
+- confirm no production source, production dependency graph, production compiler behavior, published artifact, packaging, runtime behavior, or out-of-scope file changed;
+- confirm every generated test and authorized benchmark is registered with its native discovery and execution workflow;
+- confirm every supported target that owns the behavior has a runnable suite or only an explicitly named external prerequisite;
+- confirm exact repository-native execution commands exist;
 - compare the generated scenario inventory with the principal features;
 - identify expected failing regression tests;
 - identify code that could not be covered through public interfaces;
@@ -298,6 +347,7 @@ Report only what was generated and what it is designed to prove.
 Include:
 
 - exact paths of generated or expanded test files;
+- exact paths and summaries of test-scoped or benchmark-scoped setup changes;
 - principal features covered;
 - test inventory grouped by feature and public entry point;
 - inputs, expected outputs/errors, state, and side effects asserted;
@@ -305,7 +355,7 @@ Include:
 - unreachable, defensive, or omitted behavior with reasons;
 - benchmark files and intended latency, throughput, and allocation metrics;
 - prerequisites the repository lacks;
-- optional exact commands the user can run.
+- exact commands the user can run;
 - whether benchmark implementation was explicitly authorized.
 
 Use separate summaries:
@@ -333,6 +383,9 @@ State explicitly:
 
 ```text
 Production code modified: no
+Production behavior, dependencies, and artifacts modified: no
+Test infrastructure modified: yes/no
+Benchmark infrastructure modified: yes/no
 Tests executed: no
 Benchmarks executed: no
 ```
