@@ -70,6 +70,8 @@ data class Test(
 
 ### Current stored collection
 
+Example of stored collection
+
 ```json
 [
   {
@@ -89,11 +91,14 @@ data class Test(
 
 ### Usage
 
+Upsert an element already stored in the collection updating some properties
+
 ```kotlin
 val kmPrefs = KMPrefs("your_storage_path") // create an instance
 
 val upsertingElement = Test(
     id = "1",
+    // e.g. changing a property of the element
     name = 12
 )
 
@@ -109,10 +114,13 @@ kmPrefs.upsertToCollection(
 
 ### Updated collection
 
+The updated collection will be stored with the new edits applied
+
 ```json
 [
   {
     "id": "1",
+    // Before the upserting was 1
     "name": 12
   },
   {
@@ -128,7 +136,7 @@ kmPrefs.upsertToCollection(
 
 !!! Info
 
-    Whether is provided an element with an id currently not stored will be added to the collection
+    Whether is provided an element with an id currently not stored, it will be added to the collection
 
 ## Remove multiple elements
 
