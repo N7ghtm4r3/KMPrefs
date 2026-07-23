@@ -140,7 +140,7 @@ actual class PrefsWorker actual constructor(
     actual fun hasKey(
         key: String
     ): Boolean {
-        return userDefaults.dataForKey(
+        return userDefaults.objectForKey(
             defaultName = key
         ) != null
     }
