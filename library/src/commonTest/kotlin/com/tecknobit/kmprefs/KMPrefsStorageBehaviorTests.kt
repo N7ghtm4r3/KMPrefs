@@ -270,7 +270,7 @@ class KMPrefsStorageBehaviorTests {
     }
 
     @Test
-    fun differentPathsIsolateEqualKeys() {
+    fun differentPathsFollowThePlatformStorageContract() {
         val first = KMPrefs(
             path = uniquePreferencesPath("isolation-first")
         )
@@ -289,17 +289,43 @@ class KMPrefsStorageBehaviorTests {
                 value = "second-value"
             )
 
+            if(preferencesPathsAreIsolated) {
+                assertEquals(
+                    expected = "first-value",
+                    actual = first.retrieve<String>("same-key"),
+                    message = "Isolated paths must retain their own values."
+                )
+                assertEquals(
+                    expected = "second-value",
+                    actual = second.retrieve<String>("same-key"),
+                    message = "Isolated paths must retain equal keys independently."
+                )
+            } else {
+                assertEquals(
+                    expected = "second-value",
+                    actual = first.retrieve<String>("same-key"),
+                    message = "Web paths must share equal keys within the same origin."
+                )
+            }
+
             first.clearAll()
 
             assertFalse(
                 actual = first.hasKey("same-key"),
-                message = "Clearing the first path must remove its value."
+                message = "Clear must remove the value visible from the clearing instance."
             )
-            assertEquals(
-                expected = "second-value",
-                actual = second.retrieve<String>("same-key"),
-                message = "Clearing one path must not affect another path."
-            )
+            if(preferencesPathsAreIsolated) {
+                assertEquals(
+                    expected = "second-value",
+                    actual = second.retrieve<String>("same-key"),
+                    message = "Clearing one isolated path must not affect another path."
+                )
+            } else {
+                assertFalse(
+                    actual = second.hasKey("same-key"),
+                    message = "Clearing Web storage must affect every path in the same origin."
+                )
+            }
         } finally {
             first.clearAll()
             second.clearAll()

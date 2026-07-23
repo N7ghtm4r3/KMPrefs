@@ -2,6 +2,8 @@ package com.tecknobit.kmprefs
 
 private var pathSequence = 0L
 
+internal expect val preferencesPathsAreIsolated: Boolean
+
 internal fun uniquePreferencesPath(
     feature: String
 ): String {
