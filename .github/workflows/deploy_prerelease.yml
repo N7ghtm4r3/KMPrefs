@@ -1,15 +1,15 @@
-name: Deploy Release
+name: Deploy Prerelease
 
 on:
   push:
     branches:
-      - main
+      - develop
 
 permissions:
   contents: read
 
 concurrency:
-  group: main-release
+  group: develop-prerelease
   cancel-in-progress: false
 
 jobs:
@@ -70,7 +70,7 @@ jobs:
           script: ./gradlew :library:connectedAndroidDeviceTest --stacktrace
 
   publish:
-    name: Publish release
+    name: Publish prerelease
     needs:
       - multiplatform-tests
       - android-tests
@@ -97,29 +97,66 @@ jobs:
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v6
         with:
-          cache-disabled: true
+            cache-disabled: true
 
-      - name: Read release version
+      - name: Generate prerelease version
         id: version
         shell: bash
         run: |
-          VERSION="$(
+          CONFIGURED_VERSION="$(
             ./gradlew :library:properties -q |
             awk -F': ' '$1 == "version" { print $2; exit }'
           )"
 
-          if [[ ! "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-            echo "Unsupported release version: $VERSION"
-            echo "The main release requires a stable version such as 1.2.1"
+          if [[ "$CONFIGURED_VERSION" =~ ^([0-9]+\.[0-9]+\.[0-9]+)-(alpha|beta|rc)([0-9]+)$ ]]; then
+            SERIES="${BASH_REMATCH[1]}-${BASH_REMATCH[2]}"
+            START_NUMBER="${BASH_REMATCH[3]}"
+          elif [[ "$CONFIGURED_VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            SERIES="${CONFIGURED_VERSION}-rc"
+            START_NUMBER="01"
+          else
+            echo "Unsupported version: $CONFIGURED_VERSION"
+            echo "Accepted formats:"
+            echo "  1.2.0"
+            echo "  1.2.0-alpha01"
+            echo "  1.2.0-beta01"
+            echo "  1.2.0-rc01"
             exit 1
           fi
 
-          if git show-ref --verify --quiet "refs/tags/v${VERSION}"; then
-            echo "Tag v${VERSION} already exists"
-            exit 1
+          PREFIX="v${SERIES}"
+          LATEST_NUMBER=""
+
+          while IFS= read -r EXISTING_TAG; do
+            NUMBER="${EXISTING_TAG#"$PREFIX"}"
+
+            if [[ "$NUMBER" =~ ^[0-9]+$ ]]; then
+              LATEST_NUMBER="$NUMBER"
+              break
+            fi
+          done < <(
+            git tag \
+              --list "${PREFIX}*" \
+              --sort=-version:refname
+          )
+
+          NEXT_NUMBER=$((10#$START_NUMBER))
+
+          if [[ -n "$LATEST_NUMBER" ]]; then
+            AFTER_LATEST=$((10#$LATEST_NUMBER + 1))
+
+            if (( AFTER_LATEST > NEXT_NUMBER )); then
+              NEXT_NUMBER=$AFTER_LATEST
+            fi
           fi
 
-          echo "Release version: $VERSION"
+          printf -v PADDED_NUMBER "%02d" "$NEXT_NUMBER"
+
+          VERSION="${SERIES}${PADDED_NUMBER}"
+
+          echo "Configured version: $CONFIGURED_VERSION"
+          echo "Generated version: $VERSION"
+
           echo "value=$VERSION" >> "$GITHUB_OUTPUT"
 
       - name: Publish with Vanniktech
@@ -131,10 +168,11 @@ jobs:
           ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.SIGNING_PASSWORD }}
         run: |
           ./gradlew :library:publishAndReleaseToMavenCentral \
+            -Pversion=${{ steps.version.outputs.value }} \
             --no-configuration-cache \
             --stacktrace
 
-      - name: Create GitHub release
+      - name: Create GitHub prerelease
         env:
           GH_TOKEN: ${{ github.token }}
           VERSION: ${{ steps.version.outputs.value }}
@@ -144,4 +182,5 @@ jobs:
             --target "$GITHUB_SHA" \
             --title "v${VERSION}" \
             --generate-notes \
-            --latest
+            --prerelease \
+            --latest=false
