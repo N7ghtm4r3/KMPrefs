@@ -25,7 +25,7 @@ kotlin {
 
         compilations {
             compilerOptions {
-                jvmTarget.set(JvmTarget.JVM_18)
+                jvmTarget.set(JvmTarget.JVM_21)
             }
         }
 
@@ -40,7 +40,7 @@ kotlin {
     jvm {
         compilations.all {
             this@jvm.compilerOptions {
-                jvmTarget.set(JvmTarget.JVM_18)
+                jvmTarget.set(JvmTarget.JVM_21)
             }
         }
     }
@@ -131,7 +131,7 @@ kotlin {
 
     }
 
-    jvmToolchain(18)
+    jvmToolchain(21)
 }
 
 mavenPublishing {
