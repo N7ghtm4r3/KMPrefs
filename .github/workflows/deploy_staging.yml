@@ -1,7 +1,0 @@
-name: Deploy Staging
-on:
-  push:
-    branches:
-      - develop
-
-jobs:
