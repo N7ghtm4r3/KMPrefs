@@ -13,10 +13,10 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  multiplatform-tests:
-    name: Multiplatform tests
-    runs-on: macos-15
-    timeout-minutes: 45
+  jvm-tests:
+    name: JVM tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
 
     steps:
       - name: Checkout
@@ -31,8 +31,58 @@ jobs:
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v6
 
-      - name: Run multiplatform tests
-        run: ./gradlew :library:allTests --stacktrace
+      - name: Run JVM tests
+        run: ./gradlew :library:jvmTest --stacktrace
+
+  web-tests:
+    name: Web tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Set up Java
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: "21"
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v6
+
+      - name: Run Web tests
+        run: |
+          ./gradlew \
+            :library:jsBrowserTest \
+            :library:wasmJsBrowserTest \
+            --stacktrace
+
+  native-tests:
+    name: Native tests
+    runs-on: macos-15
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Set up Java
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: "21"
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v6
+
+      - name: Run Native tests
+        run: |
+          ./gradlew \
+            :library:macosArm64Test \
+            :library:iosSimulatorArm64Test \
+            --stacktrace
 
   android-tests:
     name: Android device tests
@@ -73,7 +123,9 @@ jobs:
   publish:
     name: Publish release
     needs:
-      - multiplatform-tests
+      - jvm-tests
+      - web-tests
+      - native-tests
       - android-tests
 
     runs-on: macos-15
